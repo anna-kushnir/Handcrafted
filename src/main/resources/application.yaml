@@ -6,8 +6,6 @@ spring:
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
-  jpa:
-    database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
   docker:
     compose:
       lifecycle-management: start_only
