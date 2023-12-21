@@ -44,8 +44,12 @@ public class Order {
     @Column(name = "RECEIPT_DATE")
     private LocalDateTime receiptDate;
 
-    @Column(name = "DELIVERY_ADDRESS")
-    private String deliveryAddress;
+    @AttributeOverrides({
+            @AttributeOverride(name = "region", column = @Column(name = "DELIVERY_ADDRESS_REGION")),
+            @AttributeOverride(name = "city", column = @Column(name = "DELIVERY_ADDRESS_CITY")),
+            @AttributeOverride(name = "postAddress", column = @Column(name = "DELIVERY_ADDRESS_POST_ADDRESS"))
+    })
+    private DeliveryAddress deliveryAddress;
 
     @Column(name = "INVOICE_NUMBER")
     private Long invoiceNumber;
