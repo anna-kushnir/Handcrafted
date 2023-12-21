@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/currency_data'
+    url: 'jdbc:postgresql://localhost:5432/handcrafted_data'
     username: 'postgres_user'
     password: 'postgres_pass'
     driver-class-name: org.postgresql.Driver
