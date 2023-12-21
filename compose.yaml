@@ -4,9 +4,9 @@ services:
     container_name: 'postgres_db_handcrafted'
     restart: 'always'
     environment:
-      - 'POSTGRES_DB=handcrafted_data'
       - 'POSTGRES_USER=postgres_user'
       - 'POSTGRES_PASSWORD=postgres_pass'
+      - 'POSTGRES_DB=handcrafted_data'
     ports:
       - '5432'
 

@@ -1,0 +1,47 @@
+.container {
+    justify-content: center;
+}
+
+/* ------- Logo ------- */
+
+.logo-container {
+    justify-content: flex-end;
+    flex-direction: column;
+    height: 50%;
+    margin: 5%;
+}
+
+.logo-header {
+    font-size: 70px;
+    margin: 10px;
+}
+@media (max-width: 768px) {
+    .logo-header {
+        font-size: 50px;
+    }
+}
+
+.logo-text {
+    font-size: 20px;
+    background: var(--left-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px;
+}
+
+/* ----- Buttons ----- */
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50%;
+    width: 30%;
+}
+
+.btn {
+    max-width: 200px;
+    width: 100%;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>HandCrafted: Login</title>
+  <link rel="stylesheet" href="/css/bases/general_base.css" />
+  <link rel="stylesheet" href="/css/bases/auth_and_menu_base.css" />
+  <link rel="stylesheet" href="/css/pages/user/authorization.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+  <header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+  </header>
+
+  <main class="main-container">
+    <form class="form-container">
+      <label for="user-name" class="label">Enter Your User Name:</label>
+      <input
+              type="text"
+              class="text-box"
+              id="user-name"
+              placeholder="user_name"
+              maxlength="20" />
+      <label for="password" class="label">Enter Your Password:</label>
+      <input
+              type="password"
+              class="text-box"
+              id="password"
+              placeholder="password"
+              maxlength="12" />
+    </form>
+
+    <div class="btn-container">
+      <button type="submit" class="btn btn-outline-primary" id="sign_in_btn">
+        Sign In
+      </button>
+      <button class="btn btn-outline-secondary" id="cancel_btn">Cancel</button>
+    </div>
+  </main>
+</div>
+</body>
+</html>

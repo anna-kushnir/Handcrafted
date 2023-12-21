@@ -1,0 +1,192 @@
+:root {
+    --logo-font: "Homemade Apple", cursive;
+    --text-font: "Architects Daughter", cursive;
+    --main-background-color: rgb(171, 200, 255);
+    --main-border-color: rgba(0, 36, 102, 0.399);
+    --left-gradient-semitransparent: linear-gradient(
+            to left,
+            #9000ff77,
+            #0066ff77,
+            #7300ff77,
+            #c300ff77,
+            #ff004077,
+            #ff00aa77,
+            #ff000077
+    );
+    --left-gradient: linear-gradient(
+            to left,
+            #9000ff,
+            #0066ff,
+            #7300ff,
+            #c300ff,
+            #ff0040,
+            #ff00aa,
+            #ff0000
+    );
+    --right-gradient: linear-gradient(
+            to right,
+            #9000ff,
+            #0066ff,
+            #7300ff,
+            #c300ff,
+            #ff0040,
+            #ff00aa,
+            #ff0000
+    );
+}
+
+body {
+    background: var(--left-gradient-semitransparent);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* section {
+    margin: 20px;
+} */
+
+ul {
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--main-background-color);
+    opacity: 0.838;
+    border: 2px solid var(--main-border-color);
+    border-radius: 5px;
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.3);
+    width: 90vw;
+    height: 90vh;
+    min-height: max-content;
+    min-width: max-content;
+}
+
+/* ------- Logo ------- */
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90vw;
+    justify-self: flex-start;
+}
+
+.logo-header,
+.logo-text {
+    font-family: var(--logo-font);
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.logo-header {
+    font-weight: bold;
+    padding: 0 10px;
+    background: var(--left-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    margin-right: 40px;
+}
+
+.logo-text {
+    background: var(--right-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+/* ----- Buttons ----- */
+
+.btn {
+    font-family: var(--text-font);
+    font-size: 20px;
+    padding: 8px 16px;
+    min-width: 150px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.btn-outline-primary {
+    background-color: #e8daff;
+    color: #420075;
+    border: 2px solid #21003a;
+}
+.btn-outline-primary:hover {
+    background-color: #c300ff;
+    color: #ffffff;
+}
+.btn-outline-primary:active {
+    background-color: #9000ffbe;
+    color: #ffffff;
+}
+
+.btn-outline-secondary {
+    background-color: #cde1ff;
+    color: #00245b;
+    border: 2px solid #001739;
+}
+.btn-outline-secondary:hover {
+    background-color: #0066ff;
+    color: #ffffff;
+}
+.btn-outline-secondary:active {
+    background-color: #0040a1;
+    color: #ffffff;
+}
+
+.btn-outline-menu {
+    background-color: transparent;
+    color: #000;
+    border: 2px solid var(--main-border-color);
+}
+.btn-outline-menu:hover {
+    background-color: #6299ff;
+    color: #fff;
+}
+.btn-outline-menu:active {
+    background-color: #347bff;
+    color: #fff;
+}
+
+/* ------- Form ------- */
+
+/* ----- Form Elements ----- */
+
+.label,
+.text-box {
+    font-family: var(--text-font);
+    font-size: 17px;
+}
+
+.label {
+    align-self: center;
+    text-align: right;
+    word-wrap: break-word;
+    margin-right: 10px;
+}
+.text-box {
+    background-color: #f1e9ff;
+    border: 1px solid #7300ff;
+    padding: 10px;
+    margin: 10px;
+    height: min-content;
+}

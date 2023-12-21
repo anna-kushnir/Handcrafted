@@ -1,0 +1,17 @@
+/* ------- Logo ------- */
+
+.logo-container {
+    margin-bottom: 3%;
+}
+
+/* ------- Main ------- */
+
+.main-container {
+    padding: 30px;
+}
+
+/* ------- Form ------- */
+
+.form-container {
+    grid-template-rows: 1fr 1fr;
+}
