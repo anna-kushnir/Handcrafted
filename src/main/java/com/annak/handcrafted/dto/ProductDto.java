@@ -25,4 +25,12 @@ public class ProductDto {
     private Category category;
     private List<Color> colors = new ArrayList<>();
     private List<Photo> photos = new ArrayList<>();
+
+    public String getColorsString() {
+        StringBuilder result = new StringBuilder();
+        for (Color color : colors) {
+            result.append(color.getName()).append(", ");
+        }
+        return result.delete(result.length() - 2, result.length()).toString();
+    }
 }
