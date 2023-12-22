@@ -21,7 +21,7 @@
 <main class="container main-container">
   <div class="header">
     <div class="header-menu-left">
-      <a th:href="@{'menu'}">
+      <a th:href="@{/menu}">
         <button class="back-btn" id="back_btn">
           <img
                 id="back_icon"
@@ -30,7 +30,7 @@
                 height="20px" />
         </button>
       </a>
-      <a th:href="@{'menu'}">
+      <a th:href="@{/menu}">
         <button class="menu-btn" id="menu_btn">
           <img
                 id="menu_icon"
@@ -224,31 +224,39 @@
     </div>
 
     <div class="product-listing">
-      <div th:each="product : ${products}" class="product-card">
-        <div class="product-img-container">
-          <img
-                  th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
-                  class="product-img"
-                  width="150px"
-                  height="150px" />
-          <p th:unless="${product.inStock}" class="product-not-in-stock">
-            Is Not In Stock
-          </p>
-        </div>
-        <p th:text="${product.name}" class="product-name">Name</p>
-        <div th:unless="${product.withDiscount}" class="product-price-container">
-          <p th:text="${product.price} +'$'" class="product-price">2$</p>
-        </div>
-        <div th:if="${product.withDiscount}" class="product-price-container">
-          <p th:text="${product.price} +'$'" class="product-price">
-            <s>2$</s>
-          </p>
-          <p
-                  th:text="${product.discountedPrice} +'$'"
-                  class="product-price discounted-price">
-            1$
-          </p>
-        </div>
+      <div th:each="product : ${products}">
+        <a th:href="@{/products/{id}(id=${product.id})}">
+          <div class="product-card">
+            <div class="product-img-container">
+              <img
+                      th:unless="${product.photos.isEmpty()}"
+                      th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                      class="product-img"
+                      width="150px"
+                      height="150px" />
+              <img
+                      th:if="${product.photos.isEmpty()}"
+                      src="/icons/image.png"
+                      class="product-img"
+                      width="150px"
+                      height="150px" />
+              <p th:unless="${product.inStock}" class="product-not-in-stock">
+                Is Not In Stock
+              </p>
+            </div>
+            <p th:text="${product.name}" class="product-name"></p>
+            <div th:unless="${product.withDiscount}" class="product-price-container">
+              <p th:text="${product.price} +'$'" class="product-price"></p>
+            </div>
+            <div th:if="${product.withDiscount}" class="product-price-container">
+              <p th:text="${product.price} +'$'" class="product-price"><s></s></p>
+              <p
+                      th:text="${product.discountedPrice} +'$'"
+                      class="product-price discounted-price">
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

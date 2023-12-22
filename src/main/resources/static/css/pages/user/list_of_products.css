@@ -133,8 +133,17 @@
     margin: 5px;
     padding: 10px;
     height: min-content;
-    border: 1px solid #21003a;
+    outline: 1px solid #21003a;
     border-radius: 2px;
+    cursor: pointer;
+}
+.product-card:hover {
+    background: rgba(121, 168, 255, 0.3);
+    outline: 2px solid #21003a;
+    outline-offset: -1px;
+}
+.product-card:active {
+    background: rgba(121, 168, 255, 0.5);
 }
 @media screen and (max-width: 1270px) {
     .product-listing {
@@ -178,9 +187,14 @@
 
 .product-name,
 .product-price {
+    color: #000;
     display: inline;
     padding: 1px 2px;
     margin: 0;
+}
+
+.product-name {
+    font-size: 14px;
 }
 
 .discounted-price {
