@@ -18,7 +18,7 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public List<ColorDto> getAll() {
-        return colorRepository.findAll()
+        return colorRepository.findAllByOrderByName()
                 .stream()
                 .map(colorMapper::toDTO)
                 .collect(Collectors.toList());
