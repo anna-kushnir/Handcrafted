@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserController {
 
-    @GetMapping("/start")
+    @GetMapping("/")
     public String start() {
         return "user/start";
     }
@@ -21,5 +21,10 @@ public class UserController {
     @GetMapping("/authorize")
     public String authorize() {
         return "user/authorization";
+    }
+
+    @GetMapping("/menu")
+    public String viewMenu() {
+        return "user/main_menu";
     }
 }
