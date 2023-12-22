@@ -189,9 +189,9 @@
               <li th:each="color : ${colors}">
                 <input
                         type="checkbox"
-                        id="@{'checkbox_color_' +${color.id}}" />
+                        th:id="'checkbox_color_' +${color.id}" />
                 <label
-                        for="@{'checkbox_color_' +${color.id}}"
+                        th:for="'checkbox_color_' +${color.id}"
                         th:text="${color.name}">
                   name
                 </label>
@@ -213,7 +213,7 @@
         <ul class="list">
           <li th:each="category : ${categories}">
             <button
-                    id="@{'category_' +${category.id}}"
+                    th:id="'category_' +${category.id}"
                     class="btn btn-category"
                     th:text="${category.name}">
               name
@@ -223,7 +223,34 @@
       </div>
     </div>
 
-    <div class="product-listing"></div>
+    <div class="product-listing">
+      <div th:each="product : ${products}" class="product-card">
+        <div class="product-img-container">
+          <img
+                  th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                  class="product-img"
+                  width="150px"
+                  height="150px" />
+          <p th:unless="${product.inStock}" class="product-not-in-stock">
+            Is Not In Stock
+          </p>
+        </div>
+        <p th:text="${product.name}" class="product-name">Name</p>
+        <div th:unless="${product.withDiscount}" class="product-price-container">
+          <p th:text="${product.price} +'$'" class="product-price">2$</p>
+        </div>
+        <div th:if="${product.withDiscount}" class="product-price-container">
+          <p th:text="${product.price} +'$'" class="product-price">
+            <s>2$</s>
+          </p>
+          <p
+                  th:text="${product.discountedPrice} +'$'"
+                  class="product-price discounted-price">
+            1$
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 </body>
