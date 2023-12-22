@@ -1,0 +1,147 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    height: 100%;
+}
+
+.product-container {
+    font-family: var(--text-font);
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-bottom: 2px solid var(--main-border-color);
+    width: 100%;
+}
+
+/* ------- Left block ------- */
+
+.product-info-left {
+    border-right: 2px solid var(--main-border-color);
+    padding: 20px;
+}
+
+/* ----- Photo of the product ----- */
+
+.product-photo-container {
+    position: relative;
+    width: min-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-photo {
+    height: 300px;
+    width: 300px;
+    margin: 30px;
+}
+
+.left,
+.right {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.left {
+    left: 0;
+}
+.right {
+    right: 0;
+}
+
+.left img {
+    width: 30px;
+}
+.right img {
+    width: 30px;
+    transform: rotate(-180deg);
+}
+
+/* ----- Price, cart and fav ----- */
+
+.product-price-and-options-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.product-options {
+    display: flex;
+}
+
+.menu-btn {
+    margin-left: 10px;
+}
+
+.menu-btn:hover #favorite_icon {
+    content: url("../../../icons/heart2.png");
+}
+.menu-btn:hover #cart_icon {
+    content: url("../../../icons/cart2.png");
+}
+
+.menu-btn:active #favorite_icon {
+    content: url("../../../icons/heart3.png");
+}
+.menu-btn:active #cart_icon {
+    content: url("../../../icons/cart3.png");
+}
+
+.product-not-in-stock {
+    font-size: 18px;
+    color: red;
+    text-align: center;
+}
+
+/* ------- Right block ------- */
+
+.product-info-right {
+    padding: 20px;
+}
+
+.product-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.product-info-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.product-info-text {
+    font-size: 16px;
+    word-wrap: normal;
+    max-width: 50vw;
+}
+@media screen and (max-width: 1000px) {
+    .product-photo {
+        height: 250px;
+        width: 250px;
+    }
+}
+@media screen and (max-width: 870px) {
+    .product-info-text {
+        max-width: 45vw;
+    }
+}
+@media screen and (max-width: 770px) {
+    .product-info-text {
+        max-width: 35vw;
+    }
+    .product-photo {
+        height: 200px;
+        width: 200px;
+    }
+}
