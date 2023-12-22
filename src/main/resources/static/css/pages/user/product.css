@@ -136,7 +136,7 @@
         max-width: 45vw;
     }
 }
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 750px) {
     .product-info-text {
         max-width: 35vw;
     }

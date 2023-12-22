@@ -21,7 +21,7 @@
 <main class="container main-container">
     <div class="header">
         <div class="header-menu-left">
-            <a th:href="@{'menu'}">
+            <a th:href="@{/products}">
                 <button class="back-btn" id="back_btn">
                     <img
                             id="back_icon"
@@ -30,7 +30,7 @@
                             height="20px" />
                 </button>
             </a>
-            <a th:href="@{'menu'}">
+            <a th:href="@{/menu}">
                 <button class="menu-btn" id="menu_btn">
                     <img
                             id="menu_icon"
@@ -52,9 +52,17 @@
                     </a>
 
                     <img
-                            src="/icons/image.png"
+                            th:unless="${product.photos.isEmpty()}"
                             th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
-                            class="product-photo" />
+                            class="product-photo"
+                            width="150px"
+                            height="150px" />
+                    <img
+                            th:if="${product.photos.isEmpty()}"
+                            src="/icons/image.png"
+                            class="product-photo"
+                            width="150px"
+                            height="150px" />
 
                     <a href="#" class="right">
                         <img src="/icons/back_icon1.png" />
@@ -93,10 +101,10 @@
                 <p th:text="${product.description}" class="product-info-text"></p>
 
                 <p class="product-info-label">Colors:</p>
-                <p th:text="${product.colors.toString()}" class="product-info-text"></p>
+                <p th:text="${product.getColorsString()}" class="product-info-text"></p>
 
                 <p class="product-info-label">Key Words:</p>
-                <p th:text="${product.description}" class="product-info-text"></p>
+                <p th:text="${product.keyWords}" class="product-info-text"></p>
             </div>
         </div>
 
