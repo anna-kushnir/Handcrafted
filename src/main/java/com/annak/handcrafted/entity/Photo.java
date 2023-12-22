@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "PHOTO")
+@EqualsAndHashCode(of = {"name", "data"})
 @Getter
 @Setter
 @NoArgsConstructor

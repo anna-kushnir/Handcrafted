@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "PRODUCT")
+@EqualsAndHashCode(of = {"name", "creationDate"})
 @Getter
 @Setter
 @NoArgsConstructor

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "USER")
+@EqualsAndHashCode(of = {"userName"})
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"userName"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

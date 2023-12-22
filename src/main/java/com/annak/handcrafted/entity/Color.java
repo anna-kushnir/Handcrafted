@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "COLOR")
+@EqualsAndHashCode(of = {"name"})
 @Getter
 @Setter
 @NoArgsConstructor

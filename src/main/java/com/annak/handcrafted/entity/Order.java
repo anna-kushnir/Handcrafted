@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity(name = "ORDER")
+@EqualsAndHashCode(of = {"user", "formationDate"})
 @Getter
 @Setter
 @NoArgsConstructor
