@@ -1,0 +1,22 @@
+/* ------- Main ------- */
+
+.main-container {
+    justify-content: space-between;
+    height: 55vh;
+    margin: auto;
+}
+
+.product-container,
+.profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+/* ----- Buttons ----- */
+
+.btn {
+    width: 250px;
+    margin: 5px;
+}

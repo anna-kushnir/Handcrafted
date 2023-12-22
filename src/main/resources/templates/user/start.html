@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>HandCrafted</title>
   <link rel="stylesheet" href="/css/bases/general_base.css" />
@@ -18,8 +18,12 @@
     <p class="logo-text">The place where you'll find what you've been looking for</p>
   </header>
   <main class="btn-container">
-    <button class="btn btn-outline-primary" id="login_btn">Login</button>
-    <button class="btn btn-outline-primary" id="register_btn">Register</button>
+    <a th:href="@{'authorize'}">
+      <button class="btn btn-outline-primary" id="login_btn">Login</button>
+    </a>
+    <a th:href="@{'register'}">
+      <button class="btn btn-outline-primary" id="register_btn">Register</button>
+    </a>
   </main>
 </div>
 </body>

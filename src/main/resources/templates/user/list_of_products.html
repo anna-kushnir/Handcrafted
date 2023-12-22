@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>HandCrafted: Products</title>
+  <link rel="stylesheet" href="/css/bases/general_base.css" />
+  <link rel="stylesheet" href="/css/bases/main_base.css" />
+  <link rel="stylesheet" href="/css/pages/user/list_of_products.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+  <p class="logo-header">HandCrafted</p>
+  <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+<main class="container main-container">
+  <div class="header">
+    <div class="header-menu-left">
+      <a th:href="@{'menu'}">
+        <button class="back-btn" id="back_btn">
+          <img
+                id="back_icon"
+                src="/icons/back_icon1.png"
+                width="20px"
+                height="20px" />
+        </button>
+      </a>
+      <a th:href="@{'menu'}">
+        <button class="menu-btn" id="menu_btn">
+          <img
+                id="menu_icon"
+                src="/icons/menu_icon1.png"
+                width="30px"
+                height="30px" />
+          <p>Menu</p>
+        </button>
+      </a>
+    </div>
+
+    <div class="header-menu-right">
+      <div class="search-container">
+        <input
+                type="text"
+                class="text-box"
+                id="name"
+                placeholder="Search"
+                maxlength="25" />
+      </div>
+      <button class="btn btn-outline-primary" id="find_btn">Find</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="left-menu">
+      <button
+              class="btn btn-outline-menu"
+              id="filters_btn"
+              onclick="   var list=getElementById('filters-container')
+                                    if (list.style.display=='none') list.style.display='block'
+                                    else list.style.display='none'">
+        Filters
+      </button>
+      <div id="filters-container" style="display: none">
+        <ul class="list">
+          <li class="sort">
+            <p class="filter-label">Sort By:</p>
+            <ul class="list sort-by-list">
+              <li class="sort-by-cost">
+                <input
+                        type="checkbox"
+                        id="checkbox_cost"
+                        onchange="  var btn=getElementById('checkbox_cost')
+                                                var rb1=getElementById('cost_sort_direction_asc')
+                                                var rb2=getElementById('cost_sort_direction_desc')
+                                                if (btn.checked) {
+                                                    rb1.disabled=false
+                                                    rb2.disabled=false
+                                                }
+                                                else {
+                                                    rb1.disabled=true
+                                                    rb2.disabled=true
+                                                }" />
+                <label for="checkbox_cost">Cost</label>
+                <div id="cost_sort_direction">
+                  <div>
+                    <input
+                            type="radio"
+                            name="cost_radio_group"
+                            class="sort-direction"
+                            id="cost_sort_direction_asc"
+                            value="asc"
+                            checked
+                            disabled />
+                    <label for="cost_sort_direction_asc"
+                    >Ascending</label
+                    >
+                  </div>
+                  <div>
+                    <input
+                            type="radio"
+                            name="cost_radio_group"
+                            class="sort-direction"
+                            id="cost_sort_direction_desc"
+                            value="desc"
+                            disabled />
+                    <label for="cost_sort_direction_desc"
+                    >Descending</label
+                    >
+                  </div>
+                </div>
+              </li>
+
+              <li class="sort-by-newness">
+                <input
+                        type="checkbox"
+                        id="checkbox_newness"
+                        onchange="  var btn=getElementById('checkbox_newness')
+                                                var rb1=getElementById('newness_sort_direction_asc')
+                                                var rb2=getElementById('newness_sort_direction_desc')
+                                                if (btn.checked) {
+                                                    rb1.disabled=false
+                                                    rb2.disabled=false
+                                                }
+                                                else {
+                                                    rb1.disabled=true
+                                                    rb2.disabled=true
+                                                }" />
+                <label for="checkbox_newness">Newness</label>
+                <div id="newness_sort_direction">
+                  <div>
+                    <input
+                            type="radio"
+                            name="newness_radio_group"
+                            class="sort-direction"
+                            id="newness_sort_direction_asc"
+                            value="asc"
+                            checked
+                            disabled />
+                    <label for="newness_sort_direction_asc">
+                      Ascending
+                    </label>
+                  </div>
+                  <div>
+                    <input
+                            type="radio"
+                            name="newness_radio_group"
+                            class="sort-direction"
+                            id="newness_sort_direction_desc"
+                            value="desc"
+                            disabled />
+                    <label for="newness_sort_direction_desc">
+                      Descending
+                    </label>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <li class="price-limits">
+            <p class="filter-label">Price limits:</p>
+            <div class="price-limits-container">
+              <label for="price_limit_from" class="price-limit-label">From:</label>
+              <input
+                      type="number"
+                      class="text-box price-limit"
+                      id="price_limit_from"
+                      placeholder="0"
+                      maxlength="5" />
+              <br />
+              <label for="price_limit_to" class="price-limit-label">To:</label>
+              <input
+                      type="number"
+                      class="text-box price-limit"
+                      id="price_limit_to"
+                      placeholder="10000"
+                      maxlength="5" />
+            </div>
+          </li>
+
+          <li class="colors">
+            <p class="filter-label">Colors:</p>
+            <ul class="list colors-list">
+              <li th:each="color : ${colors}">
+                <input
+                        type="checkbox"
+                        id="@{'checkbox_color_' +${color.id}}" />
+                <label
+                        for="@{'checkbox_color_' +${color.id}}"
+                        th:text="${color.name}">
+                  name
+                </label>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <button
+              class="btn btn-outline-menu"
+              id="categories_btn"
+              onclick="   var list=getElementById('categories-container')
+                                    if (list.style.display=='none') list.style.display='block'
+                                    else list.style.display='none'">
+        Categories
+      </button>
+      <div id="categories-container" style="display: none">
+        <ul class="list">
+          <li th:each="category : ${categories}">
+            <button
+                    id="@{'category_' +${category.id}}"
+                    class="btn btn-category"
+                    th:text="${category.name}">
+              name
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-listing"></div>
+  </div>
+</main>
+</body>
+</html>

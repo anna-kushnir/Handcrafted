@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>HandCrafted: Menu</title>
+  <link rel="stylesheet" href="/css/bases/general_base.css" />
+  <link rel="stylesheet" href="/css/bases/auth_and_menu_base.css" />
+  <link rel="stylesheet" href="/css/pages/user/main_menu.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+  <header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+  </header>
+
+  <main class="main-container">
+    <div class="product-container">
+      <a th:href="@{'products'}">
+        <button class="btn btn-outline-primary" id="all_products_btn">
+          All Products
+        </button>
+      </a>
+      <button class="btn btn-outline-primary" id="fav_products_btn">
+        Favorite Products
+      </button>
+      <button class="btn btn-outline-primary" id="cart_btn">Cart</button>
+      <button class="btn btn-outline-primary" id="list_of_orders_btn">
+        List of Orders
+      </button>
+    </div>
+
+    <div class="profile-container">
+      <button class="btn btn-outline-secondary" id="profile_btn">My Profile</button>
+      <button class="btn btn-outline-secondary" id="sign_out_btn">Sign Out</button>
+    </div>
+  </main>
+</div>
+</body>
+</html>

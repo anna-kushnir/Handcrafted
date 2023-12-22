@@ -55,6 +55,10 @@ ul {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -154,9 +158,11 @@ ul {
 }
 
 .btn-outline-menu {
-    background-color: transparent;
+    background-color: #79a8ff;
     color: #000;
-    border: 2px solid var(--main-border-color);
+    border: none;
+    border-top: 2px solid var(--main-border-color);
+    border-bottom: 2px solid var(--main-border-color);
 }
 .btn-outline-menu:hover {
     background-color: #6299ff;

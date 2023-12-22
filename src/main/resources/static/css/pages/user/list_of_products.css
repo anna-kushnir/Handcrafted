@@ -1,0 +1,164 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.header,
+.main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.header {
+    border-bottom: 2px solid var(--main-border-color);
+}
+
+.main {
+    height: 100%;
+}
+
+/* --------- 1 --------- */
+
+.header-menu-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 10px;
+}
+
+/* --------- 2 --------- */
+
+.header-menu-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-menu-right > .btn {
+    font-size: 16px;
+    min-width: 100px;
+}
+
+/* --------- 3 --------- */
+
+.left-menu {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100%;
+    border-right: 2px solid var(--main-border-color);
+}
+
+#filters-container {
+    margin: 0 15px 15px 15px;
+}
+
+#categories-container {
+    font-family: var(--text-font);
+    width: 100%;
+    margin: 0;
+}
+
+#filters-container,
+#categories-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#filters_btn,
+#categories_btn {
+    width: 100%;
+    margin: 1px 0;
+}
+
+.list {
+    list-style: none;
+    font-family: var(--text-font);
+    margin: 0;
+}
+
+.filter-label {
+    font-family: var(--text-font);
+    font-weight: bold;
+}
+
+.sort-by-list,
+#cost_sort_direction,
+#newness_sort_direction,
+.price-limits-container {
+    margin: 10px;
+}
+
+#price_limit_to,
+#price_limit_from {
+    font-size: 15px;
+    padding: 2px;
+    margin: 2px 4px;
+    width: 150px;
+}
+
+.btn-category {
+    font-family: var(--text-font);
+    font-size: 17px;
+    background-color: transparent;
+    color: #000;
+    border: none;
+    border-bottom: 1px solid #21003a;
+    margin: 0;
+    width: 100%;
+}
+.btn-category:hover {
+    background-color: #9000ff86;
+    color: #fff;
+}
+.btn-category:active {
+    background-color: #9000ff58;
+    color: #fff;
+}
+
+/* ----- Back & Menu Buttons ----- */
+
+.menu-btn,
+.back-btn {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background: none;
+    border: none;
+}
+.menu-btn > p {
+    font-family: var(--text-font);
+    font-size: 16px;
+}
+
+.menu-btn:hover {
+    color: #c300ff;
+}
+.menu-btn:hover #menu_icon {
+    content: url("../../../icons/menu_icon2.png");
+}
+.back-btn:hover #back_icon {
+    content: url("../../../icons/back_icon2.png");
+}
+
+.menu-btn:active {
+    color: #650085;
+}
+.menu-btn:active #menu_icon {
+    content: url("../../../icons/menu_icon3.png");
+}
+.back-btn:active #back_icon {
+    content: url("../../../icons/back_icon3.png");
+}
+
+/* ----- Search box ----- */
+
+.text-box {
+    font-size: 15px;
+    width: 30vw;
+    max-width: 300px;
+    min-width: 150px;
+}

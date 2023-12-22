@@ -1,0 +1,32 @@
+body {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* ------- Logo ------- */
+
+.logo-container {
+    margin: 10px 3%;
+    justify-content: left;
+}
+
+.logo-header {
+    font-size: 15px;
+}
+@media (max-width: 768px) {
+    .logo-header {
+        margin: 0;
+        margin-right: 20px;
+    }
+}
+
+.logo-text {
+    font-size: 10px;
+}
+
+/* ------- Main ------- */
+
+.container {
+    min-height: 85vh;
+    height: 100%;
+}
