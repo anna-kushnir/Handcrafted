@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>HandCrafted: Login</title>
@@ -22,7 +22,7 @@
 
   <main class="main-container">
     <form class="form-container">
-      <label for="user-name" class="label">Enter Your User Name:</label>
+      <label for="user-name" class="label">Enter Your UserName:</label>
       <input
               type="text"
               class="text-box"
@@ -42,7 +42,9 @@
       <button type="submit" class="btn btn-outline-primary" id="sign_in_btn">
         Sign In
       </button>
-      <button class="btn btn-outline-secondary" id="cancel_btn">Cancel</button>
+      <a th:href="@{'/'}">
+        <button class="btn btn-outline-secondary" id="cancel_btn">Cancel</button>
+      </a>
     </div>
   </main>
 </div>
