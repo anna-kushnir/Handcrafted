@@ -56,6 +56,7 @@ public class Product {
 
     @ManyToMany
     @JoinTable(
+            schema = "HANDCRAFTED_SCHEMA",
             name = "COLORS_IN_PRODUCT",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"),
             inverseJoinColumns = @JoinColumn(name = "COLOR_ID")

@@ -56,7 +56,7 @@ public class Order {
     private Long invoiceNumber;
 
     @ElementCollection
-    @CollectionTable(name = "PRODUCTS_IN_ORDER", joinColumns = @JoinColumn(name = "ORDER_ID"))
+    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCTS_IN_ORDER", joinColumns = @JoinColumn(name = "ORDER_ID"))
     @Column(name = "QUANTITY")
     @MapKeyJoinColumn(name = "PRODUCT_ID")
     private Map<Product, Long> products = new HashMap<>();

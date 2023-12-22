@@ -38,6 +38,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
+            schema = "HANDCRAFTED_SCHEMA",
             name = "FAVORITE_PRODUCTS",
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
@@ -46,6 +47,7 @@ public class User {
 
     @ManyToMany
     @JoinTable(
+            schema = "HANDCRAFTED_SCHEMA",
             name = "PRODUCTS_IN_CART",
             joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
