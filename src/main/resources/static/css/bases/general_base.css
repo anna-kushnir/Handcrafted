@@ -159,6 +159,7 @@ a {
 
 .btn-outline-menu {
     background-color: #79a8ff;
+    min-width: 270px;
     color: #000;
     border: none;
     border-top: 2px solid var(--main-border-color);
