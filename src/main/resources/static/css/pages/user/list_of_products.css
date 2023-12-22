@@ -9,21 +9,8 @@
     grid-template-columns: auto 1fr;
 }
 
-.header {
-    border-bottom: 2px solid var(--main-border-color);
-}
-
 .main {
     height: 100%;
-}
-
-/* --------- 1 --------- */
-
-.header-menu-left {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0 10px;
 }
 
 /* --------- 2 --------- */
@@ -117,41 +104,6 @@
 .btn-category:active {
     background-color: #9000ff58;
     color: #fff;
-}
-
-/* ----- Back & Menu Buttons ----- */
-
-.menu-btn,
-.back-btn {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background: none;
-    border: none;
-}
-.menu-btn > p {
-    font-family: var(--text-font);
-    font-size: 16px;
-}
-
-.menu-btn:hover {
-    color: #c300ff;
-}
-.menu-btn:hover #menu_icon {
-    content: url("../../../icons/menu_icon2.png");
-}
-.back-btn:hover #back_icon {
-    content: url("../../../icons/back_icon2.png");
-}
-
-.menu-btn:active {
-    color: #650085;
-}
-.menu-btn:active #menu_icon {
-    content: url("../../../icons/menu_icon3.png");
-}
-.back-btn:active #back_icon {
-    content: url("../../../icons/back_icon3.png");
 }
 
 /* ----- Search box ----- */

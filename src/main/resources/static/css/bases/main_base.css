@@ -30,3 +30,49 @@ body {
     min-height: 85vh;
     height: 100%;
 }
+
+/* ----- Back & Menu Buttons ----- */
+
+.header {
+    border-bottom: 2px solid var(--main-border-color);
+}
+
+.header-menu-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 10px;
+}
+
+.menu-btn,
+.back-btn {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background: none;
+    border: none;
+}
+.menu-btn > p {
+    font-family: var(--text-font);
+    font-size: 16px;
+}
+
+.menu-btn:hover {
+    color: #c300ff;
+}
+.menu-btn:hover #menu_icon {
+    content: url("../../icons/menu_icon2.png");
+}
+.back-btn:hover #back_icon {
+    content: url("../../icons/back_icon2.png");
+}
+
+.menu-btn:active {
+    color: #650085;
+}
+.menu-btn:active #menu_icon {
+    content: url("../../icons/menu_icon3.png");
+}
+.back-btn:active #back_icon {
+    content: url("../../icons/back_icon3.png");
+}
