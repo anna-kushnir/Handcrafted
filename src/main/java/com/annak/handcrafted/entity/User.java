@@ -2,9 +2,13 @@ package com.annak.handcrafted.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "USER")
 @EqualsAndHashCode(of = {"userName"})
@@ -14,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "USER", schema = "HANDCRAFTED_SCHEMA")
-public class User {
+public class User implements UserDetails {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_USER", sequenceName = "HANDCRAFTED_SCHEMA.USER_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_GENERATOR_USER")
@@ -35,6 +39,17 @@ public class User {
 
     @Column(name = "USER_PHONE")
     private Long userPhone;
+
+    @Column(name = "ACTIVE")
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(
+            schema = "HANDCRAFTED_SCHEMA",
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "USER_ID"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     @ManyToMany
     @JoinTable(
@@ -61,5 +76,35 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
