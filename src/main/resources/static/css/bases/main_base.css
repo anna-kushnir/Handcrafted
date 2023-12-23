@@ -51,6 +51,7 @@ body {
     flex-direction: row;
     background: none;
     border: none;
+    cursor: pointer;
 }
 .menu-btn > p {
     font-family: var(--text-font);

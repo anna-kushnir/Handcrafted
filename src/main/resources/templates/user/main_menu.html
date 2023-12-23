@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <title>HandCrafted: Menu</title>
@@ -22,7 +22,7 @@
 
   <main class="main-container">
     <div class="product-container">
-      <a th:href="@{'products'}">
+      <a th:href="@{/products}">
         <button class="btn btn-outline-primary" id="all_products_btn">
           All Products
         </button>
@@ -38,7 +38,9 @@
 
     <div class="profile-container">
       <button class="btn btn-outline-secondary" id="profile_btn">My Profile</button>
-      <button class="btn btn-outline-secondary" id="sign_out_btn">Sign Out</button>
+      <form th:action="@{/logout}" method="POST">
+        <button class="btn btn-outline-secondary" id="sign_out_btn">Sign Out</button>
+      </form>
     </div>
   </main>
 </div>

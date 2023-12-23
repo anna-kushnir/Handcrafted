@@ -1,11 +1,11 @@
 /* ------- Main ------- */
 
-.main-container {
-    padding: 10px;
+.form-container {
+    padding: 10px 0;
 }
 
 /* ------- Form ------- */
 
-.form-container {
+.data-container {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
