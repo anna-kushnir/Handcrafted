@@ -180,6 +180,7 @@
     bottom: 5px;
     width: 100%;
     text-align: center;
+    color: #000;
     background: rgb(255, 149, 149);
     border: 1px solid red;
     border-radius: 20px;
