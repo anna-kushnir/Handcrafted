@@ -199,7 +199,23 @@
             </ul>
           </li>
         </ul>
+
+        <button type="button" onclick="applyFilters()" class="btn btn-outline-secondary" style="font-size: 16px;">Apply filters</button>
       </div>
+
+      <script>
+        function applyFilters() {
+          const sortByCost = document.getElementById('checkbox_cost').checked;
+          const sortByCostAsc = document.getElementById('cost_sort_direction_asc').checked;
+          const sortByNewness = document.getElementById('checkbox_newness').checked;
+          const sortByNewnessAsc = document.getElementById('newness_sort_direction_asc').checked;
+          const priceLimitFrom = document.getElementById('price_limit_from').value;
+          const priceLimitTo = document.getElementById('price_limit_to').value;
+
+          const requestURL = `/products?sortByCost=${sortByCost}&sortByCostAsc=${sortByCostAsc}&sortByNewness=${sortByNewness}&sortByNewnessAsc=${sortByNewnessAsc}&priceLimitFrom=${priceLimitFrom}&priceLimitTo=${priceLimitTo}`;
+          window.location.replace(requestURL);
+        }
+      </script>
 
       <button
               class="btn btn-outline-menu"
