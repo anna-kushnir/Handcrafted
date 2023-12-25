@@ -28,6 +28,9 @@ public class ProductDto {
 
     public String getColorsString() {
         StringBuilder result = new StringBuilder();
+        if (colors.isEmpty()) {
+            return "";
+        }
         for (Color color : colors) {
             result.append(color.getName()).append(", ");
         }
