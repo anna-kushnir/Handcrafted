@@ -70,7 +70,19 @@
                 </div>
 
                 <div class="product-price-and-options-container">
-                    <p th:text="'Price: ' +${product.price} +'$'"></p>
+                    <div th:unless="${product.withDiscount}" class="product-price-container">
+                        <p>Price:</p>
+                        <p th:text="${product.price} +'$'"></p>
+                    </div>
+                    <div th:if="${product.withDiscount}" class="product-price-container">
+                        <p>Price:</p>
+                        <s><p th:text="${product.price} +'$'"></p></s>
+                        <p
+                                th:text="${product.discountedPrice} +'$'"
+                                class="discounted-price">
+                        </p>
+                    </div>
+
                     <div class="product-options">
                         <button class="menu-btn" id="favorite_btn">
                             <img

@@ -265,7 +265,7 @@
               <p th:text="${product.price} +'$'" class="product-price"></p>
             </div>
             <div th:if="${product.withDiscount}" class="product-price-container">
-              <p th:text="${product.price} +'$'" class="product-price"><s></s></p>
+              <s><p th:text="${product.price} +'$'" class="product-price"></p></s>
               <p
                       th:text="${product.discountedPrice} +'$'"
                       class="product-price discounted-price">

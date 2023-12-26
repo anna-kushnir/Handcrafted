@@ -145,3 +145,13 @@
         width: 200px;
     }
 }
+
+.product-price-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.discounted-price {
+    color: red;
+}

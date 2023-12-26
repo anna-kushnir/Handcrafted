@@ -207,3 +207,7 @@
     display: flex;
     justify-content: space-around;
 }
+
+.product-price-container > s {
+    color: #000;
+}
