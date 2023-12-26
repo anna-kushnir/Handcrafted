@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HandCrafted: Cart</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/cart.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+            <a th:href="@{/menu}">
+                <button class="back-btn" id="back_btn">
+                    <img
+                            id="back_icon"
+                            src="/icons/back_icon1.png"
+                            width="20px"
+                            height="20px" />
+                </button>
+            </a>
+            <a th:href="@{/menu}">
+                <button class="menu-btn" id="menu_btn">
+                    <img
+                            id="menu_icon"
+                            src="/icons/menu_icon1.png"
+                            width="30px"
+                            height="30px" />
+                    <p>Menu</p>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="product-listing">
+            <div th:each="product : ${productsInCart}">
+                <div class="product-card">
+                    <div class="product-img-and-info-container">
+                        <div class="product-img-container">
+                            <img
+                                    th:unless="${product.photos.isEmpty()}"
+                                    th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                                    class="product-img"
+                                    width="150px"
+                                    height="150px" />
+                            <img
+                                    th:if="${product.photos.isEmpty()}"
+                                    src="/icons/image.png"
+                                    class="product-img"
+                                    width="150px"
+                                    height="150px" />
+                        </div>
+
+                        <div class="product-info-container">
+                            <p th:text="${product.name}"></p>
+
+                            <div class="product-price-container">
+                                <p>Cost:</p>
+                                <p th:text="${product.cost} +'$'"></p>
+                            </div>
+
+                            <div class="quantity-container">
+                                <p>Quantity:</p>
+                                <input
+                                        type="number"
+                                        th:id="'quantity_' + ${product.id}"
+                                        class="text-box"
+                                        min="1"
+                                        th:max="${product.maxQuantity}"
+                                        th:value="${product.quantityInCart}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-options-container">
+                        <button class="btn btn-outline-secondary" id="remove_btn">Remove</button>
+                        <button class="btn btn-outline-secondary" id="transfer_to_fav_btn">Transfer to favorite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-price-and-options-container">
+            <div class="total-price-container">
+                <p>Total Price:</p>
+                <p th:text="${cart.getTotalPrice()} +'$'"></p>
+            </div>
+            <button class="btn btn-outline-primary" id="create_order_btn">
+                Create Order
+            </button>
+        </div>
+    </div>
+</main>
+</body>
+</html>

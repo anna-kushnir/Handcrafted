@@ -1,0 +1,107 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* ------- Product list ------- */
+
+.product-listing {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+@media screen and (max-width: 1270px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 1060px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 880px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 690px) {
+    .product-listing {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ------- Product card ------- */
+
+.product-card {
+    max-width: min-content;
+    font-family: var(--text-font);
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 10px;
+    height: min-content;
+    border: 1px solid #21003a;
+    border-radius: 2px;
+}
+
+.product-img-and-info-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.product-price-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.discounted-price {
+    color: red;
+}
+
+.quantity-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.product-options-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-outline-secondary {
+    font-size: 15px;
+}
+
+/* --------- Footer --------- */
+
+.cart-price-and-options-container {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--main-border-color);
+}
+
+.total-price-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
