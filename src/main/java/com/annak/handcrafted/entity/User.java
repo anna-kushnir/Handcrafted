@@ -5,10 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "USER")
 @EqualsAndHashCode(of = {"userName"})
@@ -60,14 +57,11 @@ public class User implements UserDetails {
     )
     private List<Product> favoriteProducts = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            schema = "HANDCRAFTED_SCHEMA",
-            name = "PRODUCTS_IN_CART",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-    )
-    private List<Product> productsInCart = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCTS_IN_CART", joinColumns = @JoinColumn(name = "USER_ID"))
+    @Column(name = "QUANTITY")
+    @MapKeyJoinColumn(name = "PRODUCT_ID")
+    private Map<Product, Long> productsInCart = new HashMap<>();
 
 
     public User(Long id, String userName, String name, String surname, String password) {
