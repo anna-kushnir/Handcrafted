@@ -63,6 +63,9 @@ public class User implements UserDetails {
     @MapKeyJoinColumn(name = "PRODUCT_ID")
     private Map<Product, Long> productsInCart = new HashMap<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
 
     public User(Long id, String userName, String name, String surname, String password) {
         this.id = id;

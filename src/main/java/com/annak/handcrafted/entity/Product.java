@@ -45,7 +45,7 @@ public class Product {
     private boolean inStock;
 
     @Column(name = "QUANTITY")
-    private BigDecimal quantity;
+    private Long quantity;
 
     @Column(name = "CREATION_DATE")
     private LocalDateTime creationDate = LocalDateTime.now();
