@@ -50,13 +50,13 @@
                     <div class="product-img-and-info-container">
                         <div class="product-img-container">
                             <img
-                                    th:unless="${product.photos.isEmpty()}"
-                                    th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                                    th:unless="${product.photo}"
+                                    th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
                                     class="product-img"
                                     width="150px"
                                     height="150px" />
                             <img
-                                    th:if="${product.photos.isEmpty()}"
+                                    th:if="${product.photo}"
                                     src="/icons/image.png"
                                     class="product-img"
                                     width="150px"
@@ -95,7 +95,7 @@
         <div class="cart-price-and-options-container">
             <div class="total-price-container">
                 <p>Total Price:</p>
-                <p th:text="${cart.getTotalPrice()} +'$'"></p>
+                <p th:text="${totalPrice} +'$'"></p>
             </div>
             <button class="btn btn-outline-primary" id="create_order_btn">
                 Create Order

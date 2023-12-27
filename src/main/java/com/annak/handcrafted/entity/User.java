@@ -66,13 +66,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-
-    public User(Long id, String userName, String name, String surname, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.name = name;
-        this.surname = surname;
-        this.password = password;
+    public void addProductToCart(Product product) {
+        productsInCart.put(product, 1L);
     }
 
     @Override

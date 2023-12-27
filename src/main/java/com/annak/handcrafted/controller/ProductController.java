@@ -1,19 +1,20 @@
 package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.ProductDto;
+import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.service.CategoryService;
 import com.annak.handcrafted.service.ColorService;
 import com.annak.handcrafted.service.ProductService;
+import com.annak.handcrafted.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -24,6 +25,8 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ColorService colorService;
+    private final UserDetailsService userDetailsService;
+    private final UserService userService;
 
     @GetMapping
     public String getAllProducts(Model model,
@@ -47,6 +50,21 @@ public class ProductController {
             ProductDto productDto = productDtoOptional.get();
             model.addAttribute("product", productDto);
             return "user/product";
+        }
+        else {
+            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+        }
+    }
+
+    @PostMapping("/{id}/addToCart")
+    public String addProductWithIdToCart(Principal principal, @PathVariable Long id, Model model) {
+        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        Optional<ProductDto> productDtoOptional = productService.getById(id);
+        if (productDtoOptional.isPresent()) {
+            ProductDto productDto = productDtoOptional.get();
+            userService.addProductToCartByUserId(user.getId(), productDto);
+            model.addAttribute("product", productDto);
+            return "redirect:/products/{id}";
         }
         else {
             throw new ResourceNotFoundException("Product with id " + id + " was not found");

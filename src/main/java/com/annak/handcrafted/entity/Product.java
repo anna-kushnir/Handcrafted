@@ -65,10 +65,4 @@ public class Product {
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Photo> photos = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "productsInCart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> usersWithProductInCart = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> usersWithProductInFavorite = new ArrayList<>();
 }

@@ -84,20 +84,22 @@
                     </div>
 
                     <div class="product-options">
-                        <button class="menu-btn" id="favorite_btn">
+                        <button class="menu-btn" id="add_to_favorite_btn">
                             <img
                                     id="favorite_icon"
                                     src="/icons/heart1.png"
                                     width="30px"
                                     height="30px" />
                         </button>
-                        <button th:if="${product.inStock}" class="menu-btn" id="cart_btn">
-                            <img
-                                    id="cart_icon"
-                                    src="/icons/cart1.png"
-                                    width="30px"
-                                    height="30px" />
-                        </button>
+                        <form th:action="@{/products/{id}/addToCart(id=${product.id})}" th:method="POST">
+                            <button type="submit" th:if="${product.inStock}" class="menu-btn" id="add_to_cart_btn">
+                                <img
+                                        id="cart_icon"
+                                        src="/icons/cart1.png"
+                                        width="30px"
+                                        height="30px" />
+                            </button>
+                        </form>
                     </div>
                 </div>
 
