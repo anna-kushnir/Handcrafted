@@ -13,7 +13,7 @@
     height: 100%;
 }
 
-/* --------- 2 --------- */
+/* ----- Search box ----- */
 
 .header-menu-right {
     display: flex;
@@ -26,7 +26,14 @@
     min-width: 100px;
 }
 
-/* --------- 3 --------- */
+.text-box {
+    font-size: 15px;
+    width: 30vw;
+    max-width: 300px;
+    min-width: 150px;
+}
+
+/* ------- Filters & Categories ------- */
 
 .left-menu {
     display: flex;
@@ -106,20 +113,9 @@
     color: #fff;
 }
 
-/* ----- Search box ----- */
-
-.text-box {
-    font-size: 15px;
-    width: 30vw;
-    max-width: 300px;
-    min-width: 150px;
-}
-
 /* --------- Product list --------- */
 
 .product-listing {
-    margin: 0 auto;
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 @media screen and (max-width: 1270px) {
@@ -146,17 +142,8 @@
 /* ------- Product card ------- */
 
 .product-card {
-    max-width: min-content;
-    font-family: var(--text-font);
     font-size: 17px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 5px;
-    padding: 10px;
-    height: min-content;
-    outline: 1px solid #21003a;
-    border-radius: 2px;
     cursor: pointer;
 }
 .product-card:hover {
@@ -200,16 +187,15 @@
     font-size: 14px;
 }
 
-.discounted-price {
-    color: red;
-}
-
 .product-price-container {
     width: 100%;
-    display: flex;
     justify-content: space-around;
 }
 
 .product-price-container > s {
     color: #000;
+}
+
+.discounted-price {
+    color: red;
 }

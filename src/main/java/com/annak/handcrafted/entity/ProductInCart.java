@@ -12,8 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class ProductInCart {
     @Id
-    @SequenceGenerator(name = "ID_GENERATOR_FAVORITE_PRODUCT", sequenceName = "HANDCRAFTED_SCHEMA.FAVORITE_PRODUCT_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_GENERATOR_FAVORITE_PRODUCT")
+    @SequenceGenerator(name = "ID_GENERATOR_PRODUCT_IN_CART", sequenceName = "HANDCRAFTED_SCHEMA.PRODUCT_IN_CART_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_GENERATOR_PRODUCT_IN_CART")
     @Column(name = "ID", updatable = false)
     private Long id;
 

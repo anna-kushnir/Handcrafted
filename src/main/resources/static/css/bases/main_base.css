@@ -78,12 +78,49 @@ body {
     content: url("../../icons/back_icon3.png");
 }
 
+/* ------- Messages ------- */
+
 .alert {
     font-family: var(--text-font);
     font-size: 16px;
     text-align: center;
     padding: 3px;
+    margin: 3px 0;
     width: 100%;
     background-color: rgba(121, 168, 255, 0.42);
     border: 1px solid #0040a1;
+}
+
+.empty-msg {
+    font-family: var(--text-font);
+    font-size: 20px;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* ----- Product listing ----- */
+
+.product-listing {
+    display: grid;
+    margin: 0 auto;
+}
+
+.product-card {
+    font-family: var(--text-font);
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 10px;
+    height: min-content;
+    border: 1px solid #21003a;
+    border-radius: 2px;
+}
+
+.product-price-container {
+    display: flex;
+}
+
+.discounted-price {
+    color: red;
 }

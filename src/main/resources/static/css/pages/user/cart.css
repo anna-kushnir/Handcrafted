@@ -15,7 +15,6 @@
 /* ------- Product list ------- */
 
 .product-listing {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 @media screen and (max-width: 1600px) {
@@ -37,15 +36,8 @@
 /* ------- Product card ------- */
 
 .product-card {
-    font-family: var(--text-font);
     font-size: 16px;
-    display: flex;
-    flex-direction: column;
     margin: 10px;
-    padding: 10px;
-    height: min-content;
-    border: 1px solid #21003a;
-    border-radius: 2px;
 }
 
 .product-img-and-info-container {
@@ -64,12 +56,8 @@
 }
 
 .product-price-container {
-    display: flex;
     justify-content: flex-start;
     gap: 10px;
-}
-.discounted-price {
-    color: red;
 }
 
 .quantity-container {

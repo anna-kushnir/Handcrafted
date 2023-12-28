@@ -21,15 +21,13 @@
 <main class="container main-container">
     <div class="header">
         <div class="header-menu-left">
-            <a th:href="@{/products}">
-                <button class="back-btn" id="back_btn">
-                    <img
-                            id="back_icon"
-                            src="/icons/back_icon1.png"
-                            width="20px"
-                            height="20px" />
-                </button>
-            </a>
+            <button class="back-btn" id="back_btn" onclick="goBack()">
+                <img
+                        id="back_icon"
+                        src="/icons/back_icon1.png"
+                        width="20px"
+                        height="20px" />
+            </button>
             <a th:href="@{/menu}">
                 <button class="menu-btn" id="menu_btn">
                     <img
@@ -84,13 +82,15 @@
                     </div>
 
                     <div class="product-options">
-                        <button class="menu-btn" id="add_to_favorite_btn">
-                            <img
-                                    id="favorite_icon"
-                                    src="/icons/heart1.png"
-                                    width="30px"
-                                    height="30px" />
-                        </button>
+                        <form th:action="@{/products/{id}/addToFavorites(id=${product.id})}" th:method="POST">
+                            <button class="menu-btn" id="add_to_favorite_btn">
+                                <img
+                                        id="favorite_icon"
+                                        src="/icons/heart1.png"
+                                        width="30px"
+                                        height="30px" />
+                            </button>
+                        </form>
                         <form th:action="@{/products/{id}/addToCart(id=${product.id})}" th:method="POST">
                             <button type="submit" th:if="${product.inStock}" class="menu-btn" id="add_to_cart_btn">
                                 <img
@@ -103,11 +103,12 @@
                     </div>
                 </div>
 
-                <div th:if="${msgAddToCart}" role="alert" th:text="${msgAddToCart}" class="alert"></div>
-
                 <div th:unless="${product.inStock}" class="product-not-in-stock">
                     Is Not In Stock
                 </div>
+
+                <div th:if="${msgAddToCart}" role="alert" th:text="${msgAddToCart}" class="alert"></div>
+                <div th:if="${msgAddToFavorites}" role="alert" th:text="${msgAddToFavorites}" class="alert"></div>
             </div>
 
             <div class="product-info-right">
