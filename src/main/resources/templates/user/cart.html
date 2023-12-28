@@ -45,49 +45,47 @@
 
     <div class="main">
         <div class="product-listing">
-            <div th:each="product : ${productsInCart}">
-                <div class="product-card">
-                    <div class="product-img-and-info-container">
-                        <div class="product-img-container">
-                            <img
-                                    th:unless="${product.photo}"
-                                    th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
-                                    class="product-img"
-                                    width="150px"
-                                    height="150px" />
-                            <img
-                                    th:if="${product.photo}"
-                                    src="/icons/image.png"
-                                    class="product-img"
-                                    width="150px"
-                                    height="150px" />
-                        </div>
-
-                        <div class="product-info-container">
-                            <p th:text="${product.name}"></p>
-
-                            <div class="product-price-container">
-                                <p>Cost:</p>
-                                <p th:text="${product.cost} +'$'"></p>
-                            </div>
-
-                            <div class="quantity-container">
-                                <p>Quantity:</p>
-                                <input
-                                        type="number"
-                                        th:id="'quantity_' + ${product.id}"
-                                        class="text-box"
-                                        min="1"
-                                        th:max="${product.maxQuantity}"
-                                        th:value="${product.quantityInCart}" />
-                            </div>
-                        </div>
+            <div th:each="product : ${productsInCart}" class="product-card">
+                <div class="product-img-and-info-container">
+                    <div class="product-img-container">
+                        <img
+                                th:if="${product.photo}"
+                                th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
+                                class="product-img"
+                                width="150px"
+                                height="150px" />
+                        <img
+                                th:unless="${product.photo}"
+                                src="/icons/image.png"
+                                class="product-img"
+                                width="150px"
+                                height="150px" />
                     </div>
 
-                    <div class="product-options-container">
-                        <button class="btn btn-outline-secondary" id="remove_btn">Remove</button>
-                        <button class="btn btn-outline-secondary" id="transfer_to_fav_btn">Transfer to favorite</button>
+                    <div class="product-info-container">
+                        <p th:text="${product.productName}"></p>
+
+                        <div class="product-price-container">
+                            <p>Cost:</p>
+                            <p th:text="${product.cost} +'$'"></p>
+                        </div>
+
+                        <div class="quantity-container">
+                            <p>Quantity:</p>
+                            <input
+                                    type="number"
+                                    th:id="'quantity_' + ${product.id}"
+                                    class="text-box"
+                                    min="1"
+                                    th:max="${product.productQuantity}"
+                                    th:value="${product.quantityInCart}" />
+                        </div>
                     </div>
+                </div>
+
+                <div class="product-options-container">
+                    <button class="btn btn-outline-secondary" id="remove_btn">Remove</button>
+                    <button class="btn btn-outline-secondary" id="transfer_to_fav_btn">Transfer to favorite</button>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@
 .main {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     height: 100%;
     width: 100%;
@@ -15,27 +15,20 @@
 /* ------- Product list ------- */
 
 .product-listing {
-    width: 100%;
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-@media screen and (max-width: 1270px) {
-    .product-listing {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-}
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 1600px) {
     .product-listing {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1230px) {
     .product-listing {
         grid-template-columns: 1fr 1fr;
     }
 }
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 800px) {
     .product-listing {
         grid-template-columns: 1fr;
     }
@@ -44,12 +37,11 @@
 /* ------- Product card ------- */
 
 .product-card {
-    max-width: min-content;
     font-family: var(--text-font);
-    font-size: 17px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 10px;
     padding: 10px;
     height: min-content;
     border: 1px solid #21003a;
@@ -68,6 +60,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    min-width: max-content;
 }
 
 .product-price-container {
@@ -92,6 +85,8 @@
 
 .btn-outline-secondary {
     font-size: 15px;
+    min-width: 100px;
+    width: max-content;
 }
 
 /* --------- Footer --------- */
@@ -105,6 +100,8 @@
 }
 
 .total-price-container {
+    font-family: var(--text-font);
+    font-size: 20px;
     padding: 0 20px;
     display: flex;
     justify-content: flex-start;

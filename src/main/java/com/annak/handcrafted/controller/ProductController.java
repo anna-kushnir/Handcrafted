@@ -3,10 +3,7 @@ package com.annak.handcrafted.controller;
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.exception.ResourceNotFoundException;
-import com.annak.handcrafted.service.CategoryService;
-import com.annak.handcrafted.service.ColorService;
-import com.annak.handcrafted.service.ProductService;
-import com.annak.handcrafted.service.UserService;
+import com.annak.handcrafted.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -26,14 +23,14 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ColorService colorService;
     private final UserDetailsService userDetailsService;
-    private final UserService userService;
+    private final ProductInCartService productInCartService;
 
     @GetMapping
     public String getAllProducts(Model model,
                                  @RequestParam(name = "sortByCost", required = false, defaultValue = "false") boolean sortByCost,
-                                 @RequestParam(name = "sortByCostAsc", required = false, defaultValue = "false") boolean sortByCostAsc,
+                                 @RequestParam(name = "sortByCostAsc", required = false, defaultValue = "true") boolean sortByCostAsc,
                                  @RequestParam(name = "sortByNewness", required = false, defaultValue = "false") boolean sortByNewness,
-                                 @RequestParam(name = "sortByNewnessAsc", required = false, defaultValue = "false") boolean sortByNewnessAsc,
+                                 @RequestParam(name = "sortByNewnessAsc", required = false, defaultValue = "true") boolean sortByNewnessAsc,
                                  @RequestParam(name = "priceLimitFrom", required = false, defaultValue = "0") BigDecimal priceLimitFrom,
                                  @RequestParam(name = "priceLimitTo", required = false, defaultValue = "10000") BigDecimal priceLimitTo
     ) {
@@ -62,7 +59,7 @@ public class ProductController {
         Optional<ProductDto> productDtoOptional = productService.getById(id);
         if (productDtoOptional.isPresent()) {
             ProductDto productDto = productDtoOptional.get();
-            userService.addProductToCartByUserId(user.getId(), productDto);
+            productInCartService.save(user, productDto);
             model.addAttribute("product", productDto);
             return "redirect:/products/{id}";
         }
