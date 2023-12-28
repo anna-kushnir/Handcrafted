@@ -1,7 +1,6 @@
 package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.FavoriteProductDto;
-import com.annak.handcrafted.entity.FavoriteProduct;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.service.FavoriteProductService;
 import lombok.RequiredArgsConstructor;

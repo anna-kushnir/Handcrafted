@@ -13,4 +13,8 @@ public interface ProductService {
     Optional<ProductDto> getById(Long id);
 
     Object getAllFiltered(boolean sortByCost, boolean sortByCostAsc, boolean sortByNewness, boolean sortByNewnessAsc, BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+
+    ProductDto save(ProductDto productDto);
+
+    ProductDto update(ProductDto productDto);
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>HandCrafted: Menu</title>
+  <title>Admin: Menu</title>
   <link rel="stylesheet" href="/css/bases/general_base.css" />
   <link rel="stylesheet" href="/css/bases/auth_and_menu_base.css" />
   <link rel="stylesheet" href="/css/pages/main_menu.css" />
@@ -22,26 +22,29 @@
 
   <main class="main-container">
     <div class="product-container">
-      <a th:href="@{/products}">
+      <a th:href="@{/admin/products}">
         <button class="btn btn-outline-primary" id="all_products_btn">
-          All Products
+          View All Products
         </button>
       </a>
-      <a th:href="@{/favorite}">
+      <a th:href="@{/admin/menu}">
         <button class="btn btn-outline-primary" id="fav_products_btn">
-          Favorite Products
+          View All Orders
         </button>
       </a>
-      <a th:href="@{/cart}">
-        <button class="btn btn-outline-primary" id="cart_btn">Cart</button>
+      <a th:href="@{/admin/menu}">
+        <button class="btn btn-outline-primary" id="cart_btn">
+          Edit Contact Details
+        </button>
       </a>
-      <button class="btn btn-outline-primary" id="list_of_orders_btn">
-        List of Orders
-      </button>
+      <a th:href="@{/admin/menu}">
+        <button class="btn btn-outline-primary" id="list_of_orders_btn">
+          View Statistics
+        </button>
+      </a>
     </div>
 
     <div class="profile-container">
-      <button class="btn btn-outline-secondary" id="profile_btn">My Profile</button>
       <form th:action="@{/logout}" method="POST">
         <button class="btn btn-outline-secondary" id="sign_out_btn">Sign Out</button>
       </form>

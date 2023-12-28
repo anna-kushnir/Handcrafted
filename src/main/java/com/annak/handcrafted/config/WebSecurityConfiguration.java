@@ -23,9 +23,11 @@ public class WebSecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/", "/register", "/authorize*")
+                        .anonymous()
                         .requestMatchers("/admin/**")
-                        .hasRole("ADMIN")
-                        .requestMatchers("/", "/register", "/authorize*", "/css/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers("/css/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()

@@ -2,6 +2,7 @@ package com.annak.handcrafted.service;
 
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.entity.Product;
+import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.mapper.ProductMapper;
 import com.annak.handcrafted.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -72,5 +73,22 @@ public class ProductServiceImpl implements ProductService {
         return productList.stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductDto save(ProductDto productDto) {
+        Product product = productMapper.toEntity(productDto);
+        product.setWithDiscount(false);
+        return productMapper.toDTO(productRepository.save(product));
+    }
+
+    @Override
+    public ProductDto update(ProductDto productDto) {
+        Product product = productMapper.toEntity(productDto);
+
+        if (!productRepository.existsById(productDto.getId())) {
+            throw new ResourceNotFoundException("No product with id <%s> found!".formatted((productDto.getId())));
+        }
+        return productMapper.toDTO(productRepository.save(product));
     }
 }

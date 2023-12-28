@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin: Edit Product</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/product.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+            <button class="back-btn" id="back_btn" onclick="goBack()">
+                <img
+                        id="back_icon"
+                        src="/icons/back_icon1.png"
+                        width="20px"
+                        height="20px" />
+            </button>
+            <a th:href="@{/menu}">
+                <button class="menu-btn" id="menu_btn">
+                    <img
+                            id="menu_icon"
+                            src="/icons/menu_icon1.png"
+                            width="30px"
+                            height="30px" />
+                    <p>Menu</p>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="product-container">
+            <div class="product-info-left">
+                <div class="product-photo-container">
+                    <a href="#" class="left">
+                        <img src="/icons/back_icon1.png" />
+                    </a>
+
+                    <img
+                            th:unless="${product.photos.isEmpty()}"
+                            th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                            class="product-photo"
+                            width="150px"
+                            height="150px" />
+                    <img
+                            th:if="${product.photos.isEmpty()}"
+                            src="/icons/image.png"
+                            class="product-photo"
+                            width="150px"
+                            height="150px" />
+
+                    <a href="#" class="right">
+                        <img src="/icons/back_icon1.png" />
+                    </a>
+                </div>
+
+                <div class="product-price-and-options-container">
+                    <div th:unless="${product.withDiscount}" class="product-price-container">
+                        <p>Price:</p>
+                        <p th:text="${product.price} +'$'"></p>
+                    </div>
+                    <div th:if="${product.withDiscount}" class="product-price-container">
+                        <p>Price:</p>
+                        <s><p th:text="${product.price} +'$'"></p></s>
+                        <p
+                                th:text="${product.discountedPrice} +'$'"
+                                class="discounted-price">
+                        </p>
+                    </div>
+
+                    <div class="product-options">
+                        <form th:action="@{/products/{id}/addToFavorites(id=${product.id})}" th:method="POST">
+                            <button class="menu-btn" id="add_to_favorite_btn">
+                                <img
+                                        id="favorite_icon"
+                                        src="/icons/heart1.png"
+                                        width="30px"
+                                        height="30px" />
+                            </button>
+                        </form>
+                        <form th:action="@{/products/{id}/addToCart(id=${product.id})}" th:method="POST">
+                            <button type="submit" th:if="${product.inStock}" class="menu-btn" id="add_to_cart_btn">
+                                <img
+                                        id="cart_icon"
+                                        src="/icons/cart1.png"
+                                        width="30px"
+                                        height="30px" />
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:unless="${product.inStock}" class="product-not-in-stock">
+                    Is Not In Stock
+                </div>
+
+                <div th:if="${msgAddToCart}" role="alert" th:text="${msgAddToCart}" class="alert"></div>
+                <div th:if="${msgAddToFavorites}" role="alert" th:text="${msgAddToFavorites}" class="alert"></div>
+            </div>
+
+            <div class="product-info-right">
+                <p th:text="${product.name}" class="product-name"></p>
+
+                <p class="product-info-label">Description:</p>
+                <p th:text="${product.description}" class="product-info-text"></p>
+
+                <p class="product-info-label">Colors:</p>
+                <p th:unless="${product.colors.isEmpty()}" th:text="${product.getColorsString()}" class="product-info-text"></p>
+                <p th:if="${product.colors.isEmpty()}" class="product-info-text">The product is not marked with any color</p>
+
+                <p class="product-info-label">Key Words:</p>
+                <p th:text="${product.keyWords}" class="product-info-text"></p>
+            </div>
+        </div>
+
+        <div class="recommendations-container"></div>
+    </div>
+</main>
+<script src="/js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin: Products</title>
+  <link rel="stylesheet" href="/css/bases/general_base.css" />
+  <link rel="stylesheet" href="/css/bases/main_base.css" />
+  <link rel="stylesheet" href="/css/pages/list_of_products.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+  <p class="logo-header">HandCrafted</p>
+  <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+<main class="container main-container">
+  <div class="header">
+    <div class="header-menu-left">
+      <a th:href="@{/admin/menu}">
+        <button class="back-btn" id="back_btn">
+          <img
+                id="back_icon"
+                src="/icons/back_icon1.png"
+                width="20px"
+                height="20px" />
+        </button>
+      </a>
+      <a th:href="@{/admin/menu}">
+        <button class="menu-btn" id="menu_btn">
+          <img
+                id="menu_icon"
+                src="/icons/menu_icon1.png"
+                width="30px"
+                height="30px" />
+          <p>Menu</p>
+        </button>
+      </a>
+    </div>
+
+    <div class="header-menu-right">
+      <div class="search-container">
+        <input
+                type="text"
+                class="text-box"
+                id="name"
+                placeholder="Search"
+                maxlength="25" />
+      </div>
+      <button class="btn btn-outline-primary" id="find_btn">Find</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="left-menu">
+      <button
+              class="btn btn-outline-menu"
+              id="categories_btn"
+              onclick="   var list=getElementById('categories-container')
+                                    if (list.style.display=='none') list.style.display='block'
+                                    else list.style.display='none'">
+        Categories
+      </button>
+      <div id="categories-container" style="display: none">
+        <ul class="list">
+          <li th:each="category : ${categories}">
+            <button
+                    th:id="'category_' +${category.id}"
+                    class="btn btn-category"
+                    th:text="${category.name}">
+              name
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-listing">
+      <div th:each="product : ${products}">
+        <a th:href="@{/admin/products/{id}(id=${product.id})}">
+          <div class="product-card">
+            <div class="product-img-container">
+              <img
+                      th:unless="${product.photos.isEmpty()}"
+                      th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                      class="product-img"
+                      width="150px"
+                      height="150px" />
+              <img
+                      th:if="${product.photos.isEmpty()}"
+                      src="/icons/image.png"
+                      class="product-img"
+                      width="150px"
+                      height="150px" />
+              <p th:unless="${product.inStock}" class="product-not-in-stock">
+                Is Not In Stock
+              </p>
+            </div>
+            <p th:text="${product.name}" class="product-name"></p>
+            <div th:unless="${product.withDiscount}" class="product-price-container">
+              <p th:text="${product.price} +'$'" class="product-price"></p>
+            </div>
+            <div th:if="${product.withDiscount}" class="product-price-container">
+              <s><p th:text="${product.price} +'$'" class="product-price"></p></s>
+              <p
+                      th:text="${product.discountedPrice} +'$'"
+                      class="product-price discounted-price">
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

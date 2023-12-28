@@ -1,10 +1,12 @@
 package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.UserDto;
+import com.annak.handcrafted.entity.Role;
 import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import com.annak.handcrafted.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailsService;
 
     @GetMapping("/")
     public String start(Principal principal) {
@@ -55,9 +58,18 @@ public class UserController {
             userService.save(userDto);
         } catch (ResourceUniqueViolationException e) {
             model.addAttribute("message", e.getMessage());
-            model.addAttribute("user", new UserDto());
             return "user/registration";
         }
         return "redirect:/authorize";
+    }
+
+    @GetMapping("/menu")
+    public String viewMenu(Principal principal) {
+        if (userDetailsService.loadUserByUsername(principal.getName()).getAuthorities().contains(Role.ADMIN)) {
+            return "redirect:/admin/menu";
+        }
+        else {
+            return "user/main_menu";
+        }
     }
 }
