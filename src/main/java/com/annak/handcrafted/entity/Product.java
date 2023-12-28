@@ -8,14 +8,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "PRODUCT")
-@EqualsAndHashCode(of = {"name", "creationDate"})
+@Entity
+@Table(name = "PRODUCT", schema = "HANDCRAFTED_SCHEMA")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"name", "creationDate"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "PRODUCT", schema = "HANDCRAFTED_SCHEMA")
 public class Product {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_PRODUCT", sequenceName = "HANDCRAFTED_SCHEMA.PRODUCT_SEQ", allocationSize = 1)
@@ -48,9 +47,9 @@ public class Product {
     private Long quantity;
 
     @Column(name = "CREATION_DATE")
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private LocalDateTime creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
@@ -63,6 +62,6 @@ public class Product {
     )
     private List<Color> colors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Photo> photos = new ArrayList<>();
 }

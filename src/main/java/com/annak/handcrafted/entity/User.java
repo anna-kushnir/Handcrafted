@@ -7,14 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-@Entity(name = "USER")
-@EqualsAndHashCode(of = {"userName"})
+@Entity
+@Table(name = "USER", schema = "HANDCRAFTED_SCHEMA")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"userName"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "USER", schema = "HANDCRAFTED_SCHEMA")
 public class User implements UserDetails {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_USER", sequenceName = "HANDCRAFTED_SCHEMA.USER_SEQ", allocationSize = 1)
@@ -34,11 +33,11 @@ public class User implements UserDetails {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "USER_PHONE")
-    private Long userPhone;
-
     @Column(name = "ACTIVE")
     private boolean active;
+
+    @Column(name = "USER_PHONE")
+    private Long userPhone;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(
@@ -48,27 +47,24 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @ManyToMany
-    @JoinTable(
-            schema = "HANDCRAFTED_SCHEMA",
-            name = "FAVORITE_PRODUCTS",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-    )
-    private List<Product> favoriteProducts = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//            schema = "HANDCRAFTED_SCHEMA",
+//            name = "FAVORITE_PRODUCTS",
+//            joinColumns = @JoinColumn(name = "USER_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
+//    )
+//    private List<Product> favoriteProducts = new ArrayList<>();
+//
+//    @ElementCollection
+//    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCTS_IN_CART", joinColumns = @JoinColumn(name = "USER_ID"))
+//    @Column(name = "QUANTITY")
+//    @MapKeyJoinColumn(name = "PRODUCT_ID")
+//    private Map<Product, Long> productsInCart = new HashMap<>();
+//
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Order> orders = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCTS_IN_CART", joinColumns = @JoinColumn(name = "USER_ID"))
-    @Column(name = "QUANTITY")
-    @MapKeyJoinColumn(name = "PRODUCT_ID")
-    private Map<Product, Long> productsInCart = new HashMap<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
-
-    public void addProductToCart(Product product) {
-        productsInCart.put(product, 1L);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

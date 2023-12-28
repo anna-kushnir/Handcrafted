@@ -8,14 +8,13 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-@Entity(name = "ORDER")
-@EqualsAndHashCode(of = {"user", "formationDate"})
+@Entity
+@Table(name = "ORDER", schema = "HANDCRAFTED_SCHEMA")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"user", "formationDate"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "ORDER", schema = "HANDCRAFTED_SCHEMA")
 public class Order {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_ORDER", sequenceName = "HANDCRAFTED_SCHEMA.ORDER_SEQ", allocationSize = 1)
@@ -23,7 +22,7 @@ public class Order {
     @Column(name = "ID", updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID")
     private User user;
 
@@ -34,7 +33,7 @@ public class Order {
     private BigDecimal price;
 
     @Column(name = "FORMATION_DATE")
-    private LocalDateTime formationDate = LocalDateTime.now();
+    private LocalDateTime formationDate;
 
     @Column(name = "STATUS")
     private String status;
@@ -56,7 +55,7 @@ public class Order {
     private Long invoiceNumber;
 
     @ElementCollection
-    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCTS_IN_ORDER", joinColumns = @JoinColumn(name = "ORDER_ID"))
+    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCT_IN_ORDER", joinColumns = @JoinColumn(name = "ORDER_ID"))
     @Column(name = "QUANTITY")
     @MapKeyJoinColumn(name = "PRODUCT_ID")
     private Map<Product, Long> products = new HashMap<>();

@@ -6,14 +6,13 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "COLOR")
-@EqualsAndHashCode(of = {"name"})
+@Entity
+@Table(name = "COLOR", schema = "HANDCRAFTED_SCHEMA")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"name"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "COLOR", schema = "HANDCRAFTED_SCHEMA")
 public class Color {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_COLOR", sequenceName = "HANDCRAFTED_SCHEMA.COLOR_SEQ", allocationSize = 1)

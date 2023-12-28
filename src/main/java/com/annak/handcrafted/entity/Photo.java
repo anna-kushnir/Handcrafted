@@ -3,14 +3,13 @@ package com.annak.handcrafted.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "PHOTO")
-@EqualsAndHashCode(of = {"name", "data"})
+@Entity
+@Table(name = "PHOTO", schema = "HANDCRAFTED_SCHEMA")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"name", "data"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "PHOTO", schema = "HANDCRAFTED_SCHEMA")
 public class Photo {
     @Id
     @SequenceGenerator(name = "ID_GENERATOR_PHOTO", sequenceName = "HANDCRAFTED_SCHEMA.PHOTO_SEQ", allocationSize = 1)
@@ -25,7 +24,7 @@ public class Photo {
     @Column(name = "DATA")
     private byte[] data;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 }

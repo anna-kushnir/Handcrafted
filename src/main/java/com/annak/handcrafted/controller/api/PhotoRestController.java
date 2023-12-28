@@ -25,7 +25,7 @@ public class PhotoRestController {
 
         if (photoOptional.isPresent()) {
             PhotoDto photoDto = photoOptional.get();
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoDto.getData());
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(photoDto.data());
         }
         else {
             return ResponseEntity.notFound().build();

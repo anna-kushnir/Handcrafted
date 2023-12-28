@@ -20,7 +20,7 @@ public class ProductDto {
     private boolean withDiscount;
     private BigDecimal discountedPrice;
     private boolean inStock;
-    private BigDecimal quantity;
+    private Long quantity;
     private LocalDateTime creationDate;
     private Category category;
     private List<Color> colors = new ArrayList<>();
