@@ -103,6 +103,8 @@
                     </div>
                 </div>
 
+                <div th:if="${msgAddToCart}" role="alert" th:text="${msgAddToCart}" class="alert"></div>
+
                 <div th:unless="${product.inStock}" class="product-not-in-stock">
                     Is Not In Stock
                 </div>

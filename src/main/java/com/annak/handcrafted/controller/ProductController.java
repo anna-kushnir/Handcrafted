@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -54,13 +55,13 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/addToCart")
-    public String addProductWithIdToCart(Principal principal, @PathVariable Long id, Model model) {
+    public String addProductWithIdToCart(Principal principal, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Optional<ProductDto> productDtoOptional = productService.getById(id);
         if (productDtoOptional.isPresent()) {
             ProductDto productDto = productDtoOptional.get();
-            productInCartService.save(user, productDto);
-            model.addAttribute("product", productDto);
+            String result = productInCartService.save(user, productDto);
+            redirectAttributes.addFlashAttribute("msgAddToCart", result);
             return "redirect:/products/{id}";
         }
         else {

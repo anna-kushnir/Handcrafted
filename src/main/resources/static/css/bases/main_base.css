@@ -77,3 +77,13 @@ body {
 .back-btn:active #back_icon {
     content: url("../../icons/back_icon3.png");
 }
+
+.alert {
+    font-family: var(--text-font);
+    font-size: 16px;
+    text-align: center;
+    padding: 3px;
+    width: 100%;
+    background-color: rgba(121, 168, 255, 0.42);
+    border: 1px solid #0040a1;
+}
