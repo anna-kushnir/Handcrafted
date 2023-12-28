@@ -25,6 +25,7 @@ public class ProductController {
     private final ColorService colorService;
     private final UserDetailsService userDetailsService;
     private final ProductInCartService productInCartService;
+    private final FavoriteProductService favoriteProductService;
 
     @GetMapping
     public String getAllProducts(Model model,
@@ -54,13 +55,28 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/{id}/addToFavorites")
+    public String addProductWithIdToFavorites(Principal principal, @PathVariable Long id, RedirectAttributes redirectAttributes) {
+        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        Optional<ProductDto> productDtoOptional = productService.getById(id);
+        if (productDtoOptional.isPresent()) {
+            ProductDto productDto = productDtoOptional.get();
+            String result = favoriteProductService.saveOrDeleteIfExists(user, productDto);
+            redirectAttributes.addFlashAttribute("msgAddToFavorites", result);
+            return "redirect:/products/{id}";
+        }
+        else {
+            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+        }
+    }
+
     @PostMapping("/{id}/addToCart")
     public String addProductWithIdToCart(Principal principal, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Optional<ProductDto> productDtoOptional = productService.getById(id);
         if (productDtoOptional.isPresent()) {
             ProductDto productDto = productDtoOptional.get();
-            String result = productInCartService.save(user, productDto);
+            String result = productInCartService.saveOrDeleteIfExists(user, productDto);
             redirectAttributes.addFlashAttribute("msgAddToCart", result);
             return "redirect:/products/{id}";
         }

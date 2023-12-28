@@ -32,7 +32,7 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     @Transactional
-    public String save(User user, ProductDto productDto) {
+    public String saveOrDeleteIfExists(User user, ProductDto productDto) {
         if (productInCartRepository.existsByUserUserNameAndProductId(user.getUsername(), productDto.getId())) {
             productInCartRepository.deleteByUserUserNameAndProductId(user.getUsername(), productDto.getId());
             return "Product deleted from cart";
@@ -48,6 +48,14 @@ public class ProductInCartServiceImpl implements ProductInCartService {
         }
         else {
             return "Product is not in stock!";
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete(User user, ProductDto productDto) {
+        if (productInCartRepository.existsByUserUserNameAndProductId(user.getUsername(), productDto.getId())) {
+            productInCartRepository.deleteByUserUserNameAndProductId(user.getUsername(), productDto.getId());
         }
     }
 }

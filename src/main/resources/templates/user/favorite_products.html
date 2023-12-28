@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HandCrafted: Favorite</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/favorite_products.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body id="body">
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+            <a th:href="@{/menu}">
+                <button class="back-btn" id="back_btn">
+                    <img
+                            id="back_icon"
+                            src="/icons/back_icon1.png"
+                            width="20px"
+                            height="20px" />
+                </button>
+            </a>
+            <a th:href="@{/menu}">
+                <button class="menu-btn" id="menu_btn">
+                    <img
+                            id="menu_icon"
+                            src="/icons/menu_icon1.png"
+                            width="30px"
+                            height="30px" />
+                    <p>Menu</p>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="product-listing">
+            <div th:each="product : ${favoriteProducts}">
+                <a th:href="@{/products/{id}(id=${product.id})}">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img
+                                    th:if="${product.photo}"
+                                    th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
+                                    class="product-img"
+                                    width="150px"
+                                    height="150px" />
+                            <img
+                                    th:unless="${product.photo}"
+                                    src="/icons/image.png"
+                                    class="product-img"
+                                    width="150px"
+                                    height="150px" />
+                            <p th:unless="${product.inStock}" class="product-not-in-stock">
+                                Is Not In Stock
+                            </p>
+                        </div>
+                        <p th:text="${product.productName}" class="product-name"></p>
+                        <div th:unless="${product.withDiscount}" class="product-price-container">
+                            <p th:text="${product.price} +'$'" class="product-price"></p>
+                        </div>
+                        <div th:if="${product.withDiscount}" class="product-price-container">
+                            <s><p th:text="${product.price} +'$'" class="product-price"></p></s>
+                            <p
+                                    th:text="${product.discountedPrice} +'$'"
+                                    class="product-price discounted-price">
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${favoriteProducts.isEmpty()}" class="empty-msg">There are no favorite products</div>
+
+        <div class="create-gift-set-container">
+            <button class="btn btn-outline-primary" id="create_gift_set_btn">
+                Create Gift Set
+            </button>
+        </div>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/js/favorite_products.js}"></script>
+</body>
+</html>

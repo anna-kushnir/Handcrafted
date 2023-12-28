@@ -10,5 +10,7 @@ public interface ProductInCartService {
 
     List<ProductInCartDto> getAllByUser(User user);
 
-    String save(User user, ProductDto productDto);
+    String saveOrDeleteIfExists(User user, ProductDto productDto);
+
+    void delete(User user, ProductDto productDto);
 }

@@ -27,9 +27,11 @@
           All Products
         </button>
       </a>
-      <button class="btn btn-outline-primary" id="fav_products_btn">
-        Favorite Products
-      </button>
+      <a th:href="@{/favorite}">
+        <button class="btn btn-outline-primary" id="fav_products_btn">
+          Favorite Products
+        </button>
+      </a>
       <a th:href="@{/cart}">
         <button class="btn btn-outline-primary" id="cart_btn">Cart</button>
       </a>

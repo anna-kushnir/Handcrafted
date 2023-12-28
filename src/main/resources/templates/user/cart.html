@@ -13,7 +13,7 @@
             href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
             rel="stylesheet" />
 </head>
-<body>
+<body id="body">
 <header class="logo-container">
     <p class="logo-header">HandCrafted</p>
     <p class="logo-text">The place where you'll find what you've been looking for</p>
@@ -84,11 +84,13 @@
                 </div>
 
                 <div class="product-options-container">
-                    <button class="btn btn-outline-secondary" id="remove_btn">Remove</button>
-                    <button class="btn btn-outline-secondary" id="transfer_to_fav_btn">Transfer to favorite</button>
+                    <button class="btn btn-outline-secondary remove-btn" th:id="${product.id}">Remove</button>
+                    <button class="btn btn-outline-secondary transfer-to-fav-btn" th:id="${product.id}">Transfer to favorite</button>
                 </div>
             </div>
         </div>
+
+        <div th:if="${productsInCart.isEmpty()}" class="empty-msg">Cart is empty</div>
 
         <div class="cart-price-and-options-container">
             <div class="total-price-container">
@@ -101,5 +103,6 @@
         </div>
     </div>
 </main>
+<script type="text/javascript" th:src="@{/js/cart.js}"></script>
 </body>
 </html>

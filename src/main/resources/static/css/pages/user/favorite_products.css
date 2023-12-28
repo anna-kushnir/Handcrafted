@@ -1,0 +1,110 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+/* ------- Product list ------- */
+
+.product-listing {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+@media screen and (max-width: 1300px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 1100px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 880px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 650px) {
+    .product-listing {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ------- Product card ------- */
+
+.product-card {
+    font-size: 17px;
+    align-items: center;
+    cursor: pointer;
+}
+.product-card:hover {
+    background: rgba(121, 168, 255, 0.3);
+    outline: 2px solid #21003a;
+    outline-offset: -1px;
+}
+.product-card:active {
+    background: rgba(121, 168, 255, 0.5);
+}
+
+.product-img-container {
+    position: relative;
+    margin: 0 5px;
+}
+
+.product-img {
+    margin: 0;
+}
+
+.product-not-in-stock {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    color: #000;
+    background: rgb(255, 149, 149);
+    border: 1px solid red;
+    border-radius: 20px;
+}
+
+.product-name,
+.product-price {
+    color: #000;
+    display: inline;
+    padding: 1px 2px;
+    margin: 0;
+}
+
+.product-name {
+    font-size: 14px;
+}
+
+.product-price-container {
+    width: 100%;
+    justify-content: space-around;
+}
+
+.product-price-container > s {
+    color: #000;
+}
+
+.discounted-price {
+    color: red;
+}
+
+/* --------- Footer --------- */
+
+.create-gift-set-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 2px solid var(--main-border-color);
+}
