@@ -118,7 +118,7 @@
                 <p th:text="${product.description}" class="product-info-text"></p>
 
                 <p class="product-info-label">Colors:</p>
-                <p th:unless="${product.colors.isEmpty()}" th:text="${product.getColorsString()}" class="product-info-text"></p>
+                <p th:unless="${product.colors.isEmpty()}" th:text="${product.colors}" class="product-info-text"></p>
                 <p th:if="${product.colors.isEmpty()}" class="product-info-text">The product is not marked with any color</p>
 
                 <p class="product-info-label">Key Words:</p>

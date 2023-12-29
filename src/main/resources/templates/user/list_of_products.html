@@ -61,7 +61,7 @@
               class="btn btn-outline-menu"
               id="filters_btn"
               onclick="   var list=getElementById('filters-container')
-                                    if (list.style.display=='none') list.style.display='block'
+                                    if (list.style.display === 'none') list.style.display='block'
                                     else list.style.display='none'">
         Filters
       </button>
@@ -221,7 +221,7 @@
               class="btn btn-outline-menu"
               id="categories_btn"
               onclick="   var list=getElementById('categories-container')
-                                    if (list.style.display=='none') list.style.display='block'
+                                    if (list.style.display === 'none') list.style.display='block'
                                     else list.style.display='none'">
         Categories
       </button>
@@ -229,7 +229,7 @@
         <ul class="list">
           <li th:each="category : ${categories}">
             <button
-                    th:id="'category_' +${category.id}"
+                    th:id="${category.id}"
                     class="btn btn-category"
                     th:text="${category.name}">
               name

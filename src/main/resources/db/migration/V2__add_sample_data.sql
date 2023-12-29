@@ -6,15 +6,15 @@ VALUES
 
 INSERT INTO handcrafted_schema.color (name)
 VALUES
-    ('Red'),
-    ('Orange'),
-    ('Yellow'),
-    ('Green'),
-    ('Blue'),
-    ('Purple'),
-    ('White'),
-    ('Black'),
-    ('Pink');
+    ('red'),
+    ('orange'),
+    ('yellow'),
+    ('green'),
+    ('blue'),
+    ('purple'),
+    ('white'),
+    ('black'),
+    ('pink');
 
 INSERT INTO handcrafted_schema.product (name, description, key_words, price, with_discount, in_stock, quantity, creation_date, category_id)
 VALUES
@@ -31,7 +31,7 @@ VALUES
     ('Purple-blue hairpins', 'Beautiful purple hairpins', 'Purple, blue, hairpin, girls', 3.4, true, 3.1, true, 2, current_timestamp, 3),
     ('White hair hoop', 'Beautiful hair hoop with big white shining flower', 'White, hairhoop, flower, girls', 5, true, 4.3, true, 1, current_timestamp, 2);
 
-INSERT INTO handcrafted_schema.colors_in_product (color_id, product_id)
+INSERT INTO handcrafted_schema.color_in_product (color_id, product_id)
 VALUES
     (9, 1),
     (1, 2),

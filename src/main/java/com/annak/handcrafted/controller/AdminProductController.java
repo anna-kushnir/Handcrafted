@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -26,12 +27,37 @@ public class AdminProductController {
         return "admin/list_of_products";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/add")
+    public String getAddNewProductForm(Model model) {
+        model.addAttribute("product", new ProductDto());
+        model.addAttribute("categories", categoryService.getAll());
+        return "admin/add_product";
+    }
+
+    @PostMapping
+    public String addProduct(@ModelAttribute("product") ProductDto productDto, RedirectAttributes redirectAttributes) {
+        if (productDto.getId() != null) {
+            redirectAttributes.addFlashAttribute("message", "Id of new product must be null!");
+            return "redirect:/admin/products";
+        }
+        if (!productDto.isInStock()) {
+            productDto.setQuantity(0L);
+        }
+        productService.save(productDto);
+        redirectAttributes.addFlashAttribute("message", "Product successfully added");
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/{id}/edit")
     public String getProductById(@PathVariable Long id, Model model) {
         Optional<ProductDto> productDtoOptional = productService.getById(id);
         if (productDtoOptional.isPresent()) {
             ProductDto productDto = productDtoOptional.get();
-            model.addAttribute("product", productDto);
+            model.addAttribute("oldProduct", productDto);
+            ProductDto newProductDto = new ProductDto();
+            newProductDto.setId(productDto.getId());
+            model.addAttribute("newProduct", newProductDto);
+            model.addAttribute("categories", categoryService.getAll());
             return "admin/edit_product";
         }
         else {
@@ -39,24 +65,21 @@ public class AdminProductController {
         }
     }
 
-    @PutMapping
-    public String editProduct(@ModelAttribute("product") ProductDto productDto, Model model) {
+    @PostMapping("/{id}")
+    public String editProduct(@ModelAttribute("product") ProductDto productDto, RedirectAttributes redirectAttributes) {
         try {
             productService.update(productDto);
         } catch (ResourceNotFoundException e) {
-            model.addAttribute("message", e.getMessage());
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/admin/products";
         }
         return "redirect:/admin/products";
     }
 
-    @PostMapping
-    public String addProduct(@ModelAttribute("product") ProductDto productDto, Model model) {
-        if (productDto.getId() != null) {
-            model.addAttribute("message", "Product id must be null!");
-            return "redirect:/admin/products";
-        }
-        productService.save(productDto);
+    @DeleteMapping("/{id}/delete")
+    public String deleteProductById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        String result = productService.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", result);
         return "redirect:/admin/products";
     }
 }

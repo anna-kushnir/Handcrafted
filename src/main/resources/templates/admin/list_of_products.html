@@ -55,13 +55,33 @@
     </div>
   </div>
 
+  <div class="options-container">
+    <a th:href="@{/admin/products/editCategories}">
+      <button
+              class="btn btn-outline-secondary"
+              id="edit_categories_btn">
+        Edit Categories
+      </button>
+    </a>
+
+    <a th:href="@{/admin/products/add}">
+      <button
+              class="btn btn-outline-secondary"
+              id="add_new_product_btn">
+        Add New Product
+      </button>
+    </a>
+  </div>
+
+  <div th:if="${message}" role="alert" th:text="${message}" class="alert"></div>
+
   <div class="main">
     <div class="left-menu">
       <button
               class="btn btn-outline-menu"
               id="categories_btn"
               onclick="   var list=getElementById('categories-container')
-                                    if (list.style.display=='none') list.style.display='block'
+                                    if (list.style.display === 'none') list.style.display='block'
                                     else list.style.display='none'">
         Categories
       </button>
@@ -69,7 +89,7 @@
         <ul class="list">
           <li th:each="category : ${categories}">
             <button
-                    th:id="'category_' +${category.id}"
+                    th:id="${category.id}"
                     class="btn btn-category"
                     th:text="${category.name}">
               name
@@ -81,7 +101,7 @@
 
     <div class="product-listing">
       <div th:each="product : ${products}">
-        <a th:href="@{/admin/products/{id}(id=${product.id})}">
+        <a th:href="@{/admin/products/{id}/edit(id=${product.id})}">
           <div class="product-card">
             <div class="product-img-container">
               <img

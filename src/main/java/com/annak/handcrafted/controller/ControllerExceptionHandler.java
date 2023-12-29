@@ -21,7 +21,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ErrorResponse handleResourceUniqueViolationException(BadRequestException ex) {
+    public ErrorResponse handleBadRequestException(BadRequestException ex) {
         return ErrorResponse.create(ex, HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 }

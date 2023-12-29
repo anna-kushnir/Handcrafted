@@ -7,6 +7,7 @@ import com.annak.handcrafted.mapper.ProductMapper;
 import com.annak.handcrafted.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -77,20 +78,46 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductDto save(ProductDto productDto) {
         productDto.setCreationDate(LocalDateTime.now());
         Product product = productMapper.toEntity(productDto);
         product.setWithDiscount(false);
-        return productMapper.toDTO(productRepository.save(product));
+        if (!product.isInStock()) {
+            product.setQuantity(0L);
+        }
+        else if (product.getQuantity() == 0L) {
+            product.setInStock(false);
+        }
+        product.setId(productRepository.save(product).getId());
+        return productMapper.toDTO(product);
     }
 
     @Override
+    @Transactional
     public ProductDto update(ProductDto productDto) {
-        Product product = productMapper.toEntity(productDto);
-
         if (!productRepository.existsById(productDto.getId())) {
             throw new ResourceNotFoundException("No product with id <%s> found!".formatted((productDto.getId())));
         }
-        return productMapper.toDTO(productRepository.save(product));
+        Product product = productMapper.toEntity(productDto);
+        product.setCreationDate(productRepository.findById(productDto.getId()).get().getCreationDate());
+        if (!product.isInStock()) {
+            product.setQuantity(0L);
+        }
+        else if (product.getQuantity() == 0L) {
+            product.setInStock(false);
+        }
+        productRepository.save(product);
+        return productMapper.toDTO(product);
+    }
+
+    @Override
+    @Transactional
+    public String deleteById(Long productId) {
+        if (productRepository.existsById(productId)) {
+            productRepository.deleteById(productId);
+            return "Product with id <%s> successfully deleted".formatted(productId);
+        }
+        return "No product with id <%s> found!".formatted(productId);
     }
 }

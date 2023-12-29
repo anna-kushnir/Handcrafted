@@ -102,6 +102,7 @@ body {
 /* ----- Product listing ----- */
 
 .product-listing {
+    align-self: flex-start;
     display: grid;
     margin: 0 auto;
 }

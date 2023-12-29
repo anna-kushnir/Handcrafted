@@ -5,7 +5,7 @@
     <title>Admin: Edit Product</title>
     <link rel="stylesheet" href="/css/bases/general_base.css" />
     <link rel="stylesheet" href="/css/bases/main_base.css" />
-    <link rel="stylesheet" href="/css/pages/user/product.css" />
+    <link rel="stylesheet" href="/css/pages/admin/product.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,8 +43,8 @@
         </div>
     </div>
 
-    <div class="main">
-        <form th:action="@{/admin/products}" th:object="product" method="POST" class="product-form-container">
+    <form th:action="@{/admin/products}" th:object="${product}" method="POST" class="product-form-container">
+        <div class="product-info-top">
             <div class="product-info-left">
                 <div class="product-photo-container">
                     <a href="#" class="left">
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="product-photo-options">
-                    <button class="btn btn-outline-secondary" id="delete_photo_btn">
+                    <button class="btn btn-outline-danger" id="delete_photo_btn">
                         Delete This Photo
                     </button>
                     <button class="btn btn-outline-primary" id="add_photo_btn">
@@ -83,114 +83,118 @@
                         required />
 
                 <label for="description" class="product-info-label">Description:</label>
-                <input
+                <textarea
                         th:field="*{description}"
-                        type="text"
                         class="text-box"
                         id="description"
                         placeholder="Description of the product"
                         minlength="5"
                         maxlength="255"
-                        required />
+                        required>
+                </textarea>
 
                 <label for="colors" class="product-info-label">Colors:</label>
-                <input
+                <textarea
                         th:field="*{colors}"
-                        type="text"
                         class="text-box"
                         id="colors"
-                        placeholder="Color, color" />
+                        placeholder="color, color"
+                        minlength="3"
+                        maxlength="255"
+                        required>
+                </textarea>
 
                 <label for="key_words" class="product-info-label">Key Words:</label>
-                <input
+                <textarea
                         th:field="*{keyWords}"
-                        type="text"
                         class="text-box"
                         id="key_words"
                         placeholder="Word, word, word"
                         minlength="5"
                         maxlength="255"
-                        required />
+                        required>
+                </textarea>
+            </div>
+        </div>
+
+        <div class="product-info-bottom">
+            <div class="product-price-container">
+                <div class="text-box-container">
+                    <label for="price" class="product-info-label">Price:</label>
+                    <input
+                            th:field="*{price}"
+                            type="number"
+                            class="text-box"
+                            id="price"
+                            placeholder="20"
+                            min="0"
+                            max="10000"
+                            required />
+                </div>
             </div>
 
-            <div class="product-info-bottom">
-                <div class="product-price-and-discount-container">
-                    <div class="text-box-container">
-                        <label for="price" class="product-info-label">Price:</label>
-                        <input
-                                th:field="*{price}"
-                                type="number"
-                                class="text-box"
-                                id="price"
-                                placeholder="20"
-                                min="0"
-                                max="10000"
-                                required />
-                    </div>
-
-                    <div class="checkbox-container">
-                        <input
-                                th:field="*{withDiscount}"
-                                type="checkbox"
-                                id="discount_checkbox"
-                                onchange="  var btn=getElementById('discount_checkbox')
-                                                var d1=getElementById('discounted_price_container')
-                                                if (btn.checked) {
-                                                    d1.disabled=false
-                                                }
-                                                else {
-                                                    d1.disabled=true
-                                                }" />
-                        <label for="discount_checkbox" class="product-info-label">Discount</label>
-                    </div>
-
-                    <div class="text-box-container" id="discounted_price_container">
-                        <label for="discounted_price" class="product-info-label">Discounted price:</label>
-                        <input
-                                th:field="*{discountedPrice}"
-                                type="number"
-                                class="text-box"
-                                id="discounted_price"
-                                placeholder="20"
-                                min="0"
-                                max="10000" />
-                    </div>
+            <div class="product-stock-container">
+                <div class="checkbox-container">
+                    <input
+                            th:field="*{inStock}"
+                            type="checkbox"
+                            id="in_stock_checkbox"
+                            checked
+                            onchange="  let btn=getElementById('in_stock_checkbox')
+                                            let d1=getElementById('quantity')
+                                            d1.disabled=!btn.checked;" />
+                    <label for="in_stock_checkbox" class="product-info-label">In stock</label>
                 </div>
 
-                <div class="product-stock-container">
-                    <div class="checkbox-container">
-                        <input
-                                th:field="*{inStock}"
-                                type="checkbox"
-                                id="in_stock_checkbox"
-                                onchange="  var btn=getElementById('in_stock_checkbox')
-                                                var d1=getElementById('quantity_container')
-                                                if (btn.checked) {
-                                                    d1.disabled=false
-                                                }
-                                                else {
-                                                    d1.disabled=true
-                                                }" />
-                        <label for="in_stock_checkbox" class="product-info-label">In stock</label>
-                    </div>
-
-                    <div class="text-box-container" id="quantity_container">
-                        <label for="quantity" class="product-info-label">Quantity:</label>
-                        <input
-                                th:field="*{quantity}"
-                                type="number"
-                                class="text-box"
-                                id="quantity"
-                                placeholder="20"
-                                min="0"
-                                required />
-                    </div>
+                <div class="text-box-container">
+                    <label
+                            for="quantity"
+                            class="product-info-label">
+                        Quantity:
+                    </label>
+                    <input
+                            th:field="*{quantity}"
+                            type="number"
+                            class="text-box"
+                            id="quantity"
+                            placeholder="20"
+                            min="0"
+                            required />
                 </div>
-
-                <div class="product-category-and-options-container"></div>
             </div>
-        </form>
-    </div>
+
+            <div class="product-category-and-options-container">
+                <div class="category-container">
+                    <label for="category" class="product-info-label">Category:</label>
+                    <select class="category-select" id="category" name="category" required>
+                        <option
+                                th:each="category : ${categories}"
+                                th:text="${category.name()}"
+                                th:value="${category.id()}"
+                                class="category-option">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="options-container">
+                    <a th:href="@{/admin/products}">
+                        <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                id="cancel_btn">
+                            Cancel
+                        </button>
+                    </a>
+                    <button
+                            type="submit"
+                            class="btn btn-outline-primary"
+                            id="add_product_btn">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </main>
 </body>
 </html>
