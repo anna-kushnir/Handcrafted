@@ -44,7 +44,7 @@
     </div>
 
     <div class="main">
-        <form th:action="@{/admin/products}" th:object="product" method="PUT" class="product-form-container">
+        <form th:action="@{/admin/products}" th:object="product" method="POST" class="product-form-container">
             <div class="product-info-left">
                 <div class="product-photo-container">
                     <a href="#" class="left">
@@ -52,13 +52,6 @@
                     </a>
 
                     <img
-                            th:unless="${product.photos.isEmpty()}"
-                            th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
-                            class="product-photo"
-                            width="150px"
-                            height="150px" />
-                    <img
-                            th:if="${product.photos.isEmpty()}"
                             src="/icons/image.png"
                             class="product-photo"
                             width="150px"
@@ -82,7 +75,6 @@
             <div class="product-info-right">
                 <input
                         th:field="*{name}"
-                        th:value="${product.name}"
                         type="text"
                         class="text-box"
                         placeholder="Name of product"
@@ -93,7 +85,6 @@
                 <label for="description" class="product-info-label">Description:</label>
                 <input
                         th:field="*{description}"
-                        th:value="${product.description}"
                         type="text"
                         class="text-box"
                         id="description"
@@ -105,7 +96,6 @@
                 <label for="colors" class="product-info-label">Colors:</label>
                 <input
                         th:field="*{colors}"
-                        th:value="${product.getColorsString()}"
                         type="text"
                         class="text-box"
                         id="colors"
@@ -114,7 +104,6 @@
                 <label for="key_words" class="product-info-label">Key Words:</label>
                 <input
                         th:field="*{keyWords}"
-                        th:value="${product.keyWords}"
                         type="text"
                         class="text-box"
                         id="key_words"
@@ -130,7 +119,6 @@
                         <label for="price" class="product-info-label">Price:</label>
                         <input
                                 th:field="*{price}"
-                                th:value="${product.price}"
                                 type="number"
                                 class="text-box"
                                 id="price"
@@ -143,7 +131,6 @@
                     <div class="checkbox-container">
                         <input
                                 th:field="*{withDiscount}"
-                                th:checked="${product.withDiscount}"
                                 type="checkbox"
                                 id="discount_checkbox"
                                 onchange="  var btn=getElementById('discount_checkbox')
@@ -161,7 +148,6 @@
                         <label for="discounted_price" class="product-info-label">Discounted price:</label>
                         <input
                                 th:field="*{discountedPrice}"
-                                th:value="${product.discountedPrice}"
                                 type="number"
                                 class="text-box"
                                 id="discounted_price"
@@ -175,7 +161,6 @@
                     <div class="checkbox-container">
                         <input
                                 th:field="*{inStock}"
-                                th:checked="${product.inStock}"
                                 type="checkbox"
                                 id="in_stock_checkbox"
                                 onchange="  var btn=getElementById('in_stock_checkbox')
@@ -193,7 +178,6 @@
                         <label for="quantity" class="product-info-label">Quantity:</label>
                         <input
                                 th:field="*{quantity}"
-                                th:value="${product.quantity}"
                                 type="number"
                                 class="text-box"
                                 id="quantity"

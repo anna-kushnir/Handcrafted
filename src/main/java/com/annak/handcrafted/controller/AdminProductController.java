@@ -40,7 +40,7 @@ public class AdminProductController {
     }
 
     @PutMapping
-    public String editProductById(@ModelAttribute("product") ProductDto productDto, Model model) {
+    public String editProduct(@ModelAttribute("product") ProductDto productDto, Model model) {
         try {
             productService.update(productDto);
         } catch (ResourceNotFoundException e) {

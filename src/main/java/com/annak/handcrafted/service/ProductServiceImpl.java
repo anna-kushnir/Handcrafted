@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,6 +78,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto save(ProductDto productDto) {
+        productDto.setCreationDate(LocalDateTime.now());
         Product product = productMapper.toEntity(productDto);
         product.setWithDiscount(false);
         return productMapper.toDTO(productRepository.save(product));
