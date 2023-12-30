@@ -26,6 +26,7 @@ public class ProductDto {
     private Long quantity;
     private LocalDateTime creationDate;
     private Category category;
+    private boolean deleted;
     private String colors;
     private List<Photo> photos = new ArrayList<>();
 }

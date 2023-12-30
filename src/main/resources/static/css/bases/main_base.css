@@ -3,6 +3,10 @@ body {
     justify-content: flex-start;
 }
 
+.main-container {
+    margin-bottom: 40px;
+}
+
 /* ------- Logo ------- */
 
 .logo-container {
@@ -86,9 +90,8 @@ body {
     text-align: center;
     padding: 3px;
     margin: 3px 0;
-    width: 100%;
     background-color: rgba(121, 168, 255, 0.42);
-    border: 1px solid #0040a1;
+    outline: 1px solid #0040a1;
 }
 
 .empty-msg {

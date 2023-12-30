@@ -23,6 +23,7 @@
 }
 
 /* ------- Form ------- */
+
 main {
     display: flex;
     flex-direction: column;
@@ -30,6 +31,7 @@ main {
     height: 80vh;
     width: 80vw;
 }
+
 .form-container {
     display: flex;
     align-items: center;

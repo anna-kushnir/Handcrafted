@@ -1,0 +1,29 @@
+.main-container {
+    grid-template-rows: 1fr;
+}
+
+/* ------- Product card ------- */
+
+.product-card {
+    font-size: 16px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --------- Footer --------- */
+
+.cart-options-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-outline-secondary {
+    font-size: 20px;
+    min-width: 150px;
+}

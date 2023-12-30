@@ -24,6 +24,7 @@ public class ProductMapper {
                 product.getQuantity(),
                 product.getCreationDate(),
                 product.getCategory(),
+                product.isDeleted(),
                 colorInProductMapper.colorsToString(product.getColors()),
                 product.getPhotos()
         );
@@ -42,6 +43,7 @@ public class ProductMapper {
                 productDto.getQuantity(),
                 productDto.getCreationDate(),
                 productDto.getCategory(),
+                productDto.isDeleted(),
                 colorInProductMapper.colorsToList(productDto.getColors()),
                 productDto.getPhotos()
         );

@@ -36,10 +36,12 @@ public class Order {
     private LocalDateTime formationDate;
 
     @Column(name = "STATUS")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "TYPE_OF_RECEIPT")
-    private String typeOfReceipt;
+    @Enumerated(EnumType.STRING)
+    private TypeOfReceipt typeOfReceipt;
 
     @Column(name = "RECEIPT_DATE")
     private LocalDateTime receiptDate;
@@ -57,6 +59,6 @@ public class Order {
     @ElementCollection
     @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCT_IN_ORDER", joinColumns = @JoinColumn(name = "ORDER_ID"))
     @Column(name = "QUANTITY")
-    @MapKeyJoinColumn(name = "PRODUCT_ID")
+    @MapKeyJoinColumn(table = "PRODUCT_IN_ORDER", name = "PRODUCT_ID")
     private Map<Product, Long> products = new HashMap<>();
 }

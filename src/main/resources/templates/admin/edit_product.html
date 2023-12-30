@@ -27,7 +27,8 @@
                             id="back_icon"
                             src="/icons/back_icon1.png"
                             width="20px"
-                            height="20px" />
+                            height="20px"
+                            alt="back button" />
                 </button>
             </a>
             <a th:href="@{/admin/menu}">
@@ -36,7 +37,8 @@
                             id="menu_icon"
                             src="/icons/menu_icon1.png"
                             width="30px"
-                            height="30px" />
+                            height="30px"
+                            alt="menu button" />
                     <p>Menu</p>
                 </button>
             </a>
@@ -48,7 +50,8 @@
             <div class="product-info-left">
                 <div class="product-photo-container">
                     <a href="#" class="left">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="previous image button" />
                     </a>
 
                     <img
@@ -62,10 +65,12 @@
                             src="/icons/image.png"
                             class="product-photo"
                             width="150px"
-                            height="150px" />
+                            height="150px"
+                            alt="product photo" />
 
                     <a href="#" class="right">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="next image button" />
                     </a>
                 </div>
 
@@ -135,12 +140,11 @@
                     <input
                             th:value="${oldProduct.price}"
                             name="price"
-                            type="number"
                             class="text-box"
                             id="price"
                             placeholder="20"
-                            min="0"
-                            max="10000"
+                            maxlength="8"
+                            pattern="[0-9]{1,5}(\.[0-9]{1,2})?"
                             required />
                 </div>
 
@@ -150,7 +154,7 @@
                             name="withDiscount"
                             type="checkbox"
                             id="discount_checkbox"
-                            onchange="  var btn=getElementById('discount_checkbox')
+                            onchange="  let btn=getElementById('discount_checkbox')
                                             let d1=getElementById('discounted_price')
                                             d1.disabled=!btn.checked;" />
                     <label for="discount_checkbox" class="product-info-label">Discount</label>
@@ -165,12 +169,11 @@
                     <input
                             th:value="${oldProduct.discountedPrice}"
                             name="discountedPrice"
-                            type="number"
                             class="text-box"
                             id="discounted_price"
                             placeholder="20"
-                            min="0"
-                            max="10000" />
+                            maxlength="8"
+                            pattern="[0-9]{1,5}(\.[0-9]{1,2})?" />
                 </div>
             </div>
 

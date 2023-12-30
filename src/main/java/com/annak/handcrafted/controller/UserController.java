@@ -31,7 +31,7 @@ public class UserController {
         if (principal != null) {
             return "redirect:/menu";
         }
-        return "user/start";
+        return "start";
     }
 
     @GetMapping("/authorize")
@@ -39,7 +39,7 @@ public class UserController {
         if (principal != null) {
             return "redirect:/menu";
         }
-        return "user/authorization";
+        return "authorization";
     }
 
     @GetMapping("/register")
@@ -48,7 +48,7 @@ public class UserController {
             return "redirect:/menu";
         }
         model.addAttribute("user", new UserDto());
-        return "user/registration";
+        return "registration";
     }
 
     @PostMapping("/register")
@@ -58,7 +58,7 @@ public class UserController {
             userService.save(userDto);
         } catch (ResourceUniqueViolationException e) {
             model.addAttribute("message", e.getMessage());
-            return "user/registration";
+            return "registration";
         }
         return "redirect:/authorize";
     }
@@ -68,8 +68,6 @@ public class UserController {
         if (userDetailsService.loadUserByUsername(principal.getName()).getAuthorities().contains(Role.ADMIN)) {
             return "redirect:/admin/menu";
         }
-        else {
-            return "user/main_menu";
-        }
+        return "user/main_menu";
     }
 }

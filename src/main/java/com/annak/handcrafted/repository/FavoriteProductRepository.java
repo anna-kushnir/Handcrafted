@@ -12,4 +12,6 @@ public interface FavoriteProductRepository extends JpaRepository<FavoriteProduct
     boolean existsByUserUserNameAndProductId(String userUserName, Long productId);
 
     void deleteByUserUserNameAndProductId(String userUserName, Long productId);
+
+    void deleteAllByProductId(Long productId);
 }

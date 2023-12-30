@@ -58,4 +58,9 @@ public class ProductInCartServiceImpl implements ProductInCartService {
             productInCartRepository.deleteByUserUserNameAndProductId(user.getUsername(), productDto.getId());
         }
     }
+
+    @Override
+    public void deleteAllByProductId(Long productId) {
+        productInCartRepository.deleteAllByProductId(productId);
+    }
 }

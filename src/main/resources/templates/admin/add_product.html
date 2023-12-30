@@ -27,7 +27,8 @@
                             id="back_icon"
                             src="/icons/back_icon1.png"
                             width="20px"
-                            height="20px" />
+                            height="20px"
+                            alt="back button" />
                 </button>
             </a>
             <a th:href="@{/admin/menu}">
@@ -36,7 +37,8 @@
                             id="menu_icon"
                             src="/icons/menu_icon1.png"
                             width="30px"
-                            height="30px" />
+                            height="30px"
+                            alt="menu button" />
                     <p>Menu</p>
                 </button>
             </a>
@@ -48,17 +50,20 @@
             <div class="product-info-left">
                 <div class="product-photo-container">
                     <a href="#" class="left">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="previous product image button" />
                     </a>
 
                     <img
                             src="/icons/image.png"
                             class="product-photo"
                             width="150px"
-                            height="150px" />
+                            height="150px"
+                            alt="photo of the product" />
 
                     <a href="#" class="right">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="next product image button" />
                     </a>
                 </div>
 
@@ -123,12 +128,11 @@
                     <label for="price" class="product-info-label">Price:</label>
                     <input
                             th:field="*{price}"
-                            type="number"
                             class="text-box"
                             id="price"
                             placeholder="20"
-                            min="0"
-                            max="10000"
+                            maxlength="8"
+                            pattern="[0-9]{1,5}(\.[0-9]{1,2})?"
                             required />
                 </div>
             </div>

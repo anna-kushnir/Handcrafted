@@ -26,5 +26,5 @@ public class ProductInOrder {
     private Product product;
 
     @Column(name = "QUANTITY")
-    private Long quantity;
+    private Long quantityInOrder;
 }

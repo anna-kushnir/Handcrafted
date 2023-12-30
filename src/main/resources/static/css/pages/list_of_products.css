@@ -42,6 +42,7 @@
 .options-container {
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid var(--main-border-color);
 }
 
 /* ------- Filters & Categories ------- */

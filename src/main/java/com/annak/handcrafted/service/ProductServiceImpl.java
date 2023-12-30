@@ -22,13 +22,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    @Override
-    public List<ProductDto> getAll() {
-        return productRepository.findAll()
-                .stream()
-                .map(productMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+    private final ProductInCartService productInCartService;
+    private final FavoriteProductService favoriteProductService;
 
     @Override
     public Optional<ProductDto> getById(Long id) {
@@ -37,39 +32,53 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllFiltered(boolean sortByCost, boolean sortByCostAsc, boolean sortByNewness, boolean sortByNewnessAsc, BigDecimal priceLimitFrom, BigDecimal priceLimitTo) {
+    public Optional<ProductDto> getNotDeletedById(Long id) {
+        return productRepository.findByIdAndDeletedIsFalse(id)
+                .map(productMapper::toDTO);
+    }
+
+    @Override
+    public List<ProductDto> getAllNotDeleted() {
+        return productRepository.findAllByDeletedIsFalse()
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getAllNotDeletedByFilter(boolean sortByCost, boolean sortByCostAsc, boolean sortByNewness, boolean sortByNewnessAsc, BigDecimal priceLimitFrom, BigDecimal priceLimitTo) {
         List<Product> productList;
         if (!sortByCost && !sortByNewness) {
-            productList = productRepository.findAllByPriceBetween(priceLimitFrom, priceLimitTo);
+            productList = productRepository.findAllByPriceBetweenAndDeletedIsFalse(priceLimitFrom, priceLimitTo);
         }
         else if (!sortByNewness) {
             if (sortByCostAsc) {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceAsc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAsc(priceLimitFrom, priceLimitTo);
             }
             else {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceDesc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDesc(priceLimitFrom, priceLimitTo);
             }
         }
         else if (!sortByCost) {
             if (sortByNewnessAsc) {
-                productList = productRepository.findAllByPriceBetweenOrderByCreationDateAsc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByCreationDateAsc(priceLimitFrom, priceLimitTo);
             }
             else {
-                productList = productRepository.findAllByPriceBetweenOrderByCreationDateDesc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByCreationDateDesc(priceLimitFrom, priceLimitTo);
             }
         }
         else {
             if (sortByCostAsc && sortByNewnessAsc) {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceAscCreationDateAsc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAscCreationDateAsc(priceLimitFrom, priceLimitTo);
             }
             else if (sortByCostAsc) {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceAscCreationDateDesc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAscCreationDateDesc(priceLimitFrom, priceLimitTo);
             }
             else if (sortByNewnessAsc) {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceDescCreationDateAsc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDescCreationDateAsc(priceLimitFrom, priceLimitTo);
             }
             else {
-                productList = productRepository.findAllByPriceBetweenOrderByPriceDescCreationDateDesc(priceLimitFrom, priceLimitTo);
+                productList = productRepository.findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDescCreationDateDesc(priceLimitFrom, priceLimitTo);
             }
         }
         return productList.stream()
@@ -78,8 +87,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllByCategoryId(Long categoryId) {
-        return productRepository.findAllByCategoryId(categoryId)
+    public List<ProductDto> getAllNotDeletedByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategoryIdAndDeletedIsFalse(categoryId)
                 .stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());
@@ -88,9 +97,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto save(ProductDto productDto) {
-        productDto.setCreationDate(LocalDateTime.now());
         Product product = productMapper.toEntity(productDto);
+        product.setCreationDate(LocalDateTime.now());
         product.setWithDiscount(false);
+        product.setDeleted(false);
         if (!product.isInStock()) {
             product.setQuantity(0L);
         }
@@ -104,11 +114,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto update(ProductDto productDto) {
-        if (!productRepository.existsById(productDto.getId())) {
+        if (!productRepository.existsByIdAndDeletedIsFalse(productDto.getId())) {
             throw new ResourceNotFoundException("No product with id <%s> found!".formatted((productDto.getId())));
         }
         Product product = productMapper.toEntity(productDto);
         product.setCreationDate(productRepository.findById(productDto.getId()).get().getCreationDate());
+        product.setDeleted(false);
         if (!product.isInStock()) {
             product.setQuantity(0L);
         }
@@ -122,8 +133,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public String deleteById(Long productId) {
-        if (productRepository.existsById(productId)) {
-            productRepository.deleteById(productId);
+        Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(productId);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            product.setDeleted(true);
+            productInCartService.deleteAllByProductId(productId);
+            favoriteProductService.deleteAllByProductId(productId);
+            productRepository.save(product);
             return "Product with id <%s> successfully deleted".formatted(productId);
         }
         return "No product with id <%s> found!".formatted(productId);

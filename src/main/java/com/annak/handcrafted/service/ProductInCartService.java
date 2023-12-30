@@ -13,4 +13,6 @@ public interface ProductInCartService {
     String saveOrDeleteIfExists(User user, ProductDto productDto);
 
     void delete(User user, ProductDto productDto);
+
+    void deleteAllByProductId(Long productId);
 }

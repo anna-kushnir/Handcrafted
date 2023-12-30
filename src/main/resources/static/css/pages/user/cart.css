@@ -53,6 +53,7 @@
     align-items: flex-start;
     justify-content: center;
     min-width: max-content;
+    margin-left: 5px;
 }
 
 .product-price-container {

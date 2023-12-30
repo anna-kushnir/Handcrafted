@@ -1,6 +1,5 @@
 package com.annak.handcrafted.controller;
 
-import com.annak.handcrafted.dto.FavoriteProductDto;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.service.FavoriteProductService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/favorite")
@@ -23,8 +21,8 @@ public class FavoriteController {
 
     @GetMapping
     public String getAllProductsInFavorites(Principal principal, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
-        List<FavoriteProductDto> favoriteProductDtoList = favoriteProductService.getAllByUser(user);
+        var user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        var favoriteProductDtoList = favoriteProductService.getAllByUser(user);
         model.addAttribute("favoriteProducts", favoriteProductDtoList);
         return "user/favorite_products";
     }

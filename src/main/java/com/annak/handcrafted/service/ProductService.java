@@ -8,13 +8,15 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    List<ProductDto> getAll();
-
     Optional<ProductDto> getById(Long id);
 
-    List<ProductDto> getAllFiltered(boolean sortByCost, boolean sortByCostAsc, boolean sortByNewness, boolean sortByNewnessAsc, BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    Optional<ProductDto> getNotDeletedById(Long id);
 
-    List<ProductDto> getAllByCategoryId(Long categoryId);
+    List<ProductDto> getAllNotDeleted();
+
+    List<ProductDto> getAllNotDeletedByFilter(boolean sortByCost, boolean sortByCostAsc, boolean sortByNewness, boolean sortByNewnessAsc, BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+
+    List<ProductDto> getAllNotDeletedByCategoryId(Long categoryId);
 
     ProductDto save(ProductDto productDto);
 

@@ -1,0 +1,66 @@
+.main-container {
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+/* ------- Form ------- */
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+/* ----- Part of form for data ----- */
+
+.data-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    margin: auto;
+}
+
+#pickup_info_container,
+#delivery_info_container {
+    grid-column: 1/3;
+}
+
+#delivery_info_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.text-box {
+     max-width: 300px;
+}
+
+#user_phone {
+    max-width: 110px;
+}
+
+#post_address {
+    max-width: 400px;
+}
+
+.pickup-message {
+    text-align: center;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+/* ----- Part of form for buttons ----- */
+
+.options-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    border-top: 2px solid var(--main-border-color);
+}

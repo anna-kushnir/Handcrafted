@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HandCrafted: Forming an Order</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/cart.css" />
+    <link rel="stylesheet" href="/css/pages/user/create_order.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+          href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+    <div class="main">
+        <div class="product-listing">
+            <div th:each="product : ${productsInCart}" class="product-card">
+                <div class="product-img-container">
+                    <img
+                            th:if="${product.photo}"
+                            th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
+                            class="product-img"
+                            width="150px"
+                            height="150px"
+                            alt="product photo" />
+                    <img
+                            th:unless="${product.photo}"
+                            src="/icons/image.png"
+                            class="product-img"
+                            width="150px"
+                            height="150px"
+                            alt="product photo" />
+                </div>
+
+                <div class="product-info-container">
+                    <p th:text="${product.productName}"></p>
+
+                    <div class="product-price-container">
+                        <p>Cost:</p>
+                        <p th:text="${product.cost} +'$'"></p>
+                    </div>
+
+                    <div class="quantity-container">
+                        <p>Quantity:</p>
+                        <p th:text="${product.quantityInCart}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-price-and-options-container">
+            <div class="total-price-container">
+                <p>Total Price:</p>
+                <p th:text="${totalPrice} +'$'"></p>
+            </div>
+            <div class="cart-options-container">
+                <a th:href="@{/cart}">
+                    <button type="button" class="btn btn-outline-secondary" id="cancel_btn">
+                        Cancel
+                    </button>
+                </a>
+                <a th:href="@{/cart/createOrder/fillInTheOrderData}">
+                    <button class="btn btn-outline-primary" id="continue_btn">
+                        Continue
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

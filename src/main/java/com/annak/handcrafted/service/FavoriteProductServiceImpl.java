@@ -58,4 +58,9 @@ public class FavoriteProductServiceImpl implements FavoriteProductService {
             return "Product added to favorites";
         }
     }
+
+    @Override
+    public void deleteAllByProductId(Long productId) {
+        favoriteProductRepository.deleteAllByProductId(productId);
+    }
 }

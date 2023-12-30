@@ -13,4 +13,6 @@ public interface FavoriteProductService {
     void save(User user, ProductDto productDto);
 
     String saveOrDeleteIfExists(User user, ProductDto productDto);
+
+    void deleteAllByProductId(Long productId);
 }

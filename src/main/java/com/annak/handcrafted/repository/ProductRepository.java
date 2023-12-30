@@ -5,20 +5,27 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAllByCategoryId(Long categoryId);
+    List<Product> findAllByDeletedIsFalse();
 
-    List<Product> findAllByPriceBetween(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByCategoryIdAndDeletedIsFalse(Long categoryId);
 
-    List<Product> findAllByPriceBetweenOrderByPriceAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
-    List<Product> findAllByPriceBetweenOrderByPriceDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalse(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
 
-    List<Product> findAllByPriceBetweenOrderByCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
-    List<Product> findAllByPriceBetweenOrderByCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
 
-    List<Product> findAllByPriceBetweenOrderByPriceAscCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
-    List<Product> findAllByPriceBetweenOrderByPriceAscCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
-    List<Product> findAllByPriceBetweenOrderByPriceDescCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
-    List<Product> findAllByPriceBetweenOrderByPriceDescCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAscCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceAscCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDescCreationDateAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+    List<Product> findAllByPriceBetweenAndDeletedIsFalseOrderByPriceDescCreationDateDesc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
+
+    Optional<Product> findByIdAndDeletedIsFalse(Long id);
+
+    boolean existsByIdAndDeletedIsFalse(Long id);
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill in the Order data</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/fill_order_data.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+    <form th:action="@{/cart/createOrder}" th:object="${order}" method="POST" class="form-container">
+        <div class="data-container">
+            <label for="user_phone" class="label">Enter Your Phone Number:</label>
+            <input
+                    th:value="${order.userPhone}"
+                    name="userPhone"
+                    type="number"
+                    class="text-box"
+                    id="user_phone"
+                    placeholder="737770000"
+                    minlength="9"
+                    maxlength="9"
+                    required />
+
+            <label for="type_of_receipt" class="label">Select the Type of Order Receipt:</label>
+            <select
+                    class="text-box"
+                    id="type_of_receipt"
+                    name="typeOfReceipt"
+                    required
+                    onchange="  let type=getElementById('type_of_receipt')
+                                let d1=getElementById('pickup_info_container')
+                                let d2=getElementById('delivery_info_container')
+                                let i1=getElementById('region')
+                                let i2=getElementById('city')
+                                let i3=getElementById('post_address')
+                                if (type.selectedIndex === 1) {
+                                    d1.style.display='block'
+                                    d2.style.display='none'
+                                    i1.required=false
+                                    i2.required=false
+                                    i3.required=false
+                                }
+                                else {
+                                    d2.style.display='grid'
+                                    d1.style.display='none'
+                                    i1.required=true
+                                    i2.required=true
+                                    i3.required=true
+                                }">
+                <option value="" selected disabled hidden>Select</option>
+                <option
+                        th:each="type : ${typesOfReceipt}"
+                        th:text="${type.getName()}"
+                        th:value="${type.toString()}"
+                        class="type-option">
+                </option>
+            </select>
+
+            <div id="pickup_info_container" style="display: none">
+                <p class="pickup-message label">
+                    In this case, the administrator will contact you as soon as possible
+                    to agree on the date and time of order pickup
+                </p>
+            </div>
+
+            <div id="delivery_info_container" style="display: none">
+                <label for="region" class="label">Enter a regional center:</label>
+                <input
+                        th:field="*{deliveryAddress.region}"
+                        type="text"
+                        class="text-box"
+                        id="region"
+                        placeholder="Kyiv"
+                        maxlength="255"
+                        required />
+
+                <label for="city" class="label">Enter a settlement:</label>
+                <input
+                        th:field="*{deliveryAddress.city}"
+                        type="text"
+                        class="text-box"
+                        id="city"
+                        placeholder="Kyiv"
+                        maxlength="255"
+                        required />
+
+                <label for="post_address" class="label">Enter the Nova Poshta branch:</label>
+                <input
+                        th:field="*{deliveryAddress.postAddress}"
+                        type="text"
+                        class="text-box"
+                        id="post_address"
+                        placeholder="Nova Poshta №2, Shevchenka St., 1"
+                        maxlength="255"
+                        required />
+            </div>
+        </div>
+
+        <div class="options-container">
+            <a th:href="@{/cart}">
+                <button type="button" class="btn btn-outline-secondary" id="cancel_btn">
+                    Cancel
+                </button>
+            </a>
+            <button type="submit" class="btn btn-outline-primary" id="order_btn">
+                Order
+            </button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

@@ -27,7 +27,8 @@
                             id="back_icon"
                             src="/icons/back_icon1.png"
                             width="20px"
-                            height="20px" />
+                            height="20px"
+                            alt="back button" />
                 </button>
             </a>
             <a th:href="@{/menu}">
@@ -36,7 +37,8 @@
                             id="menu_icon"
                             src="/icons/menu_icon1.png"
                             width="30px"
-                            height="30px" />
+                            height="30px"
+                            alt="menu button" />
                     <p>Menu</p>
                 </button>
             </a>
@@ -53,13 +55,15 @@
                                 th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
                                 class="product-img"
                                 width="150px"
-                                height="150px" />
+                                height="150px"
+                                alt="photo of the product" />
                         <img
                                 th:unless="${product.photo}"
                                 src="/icons/image.png"
                                 class="product-img"
                                 width="150px"
-                                height="150px" />
+                                height="150px"
+                                alt="photo of the product" />
                     </div>
 
                     <div class="product-info-container">
@@ -92,14 +96,16 @@
 
         <div th:if="${productsInCart.isEmpty()}" class="empty-msg">Cart is empty</div>
 
-        <div class="cart-price-and-options-container">
+        <div th:unless="${productsInCart.isEmpty()}" class="cart-price-and-options-container">
             <div class="total-price-container">
                 <p>Total Price:</p>
                 <p th:text="${totalPrice} +'$'"></p>
             </div>
-            <button class="btn btn-outline-primary" id="create_order_btn">
-                Create Order
-            </button>
+            <a th:href="@{/cart/createOrder}">
+                <button type="button" class="btn btn-outline-primary" id="create_order_btn">
+                    Create Order
+                </button>
+            </a>
         </div>
     </div>
 </main>

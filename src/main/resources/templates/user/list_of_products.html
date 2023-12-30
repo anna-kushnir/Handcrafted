@@ -27,7 +27,8 @@
                 id="back_icon"
                 src="/icons/back_icon1.png"
                 width="20px"
-                height="20px" />
+                height="20px"
+                alt="back button" />
         </button>
       </a>
       <a th:href="@{/menu}">
@@ -36,7 +37,8 @@
                 id="menu_icon"
                 src="/icons/menu_icon1.png"
                 width="30px"
-                height="30px" />
+                height="30px"
+                alt="menu button" />
           <p>Menu</p>
         </button>
       </a>
@@ -60,9 +62,10 @@
       <button
               class="btn btn-outline-menu"
               id="filters_btn"
-              onclick="   var list=getElementById('filters-container')
-                                    if (list.style.display === 'none') list.style.display='block'
-                                    else list.style.display='none'">
+              onclick=" let list=getElementById('filters-container')
+                        if (list.style.display === 'none')
+                            list.style.display='block'
+                        else list.style.display='none'">
         Filters
       </button>
       <div id="filters-container" style="display: none">
@@ -74,17 +77,17 @@
                 <input
                         type="checkbox"
                         id="checkbox_cost"
-                        onchange="  var btn=getElementById('checkbox_cost')
-                                                var rb1=getElementById('cost_sort_direction_asc')
-                                                var rb2=getElementById('cost_sort_direction_desc')
-                                                if (btn.checked) {
-                                                    rb1.disabled=false
-                                                    rb2.disabled=false
-                                                }
-                                                else {
-                                                    rb1.disabled=true
-                                                    rb2.disabled=true
-                                                }" />
+                        onchange="  let btn=getElementById('checkbox_cost')
+                                    let rb1=getElementById('cost_sort_direction_asc')
+                                    let rb2=getElementById('cost_sort_direction_desc')
+                                    if (btn.checked) {
+                                        rb1.disabled=false
+                                        rb2.disabled=false
+                                    }
+                                    else {
+                                        rb1.disabled=true
+                                        rb2.disabled=true
+                                    }" />
                 <label for="checkbox_cost">Cost</label>
                 <div id="cost_sort_direction">
                   <div>
@@ -120,16 +123,16 @@
                         type="checkbox"
                         id="checkbox_newness"
                         onchange="  let btn=getElementById('checkbox_newness')
-                                                let rb1=getElementById('newness_sort_direction_asc')
-                                                let rb2=getElementById('newness_sort_direction_desc')
-                                                if (btn.checked) {
-                                                    rb1.disabled=false
-                                                    rb2.disabled=false
-                                                }
-                                                else {
-                                                    rb1.disabled=true
-                                                    rb2.disabled=true
-                                                }" />
+                                    let rb1=getElementById('newness_sort_direction_asc')
+                                    let rb2=getElementById('newness_sort_direction_desc')
+                                    if (btn.checked) {
+                                        rb1.disabled=false
+                                        rb2.disabled=false
+                                    }
+                                    else {
+                                        rb1.disabled=true
+                                        rb2.disabled=true
+                                    }" />
                 <label for="checkbox_newness">Newness</label>
                 <div id="newness_sort_direction">
                   <div>
@@ -171,7 +174,8 @@
                       class="text-box price-limit"
                       id="price_limit_from"
                       placeholder="0"
-                      maxlength="5" />
+                      maxlength="5"
+                      min="0" />
               <br />
               <label for="price_limit_to" class="price-limit-label">To:</label>
               <input
@@ -179,7 +183,8 @@
                       class="text-box price-limit"
                       id="price_limit_to"
                       placeholder="10000"
-                      maxlength="5" />
+                      maxlength="5"
+                      min="0" />
             </div>
           </li>
 
@@ -207,8 +212,8 @@
               class="btn btn-outline-menu"
               id="categories_btn"
               onclick="   let list=getElementById('categories-container')
-                                    if (list.style.display === 'none') list.style.display='block'
-                                    else list.style.display='none'">
+                          if (list.style.display === 'none') list.style.display='block'
+                          else list.style.display='none'">
         Categories
       </button>
       <div id="categories-container" style="display: none">
@@ -242,13 +247,15 @@
                       th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
                       class="product-img"
                       width="150px"
-                      height="150px" />
+                      height="150px"
+                      alt="photo of the product" />
               <img
                       th:if="${product.photos.isEmpty()}"
                       src="/icons/image.png"
                       class="product-img"
                       width="150px"
-                      height="150px" />
+                      height="150px"
+                      alt="photo of the product" />
               <p th:unless="${product.inStock}" class="product-not-in-stock">
                 Is Not In Stock
               </p>
