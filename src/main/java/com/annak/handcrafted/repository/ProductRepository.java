@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    List<Product> findAllByCategoryId(Long categoryId);
+
     List<Product> findAllByPriceBetween(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);
 
     List<Product> findAllByPriceBetweenOrderByPriceAsc(BigDecimal priceLimitFrom, BigDecimal priceLimitTo);

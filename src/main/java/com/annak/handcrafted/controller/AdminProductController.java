@@ -21,9 +21,15 @@ public class AdminProductController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public String getAllProducts(Model model) {
+    public String getAllProducts(Model model,
+                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId) {
         model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("products", productService.getAll());
+        if (categoryId != 0) {
+            model.addAttribute("products", productService.getAllByCategoryId(categoryId));
+        }
+        else {
+            model.addAttribute("products", productService.getAll());
+        }
         return "admin/list_of_products";
     }
 
@@ -73,6 +79,7 @@ public class AdminProductController {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/admin/products";
         }
+        redirectAttributes.addFlashAttribute("message", "Product successfully updated");
         return "redirect:/admin/products";
     }
 

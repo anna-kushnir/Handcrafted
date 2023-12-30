@@ -3,6 +3,10 @@
     grid-template-rows: auto 1fr;
 }
 
+.main-container-admin {
+    grid-template-rows: auto auto auto 1fr;
+}
+
 .header,
 .main {
     display: grid;
@@ -31,6 +35,13 @@
     width: 30vw;
     max-width: 300px;
     min-width: 150px;
+}
+
+/* ------- Options in admin page ------- */
+
+.options-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* ------- Filters & Categories ------- */

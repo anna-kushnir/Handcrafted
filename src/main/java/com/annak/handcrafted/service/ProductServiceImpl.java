@@ -78,6 +78,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> getAllByCategoryId(Long categoryId) {
+        return productRepository.findAllByCategoryId(categoryId)
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public ProductDto save(ProductDto productDto) {
         productDto.setCreationDate(LocalDateTime.now());
