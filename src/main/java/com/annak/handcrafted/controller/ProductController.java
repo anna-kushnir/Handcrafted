@@ -27,21 +27,6 @@ public class ProductController {
     private final ProductInCartService productInCartService;
     private final FavoriteProductService favoriteProductService;
 
-    @GetMapping
-    public String getAllProducts(Model model,
-                                 @RequestParam(name = "sortByCost", required = false, defaultValue = "false") boolean sortByCost,
-                                 @RequestParam(name = "sortByCostAsc", required = false, defaultValue = "true") boolean sortByCostAsc,
-                                 @RequestParam(name = "sortByNewness", required = false, defaultValue = "false") boolean sortByNewness,
-                                 @RequestParam(name = "sortByNewnessAsc", required = false, defaultValue = "true") boolean sortByNewnessAsc,
-                                 @RequestParam(name = "priceLimitFrom", required = false, defaultValue = "0") BigDecimal priceLimitFrom,
-                                 @RequestParam(name = "priceLimitTo", required = false, defaultValue = "10000") BigDecimal priceLimitTo
-    ) {
-        model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("colors", colorService.getAll());
-        model.addAttribute("products", productService.getAllFiltered(sortByCost, sortByCostAsc, sortByNewness, sortByNewnessAsc, priceLimitFrom, priceLimitTo));
-        return "user/list_of_products";
-    }
-
     @GetMapping("/{id}")
     public String getProductById(@PathVariable Long id, Model model) {
         Optional<ProductDto> productDtoOptional = productService.getById(id);
@@ -53,6 +38,28 @@ public class ProductController {
         else {
             throw new ResourceNotFoundException("Product with id " + id + " was not found");
         }
+    }
+
+    @GetMapping
+    public String getAllProducts(Model model,
+                                 @RequestParam(name = "sortByCost", required = false, defaultValue = "false") boolean sortByCost,
+                                 @RequestParam(name = "sortByCostAsc", required = false, defaultValue = "true") boolean sortByCostAsc,
+                                 @RequestParam(name = "sortByNewness", required = false, defaultValue = "false") boolean sortByNewness,
+                                 @RequestParam(name = "sortByNewnessAsc", required = false, defaultValue = "true") boolean sortByNewnessAsc,
+                                 @RequestParam(name = "priceLimitFrom", required = false, defaultValue = "0") BigDecimal priceLimitFrom,
+                                 @RequestParam(name = "priceLimitTo", required = false, defaultValue = "10000") BigDecimal priceLimitTo,
+                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId
+    ) {
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("colors", colorService.getAll());
+        if (categoryId != 0) {
+            model.addAttribute("products", productService.getAllByCategoryId(categoryId));
+        }
+        else {
+            model.addAttribute("products",
+                    productService.getAllFiltered(sortByCost, sortByCostAsc, sortByNewness, sortByNewnessAsc, priceLimitFrom, priceLimitTo));
+        }
+        return "user/list_of_products";
     }
 
     @PostMapping("/{id}/addToFavorites")

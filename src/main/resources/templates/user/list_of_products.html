@@ -13,7 +13,7 @@
           href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
           rel="stylesheet" />
 </head>
-<body>
+<body id="body">
 <header class="logo-container">
   <p class="logo-header">HandCrafted</p>
   <p class="logo-text">The place where you'll find what you've been looking for</p>
@@ -119,9 +119,9 @@
                 <input
                         type="checkbox"
                         id="checkbox_newness"
-                        onchange="  var btn=getElementById('checkbox_newness')
-                                                var rb1=getElementById('newness_sort_direction_asc')
-                                                var rb2=getElementById('newness_sort_direction_desc')
+                        onchange="  let btn=getElementById('checkbox_newness')
+                                                let rb1=getElementById('newness_sort_direction_asc')
+                                                let rb2=getElementById('newness_sort_direction_desc')
                                                 if (btn.checked) {
                                                     rb1.disabled=false
                                                     rb2.disabled=false
@@ -200,27 +200,13 @@
           </li>
         </ul>
 
-        <button type="button" onclick="applyFilters()" class="btn btn-outline-secondary" style="font-size: 16px;">Apply filters</button>
+        <button type="button" id="apply_filters_btn" class="btn btn-outline-secondary" style="font-size: 16px;">Apply filters</button>
       </div>
-
-      <script>
-        function applyFilters() {
-          const sortByCost = document.getElementById('checkbox_cost').checked;
-          const sortByCostAsc = document.getElementById('cost_sort_direction_asc').checked;
-          const sortByNewness = document.getElementById('checkbox_newness').checked;
-          const sortByNewnessAsc = document.getElementById('newness_sort_direction_asc').checked;
-          const priceLimitFrom = document.getElementById('price_limit_from').value;
-          const priceLimitTo = document.getElementById('price_limit_to').value;
-
-          const requestURL = `/products?sortByCost=${sortByCost}&sortByCostAsc=${sortByCostAsc}&sortByNewness=${sortByNewness}&sortByNewnessAsc=${sortByNewnessAsc}&priceLimitFrom=${priceLimitFrom}&priceLimitTo=${priceLimitTo}`;
-          window.location.replace(requestURL);
-        }
-      </script>
 
       <button
               class="btn btn-outline-menu"
               id="categories_btn"
-              onclick="   var list=getElementById('categories-container')
+              onclick="   let list=getElementById('categories-container')
                                     if (list.style.display === 'none') list.style.display='block'
                                     else list.style.display='none'">
         Categories
@@ -233,6 +219,13 @@
                     class="btn btn-category"
                     th:text="${category.name}">
               name
+            </button>
+          </li>
+          <li>
+            <button
+                    id="0"
+                    class="btn btn-category">
+              All products
             </button>
           </li>
         </ul>
@@ -277,5 +270,6 @@
     </div>
   </div>
 </main>
+<script type="text/javascript" th:src="@{/js/user_list_of_products.js}"></script>
 </body>
 </html>
