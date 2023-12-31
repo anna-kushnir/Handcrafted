@@ -3,6 +3,8 @@ package com.annak.handcrafted.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "PRODUCT_IN_ORDER", schema = "HANDCRAFTED_SCHEMA")
 @Getter
@@ -24,6 +26,9 @@ public class ProductInOrder {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
+
+    @Column(name = "PRODUCT_COST")
+    private BigDecimal productCost;
 
     @Column(name = "QUANTITY")
     private Long quantityInOrder;

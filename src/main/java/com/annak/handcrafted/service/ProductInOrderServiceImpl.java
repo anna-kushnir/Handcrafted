@@ -1,6 +1,7 @@
 package com.annak.handcrafted.service;
 
 import com.annak.handcrafted.entity.Order;
+import com.annak.handcrafted.entity.Product;
 import com.annak.handcrafted.entity.ProductInCart;
 import com.annak.handcrafted.entity.ProductInOrder;
 import com.annak.handcrafted.repository.ProductInOrderRepository;
@@ -17,8 +18,8 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
     private final ProductInOrderRepository productInOrderRepository;
 
     @Override
-    public List<ProductInOrder> getAllByOrder(Order order) {
-        return productInOrderRepository.findAllByOrder(order);
+    public List<ProductInOrder> getAllByOrderId(Long orderId) {
+        return productInOrderRepository.findAllByOrderId(orderId);
     }
 
     @Override
@@ -26,7 +27,10 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
     public void save(Order order, ProductInCart productInCart) {
         var productInOrder = new ProductInOrder();
         productInOrder.setOrder(order);
-        productInOrder.setProduct(productInCart.getProduct());
+        Product product = productInCart.getProduct();
+        productInOrder.setProduct(product);
+        productInOrder.setProductCost(
+                product.isWithDiscount() ? product.getDiscountedPrice() : product.getPrice());
         productInOrder.setQuantityInOrder(productInCart.getQuantityInCart());
         productInOrderRepository.save(productInOrder);
     }

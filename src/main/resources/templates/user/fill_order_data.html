@@ -20,7 +20,7 @@
 </header>
 
 <main class="container main-container">
-    <form th:action="@{/cart/createOrder}" th:object="${order}" method="POST" class="form-container">
+    <form th:action="@{/orders/new}" th:object="${order}" method="POST" class="form-container">
         <div class="data-container">
             <label for="user_phone" class="label">Enter Your Phone Number:</label>
             <input

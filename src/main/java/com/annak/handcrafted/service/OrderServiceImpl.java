@@ -67,6 +67,9 @@ public class OrderServiceImpl implements OrderService {
                 } else {
                     productInOrderService.save(order, productInCartService.getById(productInCartDto.getId()).get());
                     productInCartService.deleteById(productInCartDto.getId());
+                    productDto.setQuantity(productDto.getQuantity() - productInCartDto.getQuantityInCart());
+                    productDto.setInStock(productDto.getQuantity() != 0);
+                    productService.save(productDto);
                 }
             } else {
                 return "Product with id <%s> was not found!".formatted(productInCartDto.getProductId());

@@ -26,14 +26,15 @@ public class ProductController {
     private final FavoriteProductService favoriteProductService;
 
     @GetMapping("/{id}")
-    public String getProductById(@PathVariable Long id , Model model) {
+    public String getProductById(@PathVariable Long id , Model model, RedirectAttributes redirectAttributes) {
         var productDtoOptional = productService.getNotDeletedById(id);
         if (productDtoOptional.isPresent()) {
             var productDto = productDtoOptional.get();
             model.addAttribute("product" , productDto);
             return "user/product";
         } else {
-            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+            redirectAttributes.addFlashAttribute("message", "Product with id <%s> was not found".formatted(id));
+            return "redirect:/products";
         }
     }
 

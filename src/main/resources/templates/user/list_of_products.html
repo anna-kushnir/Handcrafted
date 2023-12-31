@@ -18,6 +18,7 @@
   <p class="logo-header">HandCrafted</p>
   <p class="logo-text">The place where you'll find what you've been looking for</p>
 </header>
+
 <main class="container main-container">
   <div class="header">
     <div class="header-menu-left">
@@ -56,6 +57,9 @@
       <button class="btn btn-outline-primary" id="find_btn">Find</button>
     </div>
   </div>
+
+  <div th:if="${message}" role="alert" th:text="${message}" class="alert"></div>
+  <div th:unless="${message}"></div>
 
   <div class="main">
     <div class="left-menu">

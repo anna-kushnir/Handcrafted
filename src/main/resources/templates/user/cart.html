@@ -70,12 +70,7 @@
 
                     <div class="product-info-container">
                         <p th:text="${product.productName}"></p>
-
-                        <div class="product-price-container">
-                            <p>Cost:</p>
-                            <p th:text="${product.cost} +'$'"></p>
-                        </div>
-
+                        <p th:text="'Cost: ' +${product.cost} +'$'"></p>
                         <div class="quantity-container">
                             <p>Quantity:</p>
                             <input
@@ -103,7 +98,7 @@
                 <p>Total Price:</p>
                 <p th:text="${totalPrice} +'$'"></p>
             </div>
-            <a th:href="@{/cart/createOrder}">
+            <a th:href="@{/orders/new}">
                 <button type="button" class="btn btn-outline-primary" id="create_order_btn">
                     Create Order
                 </button>

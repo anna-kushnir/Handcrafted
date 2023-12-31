@@ -1,0 +1,45 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+}
+
+.main {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.order-listing {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 15px;
+    width: 100%;
+}
+
+.order-card {
+    font-family: var(--text-font);
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px 15px;
+    height: min-content;
+    outline: 1px solid #21003a;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.order-card:hover {
+    background: rgba(121, 168, 255, 0.3);
+    outline: 2px solid #21003a;
+    outline-offset: -1px;
+}
+.order-card:active {
+    background: rgba(121, 168, 255, 0.5);
+}
+
+.text {
+    padding: 2px;
+    margin: 0;
+    color: #000;
+}
