@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +23,11 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     private final ProductInCartRepository productInCartRepository;
     private final ProductInCartMapper productInCartMapper;
     private final ProductMapper productMapper;
+
+    @Override
+    public Optional<ProductInCart> getById(Long id) {
+        return productInCartRepository.findById(id);
+    }
 
     @Override
     public List<ProductInCartDto> getAllByUser(User user) {
@@ -53,6 +60,12 @@ public class ProductInCartServiceImpl implements ProductInCartService {
 
     @Override
     @Transactional
+    public void deleteById(Long id) {
+        productInCartRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
     public void delete(User user, ProductDto productDto) {
         if (productInCartRepository.existsByUserUserNameAndProductId(user.getUsername(), productDto.getId())) {
             productInCartRepository.deleteByUserUserNameAndProductId(user.getUsername(), productDto.getId());
@@ -60,7 +73,17 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     }
 
     @Override
+    @Transactional
     public void deleteAllByProductId(Long productId) {
         productInCartRepository.deleteAllByProductId(productId);
+    }
+
+    @Override
+    public BigDecimal getTotalPriceOfProductsInCart(List<ProductInCartDto> productInCartDtoList) {
+        var totalPrice = BigDecimal.ZERO;
+        for (var productInCartDto : productInCartDtoList) {
+            totalPrice = totalPrice.add(productInCartDto.getCost());
+        }
+        return totalPrice;
     }
 }

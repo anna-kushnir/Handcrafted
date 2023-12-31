@@ -11,6 +11,7 @@ public class ProductInCartMapper {
     public ProductInCartDto toDTO(ProductInCart productInCart) {
         Product product = productInCart.getProduct();
         return new ProductInCartDto(
+                productInCart.getId(),
                 product.getId(),
                 product.getName(),
                 (product.isWithDiscount() ? product.getDiscountedPrice() : product.getPrice()),

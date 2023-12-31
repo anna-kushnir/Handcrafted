@@ -27,7 +27,8 @@
                             id="back_icon"
                             src="/icons/back_icon1.png"
                             width="20px"
-                            height="20px" />
+                            height="20px"
+                            alt="back button" />
                 </button>
             </a>
             <a th:href="@{/menu}">
@@ -36,7 +37,8 @@
                             id="menu_icon"
                             src="/icons/menu_icon1.png"
                             width="30px"
-                            height="30px" />
+                            height="30px"
+                            alt="menu button" />
                     <p>Menu</p>
                 </button>
             </a>
@@ -44,7 +46,7 @@
     </div>
 
     <div class="main">
-        <div class="product-listing">
+        <div th:unless="${favoriteProducts.isEmpty()}" class="product-listing">
             <div th:each="product : ${favoriteProducts}">
                 <a th:href="@{/products/{id}(id=${product.id})}">
                     <div class="product-card">
@@ -54,13 +56,15 @@
                                     th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
                                     class="product-img"
                                     width="150px"
-                                    height="150px" />
+                                    height="150px"
+                                    alt="product photo" />
                             <img
                                     th:unless="${product.photo}"
                                     src="/icons/image.png"
                                     class="product-img"
                                     width="150px"
-                                    height="150px" />
+                                    height="150px"
+                                    alt="product photo" />
                             <p th:unless="${product.inStock}" class="product-not-in-stock">
                                 Is Not In Stock
                             </p>
@@ -83,7 +87,7 @@
 
         <div th:if="${favoriteProducts.isEmpty()}" class="empty-msg">There are no favorite products</div>
 
-        <div class="create-gift-set-container">
+        <div th:unless="${favoriteProducts.isEmpty()}" class="create-gift-set-container">
             <button class="btn btn-outline-primary" id="create_gift_set_btn">
                 Create Gift Set
             </button>

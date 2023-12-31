@@ -79,7 +79,7 @@
             <div id="delivery_info_container" style="display: none">
                 <label for="region" class="label">Enter a regional center:</label>
                 <input
-                        th:field="*{deliveryAddress.region}"
+                        th:field="*{deliveryAddressRegion}"
                         type="text"
                         class="text-box"
                         id="region"
@@ -89,7 +89,7 @@
 
                 <label for="city" class="label">Enter a settlement:</label>
                 <input
-                        th:field="*{deliveryAddress.city}"
+                        th:field="*{deliveryAddressCity}"
                         type="text"
                         class="text-box"
                         id="city"
@@ -99,7 +99,7 @@
 
                 <label for="post_address" class="label">Enter the Nova Poshta branch:</label>
                 <input
-                        th:field="*{deliveryAddress.postAddress}"
+                        th:field="*{deliveryAddressPostAddress}"
                         type="text"
                         class="text-box"
                         id="post_address"

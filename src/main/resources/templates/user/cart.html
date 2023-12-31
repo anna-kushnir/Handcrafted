@@ -45,8 +45,10 @@
         </div>
     </div>
 
+    <div th:if="${msgCreateOrderResult}" role="alert" th:text="${msgCreateOrderResult}" class="alert"></div>
+
     <div class="main">
-        <div class="product-listing">
+        <div th:unless="${productsInCart.isEmpty()}" class="product-listing">
             <div th:each="product : ${productsInCart}" class="product-card">
                 <div class="product-img-and-info-container">
                     <div class="product-img-container">
@@ -78,7 +80,7 @@
                             <p>Quantity:</p>
                             <input
                                     type="number"
-                                    th:id="'quantity_' + ${product.id}"
+                                    th:id="'quantity_' + ${product.productId}"
                                     class="text-box"
                                     min="1"
                                     th:max="${product.productQuantity}"
@@ -88,8 +90,8 @@
                 </div>
 
                 <div class="product-options-container">
-                    <button class="btn btn-outline-secondary remove-btn" th:id="${product.id}">Remove</button>
-                    <button class="btn btn-outline-secondary transfer-to-fav-btn" th:id="${product.id}">Transfer to favorite</button>
+                    <button class="btn btn-outline-secondary remove-btn" th:id="${product.productId}">Remove</button>
+                    <button class="btn btn-outline-secondary transfer-to-fav-btn" th:id="${product.productId}">Transfer to favorite</button>
                 </div>
             </div>
         </div>
