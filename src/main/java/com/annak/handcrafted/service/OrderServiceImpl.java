@@ -83,6 +83,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public String deleteById(Long orderId) {
         if (orderRepository.existsById(orderId)) {
+            productInOrderService.returnProductsFromOrderToStockByOrderId(orderId);
             orderRepository.deleteById(orderId);
             return "Order with id <%s> successfully deleted".formatted(orderId);
         }
