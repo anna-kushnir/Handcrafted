@@ -16,5 +16,5 @@ public interface OrderService {
 
     String save(NewOrderDto newOrderDto, List<ProductInCartDto> productInCartDtoList);
 
-    String deleteById(Long orderId);
+    String cancelById(Long orderId);
 }

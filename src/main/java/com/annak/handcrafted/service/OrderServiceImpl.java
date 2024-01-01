@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
                     productInCartService.deleteById(productInCartDto.getId());
                     productDto.setQuantity(productDto.getQuantity() - productInCartDto.getQuantityInCart());
                     productDto.setInStock(productDto.getQuantity() != 0);
-                    productService.save(productDto);
+                    productService.update(productDto);
                 }
             } else {
                 return "Product with id <%s> was not found!".formatted(productInCartDto.getProductId());
@@ -81,11 +81,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public String deleteById(Long orderId) {
-        if (orderRepository.existsById(orderId)) {
-            productInOrderService.returnProductsFromOrderToStockByOrderId(orderId);
-            orderRepository.deleteById(orderId);
-            return "Order with id <%s> successfully deleted".formatted(orderId);
+    public String cancelById(Long orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            if (orderOptional.get().getStatus().getId() == 1) {
+                productInOrderService.returnProductsFromOrderToStockByOrderId(orderId);
+                orderRepository.deleteById(orderId);
+                return "Order with id <%s> successfully canceled".formatted(orderId);
+            }
+            return "Order with id <%s> has already been accepted, so it cannot be canceled!".formatted(orderId);
         }
         return "No order with id <%s> found!".formatted(orderId);
     }

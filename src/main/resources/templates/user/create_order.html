@@ -45,13 +45,11 @@
                     <p th:text="${product.productName}"></p>
 
                     <div class="product-price-container">
-                        <p>Cost:</p>
-                        <p th:text="${product.cost} +'$'"></p>
+                        <p th:text="'Cost: ' +${product.cost} +'$'"></p>
                     </div>
 
                     <div class="quantity-container">
-                        <p>Quantity:</p>
-                        <p th:text="${product.quantityInCart}"></p>
+                        <p th:text="'Quantity: ' +${product.quantityInCart}"></p>
                     </div>
                 </div>
             </div>

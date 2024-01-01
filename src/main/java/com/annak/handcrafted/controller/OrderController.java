@@ -82,4 +82,11 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("msgCreateOrderResult", result);
         return "redirect:/cart";
     }
+
+    @DeleteMapping("/{id}/delete")
+    public String cancelOrderById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        var result = orderService.cancelById(id);
+        redirectAttributes.addFlashAttribute("message", result);
+        return "redirect:/orders";
+    }
 }

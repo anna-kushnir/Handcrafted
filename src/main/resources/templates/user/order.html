@@ -58,10 +58,23 @@
         <span th:case="3" style="color: #b6921c;" class="text" th:text="${order.status.getName()}"></span>
         <span th:case="4" style="color: #3b9616;" class="text" th:text="${order.status.getName()}"></span>
       </p>
+      <p th:if="${order.typeOfReceipt.getId() == 1}"
+         class="text"
+         th:text="'Date & Time of receipt: ' +${order.receiptDate != null ? order.receiptDate : 'Not agreed yet'}">
+      </p>
+      <p th:if="${order.typeOfReceipt.getId() == 2}"
+         class="text"
+         th:text="'Post Office: ' +${order.deliveryAddress.region} +' Region, '
+          +${order.deliveryAddress.city} +', ' +${order.deliveryAddress.postAddress}">
+      </p>
+      <p th:if="${order.typeOfReceipt.getId() == 2 && order.status.getId() >= 3}"
+         class="text"
+         th:text="'Invoice number: ' +${order.invoiceNumber}">
+      </p>
     </div>
 
     <div class="order-options">
-      <button class="btn btn-outline-danger">
+      <button class="btn btn-outline-danger cancel-order-btn" th:id="${order.id}">
         Cancel Order
       </button>
     </div>
@@ -98,5 +111,6 @@
     </div>
   </div>
 </main>
+<script src="/js/order.js"></script>
 </body>
 </html>
