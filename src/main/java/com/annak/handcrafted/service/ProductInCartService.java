@@ -17,6 +17,8 @@ public interface ProductInCartService {
 
     String saveOrDeleteIfExists(User user, ProductDto productDto);
 
+    String updateQuantityByUserAndProduct(User user, ProductDto productDto, Long quantity);
+
     void deleteById(Long id);
 
     void delete(User user, ProductDto productDto);

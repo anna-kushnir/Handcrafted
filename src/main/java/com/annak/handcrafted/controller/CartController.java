@@ -61,4 +61,16 @@ public class CartController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PutMapping ("/products/{id}/updateQuantity/{quantity}")
+    public ResponseEntity<?> updateQuantity(Principal principal, @PathVariable Long id, @PathVariable Long quantity) {
+        var user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        Optional<ProductDto> productDtoOptional = productService.getById(id);
+        if (productDtoOptional.isPresent()) {
+            var productDto = productDtoOptional.get();
+            productInCartService.updateQuantityByUserAndProduct(user, productDto, quantity);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

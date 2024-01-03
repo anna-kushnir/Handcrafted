@@ -53,9 +53,20 @@ public class ProductInCartServiceImpl implements ProductInCartService {
             productInCartRepository.save(productInCart);
             return "Product added to cart";
         }
-        else {
-            return "Product is not in stock!";
-        }
+        return "Product is not in stock!";
+    }
+
+    @Override
+    public String updateQuantityByUserAndProduct(User user, ProductDto productDto, Long quantity) {
+        Optional<ProductInCart> productInCartOptional = productInCartRepository.findByUserAndProductId(user, productDto.getId());
+        if (productInCartOptional.isEmpty())
+            return "Product is not in cart!";
+        ProductInCart productInCart = productInCartOptional.get();
+        if (productInCart.getProduct().getQuantity() < quantity)
+            return "There are not enough products with id <%s>!".formatted(productInCart.getProduct().getId());
+        productInCart.setQuantityInCart(quantity);
+        productInCartRepository.save(productInCart);
+        return "Quantity of product with id <%s> was successfully updated".formatted(productInCart.getProduct().getId());
     }
 
     @Override
@@ -82,7 +93,7 @@ public class ProductInCartServiceImpl implements ProductInCartService {
     public BigDecimal getTotalPriceOfProductsInCart(List<ProductInCartDto> productInCartDtoList) {
         var totalPrice = BigDecimal.ZERO;
         for (var productInCartDto : productInCartDtoList) {
-            totalPrice = totalPrice.add(productInCartDto.getCost());
+            totalPrice = totalPrice.add(productInCartDto.getCost().multiply(BigDecimal.valueOf(productInCartDto.getQuantityInCart())));
         }
         return totalPrice;
     }

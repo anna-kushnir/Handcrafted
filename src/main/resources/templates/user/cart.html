@@ -75,8 +75,8 @@
                             <p>Quantity:</p>
                             <input
                                     type="number"
-                                    th:id="'quantity_' + ${product.productId}"
-                                    class="text-box"
+                                    th:id="${product.productId}"
+                                    class="text-box quantity-input"
                                     min="1"
                                     th:max="${product.productQuantity}"
                                     th:value="${product.quantityInCart}" />
