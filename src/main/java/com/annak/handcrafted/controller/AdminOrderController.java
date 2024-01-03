@@ -3,6 +3,7 @@ package com.annak.handcrafted.controller;
 import com.annak.handcrafted.dto.OrderDto;
 import com.annak.handcrafted.entity.embedded.Status;
 import com.annak.handcrafted.service.OrderService;
+import com.annak.handcrafted.service.ProductInOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class AdminOrderController {
 
     private final OrderService orderService;
+    private final ProductInOrderService productInOrderService;
 
     @GetMapping
     public String getMenuWithOrderStatuses(Model model) {
@@ -39,6 +41,7 @@ public class AdminOrderController {
         if (orderDtoOptional.isPresent()) {
             if (orderDtoOptional.get().getStatus().equals(Status.valueOf(status_name.toUpperCase()))) {
                 model.addAttribute("order", orderDtoOptional.get());
+                model.addAttribute("products", productInOrderService.getAllByOrderId(orderDtoOptional.get().getId()));
                 return "admin/order";
             }
             redirectAttributes.addFlashAttribute("message", "Order with id <%s> has another status!".formatted(id));
