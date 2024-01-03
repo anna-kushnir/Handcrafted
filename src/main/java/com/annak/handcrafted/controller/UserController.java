@@ -1,7 +1,7 @@
 package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.UserDto;
-import com.annak.handcrafted.entity.Role;
+import com.annak.handcrafted.entity.embedded.Role;
 import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import com.annak.handcrafted.service.UserService;
 import jakarta.validation.Valid;

@@ -1,5 +1,8 @@
 package com.annak.handcrafted.entity;
 
+import com.annak.handcrafted.entity.embedded.DeliveryAddress;
+import com.annak.handcrafted.entity.embedded.Status;
+import com.annak.handcrafted.entity.embedded.TypeOfReceipt;
 import jakarta.persistence.*;
 import lombok.*;
 

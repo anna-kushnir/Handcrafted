@@ -12,9 +12,11 @@ public interface OrderService {
 
     List<OrderDto> getAllByUser(User user);
 
+    List<OrderDto> getAllByStatusName(String status_name);
+
     Optional<OrderDto> getById(Long orderId);
 
     String save(NewOrderDto newOrderDto, List<ProductInCartDto> productInCartDtoList);
 
-    String cancelById(Long orderId);
+    String cancel(OrderDto orderDto);
 }

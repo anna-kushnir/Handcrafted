@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HandCrafted: Order Status Selection</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/auth_and_menu_base.css" />
+    <link rel="stylesheet" href="/css/pages/main_menu.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+
+    <style>
+        .btn {
+            min-width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="logo-container">
+        <p class="logo-header">HandCrafted</p>
+        <p class="logo-text">The place where you'll find what you've been looking for</p>
+    </header>
+
+    <main class="main-container">
+        <div class="product-container">
+            <a th:each="status : ${statuses}" th:href="@{/admin/orders/{status_name}(status_name=${status.toString().toLowerCase()})}">
+                <button class="btn btn-outline-primary" th:text="${status.getName()}">
+                </button>
+            </a>
+        </div>
+
+        <div class="profile-container">
+            <a th:href="@{/admin/orders/find}">
+                <button class="btn btn-outline-secondary">
+                    Find Order
+                </button>
+            </a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@ package com.annak.handcrafted.controller;
 import com.annak.handcrafted.dto.NewOrderDto;
 import com.annak.handcrafted.dto.OrderDto;
 import com.annak.handcrafted.dto.ProductInCartDto;
-import com.annak.handcrafted.entity.TypeOfReceipt;
+import com.annak.handcrafted.entity.embedded.TypeOfReceipt;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.service.OrderService;
 import com.annak.handcrafted.service.ProductInCartService;
@@ -42,7 +42,7 @@ public class OrderController {
         var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Optional<OrderDto> orderDtoOptional = orderService.getById(id);
         if (orderDtoOptional.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Order with id <%s> was not found!");
+            redirectAttributes.addFlashAttribute("message", "Order with id <%s> was not found!".formatted(id));
             return "redirect:/orders";
         }
         OrderDto orderDto = orderDtoOptional.get();
@@ -84,9 +84,20 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public String cancelOrderById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        var result = orderService.cancelById(id);
-        redirectAttributes.addFlashAttribute("message", result);
+    public String cancelOrderById(@PathVariable Long id, Principal principal, RedirectAttributes redirectAttributes) {
+        var user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        Optional<OrderDto> orderDtoOptional = orderService.getById(id);
+        if (orderDtoOptional.isPresent()) {
+            OrderDto orderDto = orderDtoOptional.get();
+            if (!user.equals(orderDto.getUser())) {
+                redirectAttributes.addFlashAttribute("message", "You can cancel only your own orders!");
+                return "redirect:/orders";
+            }
+            var result = orderService.cancel(orderDto);
+            redirectAttributes.addFlashAttribute("message", result);
+            return "redirect:/orders";
+        }
+        redirectAttributes.addFlashAttribute("message", "Order with id <%s> was not found!".formatted(id));
         return "redirect:/orders";
     }
 }

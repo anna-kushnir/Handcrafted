@@ -1,5 +1,6 @@
 package com.annak.handcrafted.entity;
 
+import com.annak.handcrafted.entity.embedded.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -59,7 +60,7 @@ public class User implements UserDetails {
     @ElementCollection
     @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCT_IN_CART", joinColumns = @JoinColumn(name = "USER_ID"))
     @Column(name = "QUANTITY")
-    @MapKeyJoinColumn(name = "PRODUCT_ID")
+    @MapKeyJoinColumn(table = "PRODUCT_IN_CART", name = "PRODUCT_ID")
     private Map<Product, Long> productsInCart = new HashMap<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

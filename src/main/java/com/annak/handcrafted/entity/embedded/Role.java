@@ -1,4 +1,4 @@
-package com.annak.handcrafted.entity;
+package com.annak.handcrafted.entity.embedded;
 
 import org.springframework.security.core.GrantedAuthority;
 

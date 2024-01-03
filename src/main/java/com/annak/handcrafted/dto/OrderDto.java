@@ -1,6 +1,9 @@
 package com.annak.handcrafted.dto;
 
 import com.annak.handcrafted.entity.*;
+import com.annak.handcrafted.entity.embedded.DeliveryAddress;
+import com.annak.handcrafted.entity.embedded.Status;
+import com.annak.handcrafted.entity.embedded.TypeOfReceipt;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

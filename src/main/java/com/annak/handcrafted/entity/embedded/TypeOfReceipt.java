@@ -1,4 +1,4 @@
-package com.annak.handcrafted.entity;
+package com.annak.handcrafted.entity.embedded;
 
 public enum TypeOfReceipt {
     PICKUP_FROM_THE_STORE(1, "Pickup from the Store"),

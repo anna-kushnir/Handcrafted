@@ -1,7 +1,7 @@
 package com.annak.handcrafted.service;
 
 import com.annak.handcrafted.dto.UserDto;
-import com.annak.handcrafted.entity.Role;
+import com.annak.handcrafted.entity.embedded.Role;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import com.annak.handcrafted.mapper.UserMapper;

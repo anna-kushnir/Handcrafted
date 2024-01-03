@@ -5,6 +5,9 @@ import com.annak.handcrafted.dto.OrderDto;
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.dto.ProductInCartDto;
 import com.annak.handcrafted.entity.*;
+import com.annak.handcrafted.entity.embedded.DeliveryAddress;
+import com.annak.handcrafted.entity.embedded.Status;
+import com.annak.handcrafted.entity.embedded.TypeOfReceipt;
 import com.annak.handcrafted.mapper.OrderMapper;
 import com.annak.handcrafted.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> getAllByUser(User user) {
         return orderRepository.findAllByUser(user)
+                .stream()
+                .map(orderMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDto> getAllByStatusName(String status_name) {
+        return orderRepository.findAllByStatus(Status.valueOf(status_name.toUpperCase()))
                 .stream()
                 .map(orderMapper::toDTO)
                 .collect(Collectors.toList());
@@ -81,16 +92,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public String cancelById(Long orderId) {
-        Optional<Order> orderOptional = orderRepository.findById(orderId);
-        if (orderOptional.isPresent()) {
-            if (orderOptional.get().getStatus().getId() == 1) {
-                productInOrderService.returnProductsFromOrderToStockByOrderId(orderId);
-                orderRepository.deleteById(orderId);
-                return "Order with id <%s> successfully canceled".formatted(orderId);
-            }
-            return "Order with id <%s> has already been accepted, so it cannot be canceled!".formatted(orderId);
+    public String cancel(OrderDto orderDto) {
+        if (orderDto.getStatus().getId() == 1) {
+            productInOrderService.returnProductsFromOrderToStockByOrderId(orderDto.getId());
+            orderRepository.deleteById(orderDto.getId());
+            return "Order with id <%s> successfully canceled".formatted(orderDto.getId());
         }
-        return "No order with id <%s> found!".formatted(orderId);
+        return "Order with id <%s> has already been accepted, so it cannot be canceled!".formatted(orderDto.getId());
     }
 }

@@ -1,4 +1,4 @@
-package com.annak.handcrafted.entity;
+package com.annak.handcrafted.entity.embedded;
 
 public enum Status {
     IN_PROCESSING(1, "In processing"),
