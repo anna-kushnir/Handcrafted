@@ -9,6 +9,7 @@ import com.annak.handcrafted.service.OrderService;
 import com.annak.handcrafted.service.ProductInCartService;
 import com.annak.handcrafted.service.ProductInOrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,20 +85,17 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}/delete")
-    public String cancelOrderById(@PathVariable Long id, Principal principal, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<?> cancelOrderById(@PathVariable Long id, Principal principal) {
         var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Optional<OrderDto> orderDtoOptional = orderService.getById(id);
         if (orderDtoOptional.isPresent()) {
             OrderDto orderDto = orderDtoOptional.get();
             if (!user.equals(orderDto.getUser())) {
-                redirectAttributes.addFlashAttribute("message", "You can cancel only your own orders!");
-                return "redirect:/orders";
+                return ResponseEntity.badRequest().build();
             }
-            var result = orderService.cancel(orderDto);
-            redirectAttributes.addFlashAttribute("message", result);
-            return "redirect:/orders";
+            orderService.cancel(orderDto);
+            return ResponseEntity.ok().build();
         }
-        redirectAttributes.addFlashAttribute("message", "Order with id <%s> was not found!".formatted(id));
-        return "redirect:/orders";
+        return ResponseEntity.notFound().build();
     }
 }

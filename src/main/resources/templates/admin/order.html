@@ -92,29 +92,38 @@
     </div>
 
 
-    <div th:if="${order.status.getId() == 1}" class="order-options">
-      <button class="btn btn-outline-danger decline-order-btn" th:id="${order.id}">
+    <div th:if="${order.typeOfReceipt.getId() == 1 && order.status.getId() == 1}" class="order-options">
+      <button class="btn btn-outline-danger decline-order-with-pickup" th:id="${order.id}" onclick="declineOrderWithPickup()">
         Decline
       </button>
-      <button class="btn btn-outline-secondary accept-order-btn" th:id="${order.id}">
+      <button class="btn btn-outline-secondary accept-order-with-pickup" th:id="${order.id}" onclick="acceptOrderWithPickup()">
         Accept
       </button>
     </div>
 
-    <div th:if="${order.status.getId() == 2 && order.typeOfReceipt.getId() == 1}" class="order-options">
-      <button class="btn btn-outline-secondary mark-order-with-pickup-as-received-btn" th:id="${order.id}">
+    <div th:if="${order.typeOfReceipt.getId() == 1 && order.status.getId() == 2}" class="order-options">
+      <button class="btn btn-outline-secondary" th:id="${order.id}">
         Mark As Received
       </button>
     </div>
 
-    <div th:if="${order.status.getId() == 2 && order.typeOfReceipt.getId() == 2}" class="order-options">
-      <button class="btn btn-outline-secondary mark-order-with-delivery-as-forwarded-btn" th:id="${order.id}">
+    <div th:if="${order.typeOfReceipt.getId() == 2 && order.status.getId() == 1}" class="order-options">
+      <button class="btn btn-outline-danger decline-order-with-delivery" th:id="${order.id}">
+        Decline
+      </button>
+      <button class="btn btn-outline-secondary accept-order-with-delivery" th:id="${order.id}">
+        Accept
+      </button>
+    </div>
+
+    <div th:if="${order.typeOfReceipt.getId() == 2 && order.status.getId() == 2}" class="order-options">
+      <button class="btn btn-outline-secondary" th:id="${order.id}">
         Mark As Forwarded for delivery
       </button>
     </div>
 
-    <div th:if="${order.status.getId() == 3 && order.typeOfReceipt.getId() == 2}" class="order-options">
-      <button class="btn btn-outline-secondary mark-order-with-delivery-as-received-btn" th:id="${order.id}">
+    <div th:if="${order.typeOfReceipt.getId() == 2 && order.status.getId() == 3}" class="order-options">
+      <button class="btn btn-outline-secondary" th:id="${order.id}">
         Mark As Received
       </button>
     </div>
@@ -153,5 +162,6 @@
   </div>
 </main>
 <script src="/js/go_back.js"></script>
+<script src="/js/admin_order_managing.js"></script>
 </body>
 </html>

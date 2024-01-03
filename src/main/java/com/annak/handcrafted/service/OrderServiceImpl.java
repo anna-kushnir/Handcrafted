@@ -1,9 +1,6 @@
 package com.annak.handcrafted.service;
 
-import com.annak.handcrafted.dto.NewOrderDto;
-import com.annak.handcrafted.dto.OrderDto;
-import com.annak.handcrafted.dto.ProductDto;
-import com.annak.handcrafted.dto.ProductInCartDto;
+import com.annak.handcrafted.dto.*;
 import com.annak.handcrafted.entity.*;
 import com.annak.handcrafted.entity.embedded.DeliveryAddress;
 import com.annak.handcrafted.entity.embedded.Status;
@@ -91,7 +88,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
+    public String update(OrderDto orderDto, List<ProductInOrderDto> productInOrderDtoList) {
+        Order order = orderMapper.toEntity(orderDto);
+        orderRepository.save(order);
+        productInOrderService.saveAll(order, productInOrderDtoList);
+        return "Order with id <%s> was successfully updated".formatted(orderDto.getId());
+    }
+
+    @Override
     public String cancel(OrderDto orderDto) {
         if (orderDto.getStatus().getId() == 1) {
             productInOrderService.returnProductsFromOrderToStockByOrderId(orderDto.getId());
