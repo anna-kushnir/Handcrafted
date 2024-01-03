@@ -3,7 +3,6 @@ package com.annak.handcrafted.controller;
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.dto.ProductInCartDto;
 import com.annak.handcrafted.entity.User;
-import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.service.FavoriteProductService;
 import com.annak.handcrafted.service.ProductInCartService;
 import com.annak.handcrafted.service.ProductService;
@@ -51,16 +50,15 @@ public class CartController {
     }
 
     @PutMapping ("/products/{id}/transferToFavorite")
-    public String transferProductWithIdToFavorite(Principal principal, @PathVariable Long id) {
+    public ResponseEntity<?> transferProductWithIdToFavorite(Principal principal, @PathVariable Long id) {
         var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Optional<ProductDto> productDtoOptional = productService.getById(id);
         if (productDtoOptional.isPresent()) {
             var productDto = productDtoOptional.get();
             productInCartService.delete(user, productDto);
             favoriteProductService.save(user, productDto);
-            return "redirect:/cart";
-        } else {
-            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+            return ResponseEntity.ok().build();
         }
+        return ResponseEntity.notFound().build();
     }
 }

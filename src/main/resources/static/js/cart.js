@@ -13,7 +13,7 @@ body.addEventListener("click", (event) => {
                 method: "DELETE"
             })
                 .then(() => {
-                    location.reload()
+                    location.replace("/cart")
                 })
                 .catch(error => {
                     console.error('An error occurred:', error);
@@ -28,7 +28,7 @@ body.addEventListener("click", (event) => {
                 method: "PUT"
             })
                 .then(() => {
-                    location.reload()
+                    location.replace("/cart")
                 })
                 .catch(error => {
                     console.error('An error occurred:', error);
