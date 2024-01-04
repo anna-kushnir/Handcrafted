@@ -1,0 +1,42 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 30px;
+    gap: 30px;
+}
+
+table {
+    font-family: var(--text-font);
+    font-size: 18px;
+    border-collapse: collapse;
+}
+
+caption {
+    font-size: 20px;
+    padding: 20px;
+    background-color: var(--main-border-color);
+    color: white;
+}
+
+th, td {
+    border: 2px solid var(--main-border-color);
+}
+
+th, td {
+    min-width: 150px;
+    max-width: 200px;
+    word-wrap: normal;
+}
+
+.heading {
+    padding: 10px;
+}
+
+td {
+    text-align: center;
+}

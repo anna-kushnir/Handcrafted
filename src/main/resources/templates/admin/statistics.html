@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Statistics</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/admin/statistics.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+  <p class="logo-header">HandCrafted</p>
+  <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+  <div class="header">
+    <div class="header-menu-left">
+      <a th:href="@{/admin/menu}">
+        <button class="back-btn" id="back_btn">
+          <img
+                  id="back_icon"
+                  src="/icons/back_icon1.png"
+                  width="20px"
+                  height="20px"
+                  alt="back button" />
+        </button>
+      </a>
+      <a th:href="@{/admin/menu}">
+        <button class="menu-btn" id="menu_btn">
+          <img
+                  id="menu_icon"
+                  src="/icons/menu_icon1.png"
+                  width="30px"
+                  height="30px"
+                  alt="menu button" />
+          <p>Menu</p>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="main">
+      <table>
+          <caption>The Most Popular Categories</caption>
+          <thead>
+          <tr>
+              <th class="heading">Category</th>
+              <th class="heading">Number of Products in Category that were ordered</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="category : ${categoryStatistics}">
+              <th th:text="${category.getKey()}"></th>
+              <td th:text="${category.getValue()}"></td>
+          </tr>
+          </tbody>
+      </table>
+
+      <table>
+          <caption>The Most Popular Colors</caption>
+          <thead>
+          <tr>
+              <th class="heading">Color</th>
+              <th class="heading">Number of Products with Color that were ordered</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="color : ${colorStatistics}">
+              <th th:text="${color.getKey()}"></th>
+              <td th:text="${color.getValue()}"></td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+</main>
+</body>
+</html>
