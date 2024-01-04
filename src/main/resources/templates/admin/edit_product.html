@@ -59,7 +59,8 @@
                             th:src="@{/api/v1/photos/{id}(id=${oldProduct.photos.get(0).getId()})}"
                             class="product-photo"
                             width="150px"
-                            height="150px" />
+                            height="150px"
+                            alt="product photo" />
                     <img
                             th:if="${oldProduct.photos.isEmpty()}"
                             src="/icons/image.png"

@@ -46,7 +46,8 @@
             <div class="product-info-left">
                 <div class="product-photo-container">
                     <a href="#" class="left">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="previous image button"  />
                     </a>
 
                     <img
@@ -54,16 +55,19 @@
                             th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
                             class="product-photo"
                             width="150px"
-                            height="150px" />
+                            height="150px"
+                            alt="product photo" />
                     <img
                             th:if="${product.photos.isEmpty()}"
                             src="/icons/image.png"
                             class="product-photo"
                             width="150px"
-                            height="150px" />
+                            height="150px"
+                            alt="product photo" />
 
                     <a href="#" class="right">
-                        <img src="/icons/back_icon1.png" />
+                        <img src="/icons/back_icon1.png"
+                             alt="next image button" />
                     </a>
                 </div>
 
