@@ -14,6 +14,6 @@ public interface ColorRepository extends JpaRepository<Color, Long> {
     boolean existsByName(String name);
 
     @Query("SELECT c.name AS colorName, COUNT(pio.id) AS countInOrders " +
-            "FROM ProductInOrder pio JOIN pio.product p JOIN p.colors c GROUP BY c.id ORDER BY countInOrders DESC")
+            "FROM ProductInOrder pio JOIN pio.product p JOIN p.colors c GROUP BY c.name ORDER BY countInOrders DESC")
     List<Object[]> getColorStatistics();
 }

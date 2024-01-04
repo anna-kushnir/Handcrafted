@@ -22,7 +22,7 @@ public interface ProductService {
 
     ProductDto save(ProductDto productDto);
 
-    ProductDto update(ProductDto productDto);
+    String update(ProductDto productDto);
 
     String deleteById(Long productId);
 }

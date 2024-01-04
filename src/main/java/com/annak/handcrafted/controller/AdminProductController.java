@@ -1,10 +1,10 @@
 package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.ProductDto;
-import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.service.CategoryService;
 import com.annak.handcrafted.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,37 +55,31 @@ public class AdminProductController {
     }
 
     @GetMapping("/{id}/edit")
-    public String getProductToEditById(@PathVariable Long id, Model model) {
+    public String getProductToEditById(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         var productDtoOptional = productService.getNotDeletedById(id);
-        if (productDtoOptional.isPresent()) {
-            var productDto = productDtoOptional.get();
-            model.addAttribute("oldProduct", productDto);
-            var newProductDto = new ProductDto();
-            newProductDto.setId(productDto.getId());
-            model.addAttribute("newProduct", newProductDto);
-            model.addAttribute("categories", categoryService.getAll());
-            return "admin/edit_product";
-        } else {
-            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+        if (productDtoOptional.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Product with id <%s> was not found".formatted(id));
+            return "redirect:/admin/products";
         }
+        var productDto = productDtoOptional.get();
+        model.addAttribute("oldProduct", productDto);
+        var newProductDto = new ProductDto();
+        newProductDto.setId(productDto.getId());
+        model.addAttribute("newProduct", newProductDto);
+        model.addAttribute("categories", categoryService.getAll());
+        return "admin/edit_product";
     }
 
     @PostMapping("/{id}")
     public String editProduct(@ModelAttribute("product") ProductDto productDto, RedirectAttributes redirectAttributes) {
-        try {
-            productService.update(productDto);
-        } catch (ResourceNotFoundException e) {
-            redirectAttributes.addFlashAttribute("message", e.getMessage());
-            return "redirect:/admin/products";
-        }
-        redirectAttributes.addFlashAttribute("message", "Product successfully updated");
+        var result = productService.update(productDto);
+        redirectAttributes.addFlashAttribute("message", result);
         return "redirect:/admin/products";
     }
 
     @DeleteMapping("/{id}/delete")
-    public String deleteProductById(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        var result = productService.deleteById(id);
-        redirectAttributes.addFlashAttribute("message", result);
-        return "redirect:/admin/products";
+    public ResponseEntity<?> deleteProductById(@PathVariable Long id) {
+        productService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

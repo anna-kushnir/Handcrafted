@@ -174,7 +174,9 @@
                             id="discounted_price"
                             placeholder="20"
                             maxlength="8"
-                            pattern="[0-9]{1,5}(\.[0-9]{1,2})?" />
+                            pattern="[0-9]{1,5}(\.[0-9]{1,2})?"
+                            required
+                            th:disabled="${not oldProduct.withDiscount}" />
                 </div>
             </div>
 
@@ -205,7 +207,8 @@
                             id="quantity"
                             placeholder="20"
                             min="0"
-                            required />
+                            required
+                            th:disabled="${not oldProduct.inStock}" />
                 </div>
             </div>
 

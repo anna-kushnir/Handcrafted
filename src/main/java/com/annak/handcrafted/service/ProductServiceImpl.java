@@ -2,7 +2,6 @@ package com.annak.handcrafted.service;
 
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.entity.Product;
-import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.mapper.ProductMapper;
 import com.annak.handcrafted.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -121,10 +120,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductDto update(ProductDto productDto) {
+    public String update(ProductDto productDto) {
         Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(productDto.getId());
         if (productOptional.isEmpty()) {
-            throw new ResourceNotFoundException("No product with id <%s> found!".formatted((productDto.getId())));
+            return "No product with id <%s> found!".formatted(productDto.getId());
         }
         Product product = productMapper.toEntity(productDto);
         product.setCreationDate(productOptional.get().getCreationDate());
@@ -135,22 +134,21 @@ public class ProductServiceImpl implements ProductService {
         else if (product.getQuantity() == 0L) {
             product.setInStock(false);
         }
-        productRepository.save(product);
-        return productMapper.toDTO(product);
+        return "Product with id <%s> was successfully updated".formatted(productRepository.save(product).getId());
     }
 
     @Override
     @Transactional
-    public String deleteById(Long productId) {
-        Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(productId);
+    public String deleteById(Long id) {
+        Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(id);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             product.setDeleted(true);
-            productInCartService.deleteAllByProductId(productId);
-            favoriteProductService.deleteAllByProductId(productId);
+            productInCartService.deleteAllByProductId(id);
+            favoriteProductService.deleteAllByProductId(id);
             productRepository.save(product);
-            return "Product with id <%s> successfully deleted".formatted(productId);
+            return "Product with id <%s> successfully deleted".formatted(id);
         }
-        return "No product with id <%s> found!".formatted(productId);
+        return "No product with id <%s> found!".formatted(id);
     }
 }
