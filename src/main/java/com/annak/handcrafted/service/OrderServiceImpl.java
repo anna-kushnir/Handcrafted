@@ -37,8 +37,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getAllByStatusName(String status_name) {
-        return orderRepository.findAllByStatus(Status.valueOf(status_name.toUpperCase()))
+    public List<OrderDto> getAllByStatusName(String statusName) {
+        return orderRepository.findAllByStatus(Status.valueOf(statusName.toUpperCase()))
+                .stream()
+                .map(orderMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDto> getAllByUserPhone(Long userPhone) {
+        return orderRepository.findAllByUserPhone(userPhone)
                 .stream()
                 .map(orderMapper::toDTO)
                 .collect(Collectors.toList());
@@ -70,18 +78,20 @@ public class OrderServiceImpl implements OrderService {
             Optional<ProductDto> productDtoOptional = productService.getNotDeletedById(productInCartDto.getProductId());
             if (productDtoOptional.isPresent()) {
                 ProductDto productDto = productDtoOptional.get();
-                if (!(productInCartDto.getQuantityInCart() <= productDto.getQuantity())) {
+                if (!(productInCartDto.getQuantityInCart() <= productDto.getQuantity()))
                     return "There are not enough products with id <%s>!".formatted(productDto.getId());
-                } else {
-                    productInOrderService.save(order, productInCartService.getById(productInCartDto.getId()).get());
+                else {
+                    Optional<ProductInCart> productInCartOptional = productInCartService.getById(productInCartDto.getId());
+                    if (productInCartOptional.isEmpty())
+                        return "Specified product was not found in cart!";
+                    productInOrderService.save(order, productInCartOptional.get());
                     productInCartService.deleteById(productInCartDto.getId());
                     productDto.setQuantity(productDto.getQuantity() - productInCartDto.getQuantityInCart());
                     productDto.setInStock(productDto.getQuantity() != 0);
                     productService.update(productDto);
                 }
-            } else {
+            } else
                 return "Product with id <%s> was not found!".formatted(productInCartDto.getProductId());
-            }
         }
 
         return "Order was successfully created with id <%s>".formatted(order.getId());

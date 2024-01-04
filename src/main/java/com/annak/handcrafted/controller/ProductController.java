@@ -46,12 +46,15 @@ public class ProductController {
                                  @RequestParam(name = "sortByNewnessAsc", required = false, defaultValue = "true") boolean sortByNewnessAsc ,
                                  @RequestParam(name = "priceLimitFrom", required = false, defaultValue = "0") BigDecimal priceLimitFrom ,
                                  @RequestParam(name = "priceLimitTo", required = false, defaultValue = "10000") BigDecimal priceLimitTo ,
-                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId
+                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId,
+                                 @RequestParam(name = "search", required = false) String search
     ) {
         model.addAttribute("categories" , categoryService.getAll());
         model.addAttribute("colors" , colorService.getAll());
         if (categoryId != 0) {
             model.addAttribute("products" , productService.getAllNotDeletedByCategoryId(categoryId));
+        } else if (search != null) {
+            model.addAttribute("products", productService.getAllNotDeletedBySearchLine(search));
         } else {
             model.addAttribute("products" ,
                     productService.getAllNotDeletedByFilter(sortByCost , sortByCostAsc , sortByNewness , sortByNewnessAsc , priceLimitFrom , priceLimitTo));

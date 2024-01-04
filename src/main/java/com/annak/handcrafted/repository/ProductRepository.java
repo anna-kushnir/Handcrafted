@@ -2,6 +2,8 @@ package com.annak.handcrafted.repository;
 
 import com.annak.handcrafted.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,5 +29,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findByIdAndDeletedIsFalse(Long id);
 
-    boolean existsByIdAndDeletedIsFalse(Long id);
+    @Query("SELECT DISTINCT p FROM Product p " +
+            "LEFT JOIN p.category c " +
+            "LEFT JOIN p.colors col " +
+            "WHERE (LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "   OR LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "   OR LOWER(p.keyWords) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "   OR LOWER(c.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "   OR LOWER(col.name) LIKE LOWER(CONCAT('%', :keyword, '%')))" +
+            "   AND p.deleted = false")
+    List<Product> searchProductsBySearchLineAndDeletedIsFalse(@Param("keyword") String searchLine);
 }

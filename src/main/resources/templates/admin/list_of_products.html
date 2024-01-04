@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Admin: Products</title>
@@ -27,7 +27,8 @@
                 id="back_icon"
                 src="/icons/back_icon1.png"
                 width="20px"
-                height="20px" />
+                height="20px"
+                alt="back button" />
         </button>
       </a>
       <a th:href="@{/admin/menu}">
@@ -36,7 +37,8 @@
                 id="menu_icon"
                 src="/icons/menu_icon1.png"
                 width="30px"
-                height="30px" />
+                height="30px"
+                alt="menu button" />
           <p>Menu</p>
         </button>
       </a>
@@ -47,7 +49,7 @@
         <input
                 type="text"
                 class="text-box"
-                id="name"
+                id="search_line"
                 placeholder="Search"
                 maxlength="25" />
       </div>
@@ -86,7 +88,7 @@
                                     else list.style.display='none'">
         Categories
       </button>
-      <div id="categories-container" style="display: none">
+      <div id="categories-container" style="display: block">
         <ul class="list">
           <li th:each="category : ${categories}">
             <button
@@ -107,7 +109,7 @@
       </div>
     </div>
 
-    <div class="product-listing">
+    <div th:unless="${products.isEmpty()}" class="product-listing">
       <div th:each="product : ${products}">
         <a th:href="@{/admin/products/{id}/edit(id=${product.id})}">
           <div class="product-card">
@@ -117,13 +119,15 @@
                       th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
                       class="product-img"
                       width="150px"
-                      height="150px" />
+                      height="150px"
+                      alt="product photo" />
               <img
                       th:if="${product.photos.isEmpty()}"
                       src="/icons/image.png"
                       class="product-img"
                       width="150px"
-                      height="150px" />
+                      height="150px"
+                      alt="product photo" />
               <p th:unless="${product.inStock}" class="product-not-in-stock">
                 Is Not In Stock
               </p>
@@ -143,6 +147,8 @@
         </a>
       </div>
     </div>
+
+    <div th:if="${products.isEmpty()}" class="empty-msg">No products found</div>
   </div>
 </main>
 <script type="text/javascript" th:src="@{/js/admin_list_of_products.js}"></script>

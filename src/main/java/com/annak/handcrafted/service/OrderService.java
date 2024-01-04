@@ -13,7 +13,9 @@ public interface OrderService {
 
     List<OrderDto> getAllByUser(User user);
 
-    List<OrderDto> getAllByStatusName(String status_name);
+    List<OrderDto> getAllByStatusName(String statusName);
+
+    List<OrderDto> getAllByUserPhone(Long userPhone);
 
     Optional<OrderDto> getById(Long orderId);
 

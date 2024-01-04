@@ -95,6 +95,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> getAllNotDeletedBySearchLine(String searchLine) {
+        return productRepository.searchProductsBySearchLineAndDeletedIsFalse(searchLine)
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public ProductDto save(ProductDto productDto) {
         Product product = productMapper.toEntity(productDto);
@@ -114,11 +122,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto update(ProductDto productDto) {
-        if (!productRepository.existsByIdAndDeletedIsFalse(productDto.getId())) {
+        Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(productDto.getId());
+        if (productOptional.isEmpty()) {
             throw new ResourceNotFoundException("No product with id <%s> found!".formatted((productDto.getId())));
         }
         Product product = productMapper.toEntity(productDto);
-        product.setCreationDate(productRepository.findById(productDto.getId()).get().getCreationDate());
+        product.setCreationDate(productOptional.get().getCreationDate());
         product.setDeleted(false);
         if (!product.isInStock()) {
             product.setQuantity(0L);

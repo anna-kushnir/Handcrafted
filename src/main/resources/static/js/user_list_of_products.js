@@ -31,3 +31,16 @@ function applyFilters() {
     const requestURL = `/products?sortByCost=${sortByCost}&sortByCostAsc=${sortByCostAsc}&sortByNewness=${sortByNewness}&sortByNewnessAsc=${sortByNewnessAsc}&priceLimitFrom=${priceLimitFrom}&priceLimitTo=${priceLimitTo}`;
     window.location.replace(requestURL);
 }
+
+const findButton = document.getElementById("find_btn")
+findButton.addEventListener("click", findProducts)
+
+function findProducts() {
+    const searchLine = document.getElementById('search_line').value;
+    const url = "/products"
+    if (searchLine.trim() === "") {
+        window.location.replace(url);
+    } else {
+        window.location.replace(url + `?search=${searchLine}`);
+    }
+}

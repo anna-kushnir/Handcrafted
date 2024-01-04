@@ -35,11 +35,11 @@ public class AdminOrderController {
         return "admin/list_of_orders";
     }
 
-    @GetMapping("/{status_name}/{id}")
-    public String getOrderById(@PathVariable String status_name, @PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("/{statusName}/{id}")
+    public String getOrderById(@PathVariable String statusName, @PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         Optional<OrderDto> orderDtoOptional = orderService.getById(id);
         if (orderDtoOptional.isPresent()) {
-            if (orderDtoOptional.get().getStatus().equals(Status.valueOf(status_name.toUpperCase()))) {
+            if (orderDtoOptional.get().getStatus().equals(Status.valueOf(statusName.toUpperCase()))) {
                 model.addAttribute("order", orderDtoOptional.get());
                 model.addAttribute("products", productInOrderService.getAllByOrderId(orderDtoOptional.get().getId()));
                 return "admin/order";
@@ -121,5 +121,22 @@ public class AdminOrderController {
         orderDto.setStatus(Status.RECEIVED);
         orderService.update(orderDto, productInOrderService.getAllDtosByOrderId(orderDto.getId()));
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/all/find")
+    public String findOrders(Model model,
+                             @RequestParam(name = "userPhone", required = false) Long userPhone,
+                             @RequestParam(name = "orderId", required = false) Long orderId) {
+        if (userPhone == null && orderId == null) {
+            model.addAttribute("searchFlag", false);
+            return "admin/find_orders";
+        }
+        model.addAttribute("searchFlag", true);
+        if (userPhone != null) {
+            model.addAttribute("orders", orderService.getAllByUserPhone(userPhone));
+        } else {
+            model.addAttribute("orders", orderService.getById(orderId).stream().toList());
+        }
+        return "admin/find_orders";
     }
 }

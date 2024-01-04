@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>HandCrafted: Products</title>
@@ -50,7 +50,7 @@
         <input
                 type="text"
                 class="text-box"
-                id="name"
+                id="search_line"
                 placeholder="Search"
                 maxlength="25" />
       </div>
@@ -241,7 +241,7 @@
       </div>
     </div>
 
-    <div class="product-listing">
+    <div th:unless="${products.isEmpty()}" class="product-listing">
       <div th:each="product : ${products}">
         <a th:href="@{/products/{id}(id=${product.id})}">
           <div class="product-card">
@@ -279,6 +279,8 @@
         </a>
       </div>
     </div>
+
+    <div th:if="${products.isEmpty()}" class="empty-msg">No products found</div>
   </div>
 </main>
 <script type="text/javascript" th:src="@{/js/user_list_of_products.js}"></script>

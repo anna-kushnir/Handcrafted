@@ -15,3 +15,16 @@ body.addEventListener("click", (event) => {
         }
     }
 })
+
+const findButton = document.getElementById("find_btn")
+findButton.addEventListener("click", findProducts)
+
+function findProducts() {
+    const searchLine = document.getElementById('search_line').value;
+    const url = "/admin/products"
+    if (searchLine.trim() === "") {
+        window.location.replace(url);
+    } else {
+        window.location.replace(url + `?search=${searchLine}`);
+    }
+}

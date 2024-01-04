@@ -18,6 +18,8 @@ public interface ProductService {
 
     List<ProductDto> getAllNotDeletedByCategoryId(Long categoryId);
 
+    List<ProductDto> getAllNotDeletedBySearchLine(String searchLine);
+
     ProductDto save(ProductDto productDto);
 
     ProductDto update(ProductDto productDto);

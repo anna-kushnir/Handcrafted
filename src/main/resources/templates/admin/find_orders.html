@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Find Orders</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/list_of_orders.css" />
+    <link rel="stylesheet" href="/css/pages/admin/find_orders.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+            <a th:href="@{/admin/orders}">
+                <button class="back-btn" id="back_btn">
+                    <img
+                            id="back_icon"
+                            src="/icons/back_icon1.png"
+                            width="20px"
+                            height="20px"
+                            alt="back button" />
+                </button>
+            </a>
+            <a th:href="@{/admin/menu}">
+                <button class="menu-btn" id="menu_btn">
+                    <img
+                            id="menu_icon"
+                            src="/icons/menu_icon1.png"
+                            width="30px"
+                            height="30px"
+                            alt="menu button" />
+                    <p>Menu</p>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="search-container">
+            <div class="form-container">
+                <label for="user_phone" class="label">Enter User's Phone Number:</label>
+                <input
+                        type="number"
+                        id="user_phone"
+                        class="text-box"
+                        min="100000000"
+                        max="999999999" />
+                <button type="button" id="find_by_phone_btn" class="btn btn-outline-secondary">Find by Phone Number</button>
+            </div>
+
+            <div class="form-container">
+                <label for="order_id" class="label">Enter Order ID:</label>
+                <input
+                        type="number"
+                        id="order_id"
+                        class="text-box"
+                        min="0" />
+                <button type="button" id="find_by_order_id_btn" class="btn btn-outline-secondary">Find by Order ID</button>
+            </div>
+        </div>
+
+        <div th:if="${searchFlag && !orders.isEmpty()}" class="order-listing">
+            <div th:each="order : ${orders}">
+                <a th:href="@{/admin/orders/__${order.status.toString().toLowerCase()}__/__${order.id}__}">
+                    <div class="order-card">
+                        <p class="text" th:text="'Order ID: ' +${order.id}"></p>
+                        <p class="text" th:text="'User: ' +${order.user.name} +' ' +${order.user.surname}"></p>
+                        <p class="text" th:text="'Total Price: ' +${order.price} +'$'"></p>
+                        <p class="text" th:text="'Type of Order Receipt: ' +${order.typeOfReceipt.getName()}"></p>
+                        <p class="text" th:text="'Formation Date & Time: ' +${order.formationDate}"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${searchFlag && orders.isEmpty()}" class="empty-msg">No orders found</div>
+
+        <div th:unless="${searchFlag}" class="empty-msg">To search for an order, enter the user's phone number or order ID and click the appropriate button</div>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{/js/admin_find_orders.js}"></script>
+</body>
+</html>

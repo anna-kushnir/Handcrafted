@@ -1,0 +1,45 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 30px;
+    gap: 20px;
+    border-bottom: 2px solid var(--main-border-color);
+}
+
+.form-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.label {
+    text-align: left;
+    margin: 0;
+}
+
+.text-box {
+    padding: 0 10px;
+    margin: 0;
+    min-width: 150px;
+}
+
+.btn {
+    font-size: 17px;
+    padding: 5px 20px;
+    margin: 0;
+}

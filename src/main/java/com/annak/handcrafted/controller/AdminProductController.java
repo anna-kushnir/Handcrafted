@@ -20,10 +20,13 @@ public class AdminProductController {
 
     @GetMapping
     public String getAllProducts(Model model,
-                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId) {
+                                 @RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId,
+                                 @RequestParam(name = "search", required = false) String search) {
         model.addAttribute("categories", categoryService.getAll());
         if (categoryId != 0) {
             model.addAttribute("products", productService.getAllNotDeletedByCategoryId(categoryId));
+        } else if (search != null) {
+            model.addAttribute("products", productService.getAllNotDeletedBySearchLine(search));
         } else {
             model.addAttribute("products", productService.getAllNotDeleted());
         }
