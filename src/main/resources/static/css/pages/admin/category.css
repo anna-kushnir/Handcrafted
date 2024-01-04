@@ -1,0 +1,42 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.category-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.category-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.category-info-label {
+    font-family: var(--text-font);
+    font-size: 18px;
+    padding: 10px 5px;
+    min-width: max-content;
+}
+
+.text-box {
+    margin: 0;
+}
+
+#name {
+    height: 25px;
+    width: 415px;
+}
+#description {
+    min-width: 415px;
+    min-height: 25px;
+    max-width: 500px;
+    max-height: 200px;
+}

@@ -1,0 +1,45 @@
+.main-container {
+    display: grid;
+    grid-template-rows: auto auto auto 1fr;
+}
+
+.main {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.category-listing {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 15px;
+    width: 100%;
+}
+
+.category-card {
+    font-family: var(--text-font);
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 15px;
+    height: min-content;
+    outline: 1px solid #21003a;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.category-card:hover {
+    background: rgba(121, 168, 255, 0.3);
+    outline: 2px solid #21003a;
+    outline-offset: -1px;
+}
+.category-card:active {
+    background: rgba(121, 168, 255, 0.5);
+}
+
+.text {
+    padding: 2px;
+    margin: 0;
+    color: #000;
+}

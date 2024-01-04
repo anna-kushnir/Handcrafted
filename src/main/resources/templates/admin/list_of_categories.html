@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Categories</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/admin/list_of_categories.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+          <a th:href="@{/admin/products}">
+            <button class="back-btn" id="back_btn">
+              <img
+                      id="back_icon"
+                      src="/icons/back_icon1.png"
+                      width="20px"
+                      height="20px"
+                      alt="back button" />
+            </button>
+          </a>
+          <a th:href="@{/admin/menu}">
+            <button class="menu-btn" id="menu_btn">
+              <img
+                      id="menu_icon"
+                      src="/icons/menu_icon1.png"
+                      width="30px"
+                      height="30px"
+                      alt="menu button" />
+              <p>Menu</p>
+            </button>
+          </a>
+        </div>
+    </div>
+
+    <div class="options-container">
+        <a th:href="@{/admin/categories/add}">
+            <button class="btn btn-outline-secondary">
+                Add New Category
+            </button>
+        </a>
+    </div>
+
+    <div th:if="${message}" role="alert" th:text="${message}" class="alert"></div>
+    <div th:unless="${message}"></div>
+
+    <div class="main">
+        <div th:unless="${categories.isEmpty()}" class="category-listing">
+            <div th:each="category : ${categories}">
+                <a th:href="@{/admin/categories/__${category.id}__/edit}">
+                    <div class="category-card">
+                        <p class="text" th:text="'Category Name: ' +${category.name}"></p>
+                        <p class="text" th:text="'Description: ' +${category.description}"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${categories.isEmpty()}" class="empty-msg">There are no categories</div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin: Add Category</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/admin/category.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+</head>
+<body>
+<header class="logo-container">
+    <p class="logo-header">HandCrafted</p>
+    <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+    <div class="header">
+        <div class="header-menu-left">
+            <a th:href="@{/admin/categories}">
+                <button class="back-btn" id="back_btn" onclick="goBack()">
+                    <img
+                            id="back_icon"
+                            src="/icons/back_icon1.png"
+                            width="20px"
+                            height="20px"
+                            alt="back button" />
+                </button>
+            </a>
+            <a th:href="@{/admin/menu}">
+                <button class="menu-btn" id="menu_btn">
+                    <img
+                            id="menu_icon"
+                            src="/icons/menu_icon1.png"
+                            width="30px"
+                            height="30px"
+                            alt="menu button" />
+                    <p>Menu</p>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <form th:action="@{/admin/categories}" th:object="${category}" method="POST" class="category-form-container">
+        <div class="category-info">
+            <label for="name" class="category-info-label">Category Name:</label>
+            <input
+                    th:field="*{name}"
+                    type="text"
+                    class="text-box"
+                    id="name"
+                    placeholder="Name"
+                    minlength="3"
+                    maxlength="30"
+                    required />
+
+            <label for="description" class="category-info-label">Description:</label>
+            <textarea
+                    th:field="*{description}"
+                    class="text-box"
+                    id="description"
+                    placeholder="Short description"
+                    minlength="5"
+                    maxlength="255"
+                    required>
+            </textarea>
+        </div>
+
+        <div class="options-container">
+            <a th:href="@{/admin/categories}">
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="cancel_btn">
+                    Cancel
+                </button>
+            </a>
+            <button
+                    type="submit"
+                    class="btn btn-outline-primary"
+                    id="add_category_btn">
+                Add
+            </button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

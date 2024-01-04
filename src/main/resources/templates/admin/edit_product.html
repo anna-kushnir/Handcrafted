@@ -218,9 +218,9 @@
                     <select class="category-select" id="category" name="category" required>
                         <option
                                 th:each="category : ${categories}"
-                                th:text="${category.name()}"
-                                th:value="${category.id()}"
-                                th:selected="${category.id() == oldProduct.category.id}"
+                                th:text="${category.name}"
+                                th:value="${category.id}"
+                                th:selected="${category.id == oldProduct.category.id}"
                                 class="category-option">
                         </option>
                     </select>
