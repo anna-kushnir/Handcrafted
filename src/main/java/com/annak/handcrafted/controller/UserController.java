@@ -4,7 +4,6 @@ import com.annak.handcrafted.dto.NewUserDto;
 import com.annak.handcrafted.dto.UserDto;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.entity.embedded.Role;
-import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import com.annak.handcrafted.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,21 +45,27 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String register(Model model, Principal principal) {
+    public String register(@ModelAttribute("user") NewUserDto newUserDto, Model model, Principal principal) {
         if (principal != null) {
             return "redirect:/menu";
         }
-        model.addAttribute("user", new NewUserDto());
+        model.addAttribute("user", (newUserDto == null) ? new NewUserDto() : newUserDto);
         return "registration";
     }
 
     @PostMapping("/register")
     public String createUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, Model model) {
         try {
+            if (!newUserDto.getPassword().equals(newUserDto.getSubmitPassword()))
+                throw new Exception("Passwords do not match");
             newUserDto.setPassword(passwordEncoder.encode(newUserDto.getPassword()));
+            newUserDto.setSubmitPassword(passwordEncoder.encode(newUserDto.getSubmitPassword()));
             userService.save(newUserDto);
-        } catch (ResourceUniqueViolationException e) {
+        } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
+            newUserDto.setPassword(null);
+            newUserDto.setSubmitPassword(null);
+            model.addAttribute("user", newUserDto);
             return "registration";
         }
         return "redirect:/authorize";

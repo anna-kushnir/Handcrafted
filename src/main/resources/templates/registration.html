@@ -27,7 +27,7 @@
       <div class="data-container">
         <label for="name" class="label">Enter Your Name:</label>
         <input
-                th:field="*{name}"
+                th:value="${user.name}"
                 name="name"
                 type="text"
                 class="text-box"
@@ -40,7 +40,7 @@
 
         <label for="surname" class="label">Enter Your Surname:</label>
         <input
-                th:field="*{surname}"
+                th:value="${user.surname}"
                 name="surname"
                 type="text"
                 class="text-box"
@@ -53,8 +53,8 @@
 
         <label for="user_name" class="label">Create UserName:</label>
         <input
-                th:field="*{userName}"
-                name="username"
+                th:value="${user.userName}"
+                name="userName"
                 type="text"
                 class="text-box"
                 id="user_name"
@@ -65,11 +65,23 @@
 
         <label for="password" class="label">Create Password:</label>
         <input
-                th:field="*{password}"
+                th:value="${user.password}"
                 name="password"
                 type="password"
                 class="text-box"
                 id="password"
+                placeholder="password"
+                minlength="6"
+                maxlength="12"
+                required />
+
+        <label for="submitPassword" class="label">Repeat Password:</label>
+        <input
+                th:value="${user.submitPassword}"
+                name="submitPassword"
+                type="password"
+                class="text-box"
+                id="submitPassword"
                 placeholder="password"
                 minlength="6"
                 maxlength="12"
