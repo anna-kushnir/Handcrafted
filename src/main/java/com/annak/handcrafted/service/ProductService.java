@@ -20,6 +20,8 @@ public interface ProductService {
 
     List<ProductDto> getAllNotDeletedBySearchLine(String searchLine);
 
+    List<ProductDto> getRecommendedByProductIdAndUserId(Long productId, Long userId);
+
     ProductDto save(ProductDto productDto);
 
     String update(ProductDto productDto);

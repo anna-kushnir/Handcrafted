@@ -26,7 +26,8 @@
                         id="back_icon"
                         src="/icons/back_icon1.png"
                         width="20px"
-                        height="20px" />
+                        height="20px"
+                        alt="back button" />
             </button>
             <a th:href="@{/menu}">
                 <button class="menu-btn" id="menu_btn">
@@ -34,7 +35,8 @@
                             id="menu_icon"
                             src="/icons/menu_icon1.png"
                             width="30px"
-                            height="30px" />
+                            height="30px"
+                            alt="menu button" />
                     <p>Menu</p>
                 </button>
             </a>
@@ -92,7 +94,8 @@
                                         id="favorite_icon"
                                         src="/icons/heart1.png"
                                         width="30px"
-                                        height="30px" />
+                                        height="30px"
+                                        alt="add product to favorite button" />
                             </button>
                         </form>
                         <form th:action="@{/products/{id}/addToCart(id=${product.id})}" th:method="POST">
@@ -101,7 +104,8 @@
                                         id="cart_icon"
                                         src="/icons/cart1.png"
                                         width="30px"
-                                        height="30px" />
+                                        height="30px"
+                                        alt="add product to cart button" />
                             </button>
                         </form>
                     </div>
@@ -130,7 +134,51 @@
             </div>
         </div>
 
-        <div class="recommendations-container"></div>
+        <div class="recommendations-container">
+            <p class="label">
+                Recommended:
+            </p>
+            <div th:unless="${recommendedProducts.isEmpty()}" class="recommendations-listing">
+                <div th:each="product : ${recommendedProducts}">
+                    <a th:href="@{/products/{id}(id=${product.id})}">
+                        <div class="product-card">
+                            <div class="recommended-product-img-container">
+                                <img
+                                        th:unless="${product.photos.isEmpty()}"
+                                        th:src="@{/api/v1/photos/{id}(id=${product.photos[0].getId()})}"
+                                        class="recommended-product-photo"
+                                        width="100px"
+                                        height="100px"
+                                        alt="product photo" />
+                                <img
+                                        th:if="${product.photos.isEmpty()}"
+                                        src="/icons/image.png"
+                                        class="recommended-product-photo"
+                                        width="100px"
+                                        height="100px"
+                                        alt="product photo" />
+                            </div>
+
+                            <div class="recommended-product-info">
+                                <p th:text="${product.name}" class="recommended-product-name"></p>
+                                <div th:unless="${product.withDiscount}" class="recommended-product-price-container">
+                                    <p th:text="${product.price} +'$'" class="recommended-product-price"></p>
+                                </div>
+                                <div th:if="${product.withDiscount}" class="recommended-product-price-container">
+                                    <s><p th:text="${product.price} +'$'" class="recommended-product-price"></p></s>
+                                    <p
+                                            th:text="${product.discountedPrice} +'$'"
+                                            class="recommended-product-price discounted-price">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div th:if="${recommendedProducts.isEmpty()}" role="alert" class="alert">There are no recommended products yet</div>
+        </div>
     </div>
 </main>
 <script src="/js/go_back.js"></script>

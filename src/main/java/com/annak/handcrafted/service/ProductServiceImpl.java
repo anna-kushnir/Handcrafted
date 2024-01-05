@@ -5,6 +5,7 @@ import com.annak.handcrafted.entity.Product;
 import com.annak.handcrafted.mapper.ProductMapper;
 import com.annak.handcrafted.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,6 +97,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getAllNotDeletedBySearchLine(String searchLine) {
         return productRepository.searchProductsBySearchLineAndDeletedIsFalse(searchLine)
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getRecommendedByProductIdAndUserId(Long productId, Long userId) {
+        return productRepository.getRecommendedByProductIdAndUserId(productId, userId, Limit.of(10))
                 .stream()
                 .map(productMapper::toDTO)
                 .collect(Collectors.toList());

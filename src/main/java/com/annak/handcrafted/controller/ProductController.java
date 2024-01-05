@@ -1,5 +1,6 @@
 package com.annak.handcrafted.controller;
 
+import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.service.*;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/products")
@@ -26,11 +28,14 @@ public class ProductController {
     private final FavoriteProductService favoriteProductService;
 
     @GetMapping("/{id}")
-    public String getProductById(@PathVariable Long id , Model model, RedirectAttributes redirectAttributes) {
+    public String getProductById(Principal principal, @PathVariable Long id , Model model, RedirectAttributes redirectAttributes) {
+        var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         var productDtoOptional = productService.getNotDeletedById(id);
         if (productDtoOptional.isPresent()) {
             var productDto = productDtoOptional.get();
             model.addAttribute("product" , productDto);
+            List<ProductDto> productDtoList = productService.getRecommendedByProductIdAndUserId(productDto.getId(), user.getId());
+            model.addAttribute("recommendedProducts", productDtoList);
             return "user/product";
         } else {
             redirectAttributes.addFlashAttribute("message", "Product with id <%s> was not found".formatted(id));
@@ -39,7 +44,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getAllProducts(Model model ,
+    public String getAllProducts(Model model,
                                  @RequestParam(name = "sortByCost", required = false, defaultValue = "false") boolean sortByCost ,
                                  @RequestParam(name = "sortByCostAsc", required = false, defaultValue = "true") boolean sortByCostAsc ,
                                  @RequestParam(name = "sortByNewness", required = false, defaultValue = "false") boolean sortByNewness ,
@@ -63,7 +68,7 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/addToFavorites")
-    public String addProductWithIdToFavorites(Principal principal , @PathVariable Long id , RedirectAttributes redirectAttributes) {
+    public String addProductWithIdToFavorites(Principal principal, @PathVariable Long id, RedirectAttributes redirectAttributes) {
         var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         var productDtoOptional = productService.getNotDeletedById(id);
         if (productDtoOptional.isPresent()) {
