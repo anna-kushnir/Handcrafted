@@ -1,6 +1,8 @@
 package com.annak.handcrafted.controller;
 
+import com.annak.handcrafted.dto.NewUserDto;
 import com.annak.handcrafted.dto.UserDto;
+import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.entity.embedded.Role;
 import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import com.annak.handcrafted.service.UserService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -47,15 +50,15 @@ public class UserController {
         if (principal != null) {
             return "redirect:/menu";
         }
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", new NewUserDto());
         return "registration";
     }
 
     @PostMapping("/register")
-    public String createUser(@ModelAttribute("user") @Valid UserDto userDto, Model model) {
+    public String createUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, Model model) {
         try {
-            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-            userService.save(userDto);
+            newUserDto.setPassword(passwordEncoder.encode(newUserDto.getPassword()));
+            userService.save(newUserDto);
         } catch (ResourceUniqueViolationException e) {
             model.addAttribute("message", e.getMessage());
             return "registration";
@@ -69,5 +72,24 @@ public class UserController {
             return "redirect:/admin/menu";
         }
         return "user/main_menu";
+    }
+
+    @GetMapping("/profile")
+    public String viewAndEditProfile(Principal principal, Model model) {
+        model.addAttribute("oldUser", userDetailsService.loadUserByUsername(principal.getName()));
+        model.addAttribute("newUser", new UserDto());
+        return "user/profile";
+    }
+
+    @PostMapping("/editUser")
+    public String editProfile(Principal principal, @ModelAttribute("newUser") @Valid UserDto userDto, RedirectAttributes redirectAttributes) {
+        var user = (User)userDetailsService.loadUserByUsername(principal.getName());
+        userDto.setId(user.getId());
+        userDto.setUserName(user.getUsername());
+        userDto.setPassword(user.getPassword());
+        userDto.setActive(true);
+        var result = userService.update(userDto);
+        redirectAttributes.addFlashAttribute("message", result);
+        return "redirect:/profile";
     }
 }

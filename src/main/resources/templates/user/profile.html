@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HandCrafted: Profile</title>
+    <link rel="stylesheet" href="/css/bases/general_base.css" />
+    <link rel="stylesheet" href="/css/bases/main_base.css" />
+    <link rel="stylesheet" href="/css/pages/user/fill_order_data.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Architects+Daughter&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;1,100;1,300&display=swap"
+            rel="stylesheet" />
+
+    <style>
+        .alert {
+            grid-column: 1/3;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<header class="logo-container">
+  <p class="logo-header">HandCrafted</p>
+  <p class="logo-text">The place where you'll find what you've been looking for</p>
+</header>
+
+<main class="container main-container">
+
+    <form th:action="@{/editUser}" th:object="${newUser}" method="POST" class="form-container">
+        <div class="data-container">
+            <div th:if="${message}" role="alert" th:text="${message}" class="alert"></div>
+
+            <label for="user_name" class="label">Your UserName:</label>
+            <input
+                    th:value="${oldUser.username}"
+                    type="text"
+                    class="text-box"
+                    id="user_name"
+                    placeholder="user_name"
+                    minlength="8"
+                    maxlength="20"
+                    disabled />
+
+            <label for="name" class="label">Your Name:</label>
+            <input
+                    th:value="${oldUser.name}"
+                    name="name"
+                    type="text"
+                    class="text-box"
+                    id="name"
+                    placeholder="Name"
+                    minlength="2"
+                    maxlength="20"
+                    required
+                    pattern="\w{2,20}" />
+
+            <label for="surname" class="label">Your Surname:</label>
+            <input
+                    th:value="${oldUser.surname}"
+                    name="surname"
+                    type="text"
+                    class="text-box"
+                    id="surname"
+                    placeholder="Surname"
+                    minlength="2"
+                    maxlength="20"
+                    required
+                    pattern="\w{2,20}" />
+
+            <label for="phone_number" class="label">Your Phone Number:</label>
+            <input
+                    th:value="${oldUser.userPhone}"
+                    name="userPhone"
+                    type="number"
+                    class="text-box"
+                    id="phone_number"
+                    placeholder="737770000"
+                    min="100000000"
+                    max="999999999" />
+        </div>
+
+        <div class="options-container">
+            <a th:href="@{/menu}">
+                <button type="button" class="btn btn-outline-secondary" id="cancel_btn">
+                    Cancel
+                </button>
+            </a>
+            <button type="submit" name="submit" class="btn btn-outline-primary" id="save_btn">
+                Save
+            </button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

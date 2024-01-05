@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getAllByUser(User user) {
-        return orderRepository.findAllByUser(user)
+        return orderRepository.findAllByUserOrderByFormationDate(user)
                 .stream()
                 .map(orderMapper::toDTO)
                 .collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getAllByStatusName(String statusName) {
-        return orderRepository.findAllByStatus(Status.valueOf(statusName.toUpperCase()))
+        return orderRepository.findAllByStatusOrderByFormationDate(Status.valueOf(statusName.toUpperCase()))
                 .stream()
                 .map(orderMapper::toDTO)
                 .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getAllByUserPhone(Long userPhone) {
-        return orderRepository.findAllByUserPhone(userPhone)
+        return orderRepository.findAllByUserPhoneOrderByFormationDate(userPhone)
                 .stream()
                 .map(orderMapper::toDTO)
                 .collect(Collectors.toList());

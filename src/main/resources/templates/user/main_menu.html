@@ -45,9 +45,15 @@
     </div>
 
     <div class="profile-container">
-      <button class="btn btn-outline-secondary" id="profile_btn">My Profile</button>
+      <a th:href="@{/profile}">
+        <button class="btn btn-outline-secondary" id="profile_btn">
+          My Profile
+        </button>
+      </a>
       <form th:action="@{/logout}" method="POST">
-        <button class="btn btn-outline-secondary" id="sign_out_btn">Sign Out</button>
+        <button class="btn btn-outline-secondary" id="sign_out_btn">
+          Sign Out
+        </button>
       </form>
     </div>
   </main>

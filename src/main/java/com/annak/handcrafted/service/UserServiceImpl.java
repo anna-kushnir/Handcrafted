@@ -1,5 +1,6 @@
 package com.annak.handcrafted.service;
 
+import com.annak.handcrafted.dto.NewUserDto;
 import com.annak.handcrafted.dto.UserDto;
 import com.annak.handcrafted.entity.embedded.Role;
 import com.annak.handcrafted.entity.User;
@@ -19,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDto save(UserDto userDto) {
-        User user = userMapper.toEntity(userDto);
+    public UserDto save(NewUserDto newUserDto) {
+        User user = userMapper.toEntity(newUserDto);
 
         if (userRepository.existsByUserName(user.getUsername())) {
             throw new ResourceUniqueViolationException("User with username <%s> already exists!".formatted((user.getUsername())));
@@ -28,5 +29,15 @@ public class UserServiceImpl implements UserService {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         return userMapper.toDTO(userRepository.save(user));
+    }
+
+    @Override
+    public String update(UserDto userDto) {
+        Optional<User> userOptional = userRepository.findByUserName(userDto.getUserName());
+        if (userOptional.isEmpty())
+            return "User with username <%s> was not found".formatted(userDto.getUserName());
+        User user = userMapper.toEntity(userDto);
+        userRepository.save(user);
+        return "Profile has been successfully updated";
     }
 }

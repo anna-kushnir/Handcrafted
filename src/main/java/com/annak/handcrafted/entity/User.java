@@ -48,24 +48,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @ManyToMany
-    @JoinTable(
-            schema = "HANDCRAFTED_SCHEMA",
-            name = "FAVORITE_PRODUCT",
-            joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID")
-    )
-    private List<Product> favoriteProducts = new ArrayList<>();
-
-    @ElementCollection
-    @CollectionTable(schema = "HANDCRAFTED_SCHEMA", name = "PRODUCT_IN_CART", joinColumns = @JoinColumn(name = "USER_ID"))
-    @Column(name = "QUANTITY")
-    @MapKeyJoinColumn(table = "PRODUCT_IN_CART", name = "PRODUCT_ID")
-    private Map<Product, Long> productsInCart = new HashMap<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

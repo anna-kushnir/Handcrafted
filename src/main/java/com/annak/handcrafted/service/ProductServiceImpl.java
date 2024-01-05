@@ -122,9 +122,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public String update(ProductDto productDto) {
         Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(productDto.getId());
-        if (productOptional.isEmpty()) {
+        if (productOptional.isEmpty())
             return "No product with id <%s> found!".formatted(productDto.getId());
-        }
         Product product = productMapper.toEntity(productDto);
         product.setCreationDate(productOptional.get().getCreationDate());
         product.setDeleted(false);
