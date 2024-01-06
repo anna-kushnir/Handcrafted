@@ -45,41 +45,30 @@
         </div>
     </div>
 
-    <form th:action="@{/admin/products}" th:object="${product}" method="POST" class="product-form-container">
+    <form onsubmit="submitAddProduct(event)" class="product-form-container">
         <div class="product-info-top">
             <div class="product-info-left">
                 <div class="product-photo-container">
-                    <a href="#" class="left">
-                        <img src="/icons/back_icon1.png"
-                             alt="previous product image button" />
-                    </a>
-
                     <img
                             src="/icons/image.png"
                             class="product-photo"
-                            width="150px"
-                            height="150px"
                             alt="photo of the product" />
-
-                    <a href="#" class="right">
-                        <img src="/icons/back_icon1.png"
-                             alt="next product image button" />
-                    </a>
                 </div>
 
                 <div class="product-photo-options">
-                    <button type="button" class="btn btn-outline-danger" id="delete_photo_btn">
-                        Delete This Photo
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" id="add_photo_btn">
-                        Add New Photo
-                    </button>
+                    <label for="photo" class="btn btn-outline-secondary">Add Photo</label>
+                    <input
+                            type="file"
+                            id="photo"
+                            accept=".jpg, .jpeg, .png"
+                            class="photo-input"
+                            required />
                 </div>
             </div>
 
             <div class="product-info-right">
                 <input
-                        th:field="*{name}"
+                        id="name"
                         type="text"
                         class="text-box"
                         placeholder="Name of product"
@@ -89,36 +78,30 @@
 
                 <label for="description" class="product-info-label">Description:</label>
                 <textarea
-                        th:field="*{description}"
-                        class="text-box"
                         id="description"
+                        class="text-box"
                         placeholder="Description of the product"
                         minlength="5"
                         maxlength="255"
-                        required>
-                </textarea>
+                        required></textarea>
 
                 <label for="colors" class="product-info-label">Colors:</label>
                 <textarea
-                        th:field="*{colors}"
-                        class="text-box"
                         id="colors"
+                        class="text-box"
                         placeholder="color, color"
                         minlength="3"
                         maxlength="255"
-                        required>
-                </textarea>
+                        required></textarea>
 
                 <label for="key_words" class="product-info-label">Key Words:</label>
                 <textarea
-                        th:field="*{keyWords}"
-                        class="text-box"
                         id="key_words"
+                        class="text-box"
                         placeholder="Word, word, word"
                         minlength="5"
                         maxlength="255"
-                        required>
-                </textarea>
+                        required></textarea>
             </div>
         </div>
 
@@ -127,9 +110,8 @@
                 <div class="text-box-container">
                     <label for="price" class="product-info-label">Price:</label>
                     <input
-                            th:field="*{price}"
-                            class="text-box"
                             id="price"
+                            class="text-box"
                             placeholder="20"
                             maxlength="8"
                             pattern="[0-9]{1,5}(\.[0-9]{1,2})?"
@@ -140,9 +122,8 @@
             <div class="product-stock-container">
                 <div class="checkbox-container">
                     <input
-                            th:field="*{inStock}"
-                            type="checkbox"
                             id="in_stock_checkbox"
+                            type="checkbox"
                             onchange="  let btn=getElementById('in_stock_checkbox')
                                             let d1=getElementById('quantity')
                                             d1.disabled=!btn.checked;" />
@@ -156,10 +137,9 @@
                         Quantity:
                     </label>
                     <input
-                            th:field="*{quantity}"
+                            id="quantity"
                             type="number"
                             class="text-box"
-                            id="quantity"
                             placeholder="20"
                             min="0"
                             required
@@ -170,7 +150,10 @@
             <div class="product-category-and-options-container">
                 <div class="category-container">
                     <label for="category" class="product-info-label">Category:</label>
-                    <select class="category-select" id="category" name="category" required>
+                    <select
+                            id="category"
+                            class="category-select"
+                            required>
                         <option
                                 th:each="category : ${categories}"
                                 th:text="${category.name}"
@@ -200,5 +183,6 @@
         </div>
     </form>
 </main>
+<script type="text/javascript" th:src="@{/js/add_product.js}"></script>
 </body>
 </html>

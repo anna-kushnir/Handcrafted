@@ -2,6 +2,7 @@ package com.annak.handcrafted.service;
 
 import com.annak.handcrafted.dto.CategoryDto;
 import com.annak.handcrafted.entity.Category;
+import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.mapper.CategoryMapper;
 import com.annak.handcrafted.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Optional<CategoryDto> getById(Long id) {
         return categoryRepository.findById(id)
                 .map(categoryMapper::toDTO);
+    }
+
+    @Override
+    public Category getEntityById(Long id) {
+        var categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isEmpty())
+            throw new ResourceNotFoundException("Category with id <%s> does not exist".formatted(id));
+        return categoryOptional.get();
     }
 
     @Override
@@ -62,8 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public String deleteById(Long id) {
+    public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-        return "Category with id <%s> successfully deleted".formatted(id);
     }
 }

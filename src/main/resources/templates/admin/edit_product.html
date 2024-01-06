@@ -45,50 +45,36 @@
         </div>
     </div>
 
-    <form th:action="@{/admin/products/{id}(id=${oldProduct.id})}" th:object="${newProduct}" method="POST" class="product-form-container">
+    <form onsubmit="submitEditProduct(event)" class="product-form-container">
         <div class="product-info-top">
             <div class="product-info-left">
                 <div class="product-photo-container">
-                    <a href="#" class="left">
-                        <img src="/icons/back_icon1.png"
-                             alt="previous image button" />
-                    </a>
-
                     <img
-                            th:unless="${oldProduct.photos.isEmpty()}"
-                            th:src="@{/api/v1/photos/{id}(id=${oldProduct.photos.get(0).getId()})}"
+                            th:if="${oldProduct.photo}"
+                            th:src="@{/api/v1/photos/{id}(id=${oldProduct.id})}"
                             class="product-photo"
-                            width="150px"
-                            height="150px"
-                            alt="product photo" />
+                            alt="photo of the product" />
                     <img
-                            th:if="${oldProduct.photos.isEmpty()}"
+                            th:unless="${oldProduct.photo}"
                             src="/icons/image.png"
                             class="product-photo"
-                            width="150px"
-                            height="150px"
-                            alt="product photo" />
-
-                    <a href="#" class="right">
-                        <img src="/icons/back_icon1.png"
-                             alt="next image button" />
-                    </a>
+                            alt="photo of the product" />
                 </div>
 
                 <div class="product-photo-options">
-                    <button type="button" class="btn btn-outline-danger" id="delete_photo_btn">
-                        Delete This Photo
-                    </button>
-                    <button type="button" class="btn btn-outline-primary" id="add_photo_btn">
-                        Add New Photo
-                    </button>
+                    <label for="photo" class="btn btn-outline-secondary">Change Photo</label>
+                    <input
+                            type="file"
+                            id="photo"
+                            accept=".jpg, .jpeg, .png"
+                            class="photo-input" />
                 </div>
             </div>
 
             <div class="product-info-right">
                 <input
                         th:value="${oldProduct.name}"
-                        name="name"
+                        id="name"
                         type="text"
                         class="text-box"
                         placeholder="Name of product"
@@ -99,9 +85,8 @@
                 <label for="description" class="product-info-label">Description:</label>
                 <textarea
                         th:text="${oldProduct.description}"
-                        name="description"
-                        class="text-box"
                         id="description"
+                        class="text-box"
                         placeholder="Description of the product"
                         minlength="5"
                         maxlength="255"
@@ -111,9 +96,8 @@
                 <label for="colors" class="product-info-label">Colors:</label>
                 <textarea
                         th:text="${oldProduct.colors}"
-                        name="colors"
-                        class="text-box"
                         id="colors"
+                        class="text-box"
                         placeholder="color, color"
                         minlength="3"
                         maxlength="255"
@@ -123,9 +107,8 @@
                 <label for="key_words" class="product-info-label">Key Words:</label>
                 <textarea
                         th:text="${oldProduct.keyWords}"
-                        name="keyWords"
-                        class="text-box"
                         id="key_words"
+                        class="text-box"
                         placeholder="Word, word, word"
                         minlength="5"
                         maxlength="255"
@@ -140,9 +123,8 @@
                     <label for="price" class="product-info-label">Price:</label>
                     <input
                             th:value="${oldProduct.price}"
-                            name="price"
-                            class="text-box"
                             id="price"
+                            class="text-box"
                             placeholder="20"
                             maxlength="8"
                             pattern="[0-9]{1,5}(\.[0-9]{1,2})?"
@@ -152,13 +134,12 @@
                 <div class="checkbox-container">
                     <input
                             th:checked="${oldProduct.withDiscount}"
-                            name="withDiscount"
+                            id="with_discount_checkbox"
                             type="checkbox"
-                            id="discount_checkbox"
-                            onchange="  let btn=getElementById('discount_checkbox')
+                            onchange="  let btn=getElementById('with_discount_checkbox')
                                             let d1=getElementById('discounted_price')
                                             d1.disabled=!btn.checked;" />
-                    <label for="discount_checkbox" class="product-info-label">Discount</label>
+                    <label for="with_discount_checkbox" class="product-info-label">Discount</label>
                 </div>
 
                 <div class="text-box-container">
@@ -169,7 +150,7 @@
                     </label>
                     <input
                             th:value="${oldProduct.discountedPrice}"
-                            name="discountedPrice"
+                            name="discounted_price"
                             class="text-box"
                             id="discounted_price"
                             placeholder="20"
@@ -184,9 +165,8 @@
                 <div class="checkbox-container">
                     <input
                             th:checked="${oldProduct.inStock}"
-                            name="inStock"
-                            type="checkbox"
                             id="in_stock_checkbox"
+                            type="checkbox"
                             onchange="  let btn=getElementById('in_stock_checkbox')
                                             let d1=getElementById('quantity')
                                             d1.disabled=!btn.checked;" />
@@ -201,10 +181,9 @@
                     </label>
                     <input
                             th:value="${oldProduct.quantity}"
-                            name="quantity"
+                            id="quantity"
                             type="number"
                             class="text-box"
-                            id="quantity"
                             placeholder="20"
                             min="0"
                             required
@@ -215,7 +194,10 @@
             <div class="product-category-and-options-container">
                 <div class="category-container">
                     <label for="category" class="product-info-label">Category:</label>
-                    <select class="category-select" id="category" name="category" required>
+                    <select
+                            id="category"
+                            class="category-select"
+                            required>
                         <option
                                 th:each="category : ${categories}"
                                 th:text="${category.name}"
@@ -243,8 +225,8 @@
                     </a>
                     <button
                             type="submit"
-                            class="btn btn-outline-primary"
-                            id="save_product_btn">
+                            class="btn btn-outline-primary save-product-btn"
+                            th:id="${oldProduct.id}">
                         Save
                     </button>
                 </div>

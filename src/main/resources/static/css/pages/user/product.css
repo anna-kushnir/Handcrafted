@@ -38,33 +38,9 @@
 }
 
 .product-photo {
-    height: 300px;
-    width: 300px;
     margin: 30px;
-}
-
-.left,
-.right {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-.left {
-    left: 0;
-}
-.right {
-    right: 0;
-}
-
-.left img {
-    width: 30px;
-}
-.right img {
-    width: 30px;
-    transform: rotate(-180deg);
+    width: 300px;
+    height: auto;
 }
 
 /* ----- Price, cart and fav ----- */
@@ -191,6 +167,19 @@
 }
 .product-card:active {
     background: rgba(121, 168, 255, 0.5);
+}
+
+.recommended-product-img-container {
+    height: 100px;
+    display: flex;
+}
+
+.recommended-product-photo {
+    align-self: center;
+    margin: 0;
+    width: 100px;
+    height: auto;
+    max-height: 100px;
 }
 
 .recommended-product-info {

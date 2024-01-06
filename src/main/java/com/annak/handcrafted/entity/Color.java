@@ -3,9 +3,6 @@ package com.annak.handcrafted.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "COLOR", schema = "HANDCRAFTED_SCHEMA")
 @Getter
@@ -22,7 +19,4 @@ public class Color {
 
     @Column(name = "NAME")
     private String name;
-
-    @ManyToMany(mappedBy = "colors", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Product> productsWithColor = new ArrayList<>();
 }

@@ -1,6 +1,6 @@
-DELETE FROM handcrafted_schema.user_role
-       WHERE user_id = 1;
+DELETE FROM HANDCRAFTED_SCHEMA.USER_ROLE
+       WHERE USER_ID = 1;
 
-INSERT INTO handcrafted_schema.user_role (user_id, roles)
+INSERT INTO HANDCRAFTED_SCHEMA.USER_ROLE (USER_ID, ROLES)
 VALUES
     (1, 'ADMIN');

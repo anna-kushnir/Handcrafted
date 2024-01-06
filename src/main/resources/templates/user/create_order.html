@@ -27,17 +27,13 @@
                 <div class="product-img-container">
                     <img
                             th:if="${product.photo}"
-                            th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
+                            th:src="@{/api/v1/photos/{id}(id=${product.productId})}"
                             class="product-img"
-                            width="150px"
-                            height="150px"
                             alt="product photo" />
                     <img
                             th:unless="${product.photo}"
                             src="/icons/image.png"
                             class="product-img"
-                            width="150px"
-                            height="150px"
                             alt="product photo" />
                 </div>
 

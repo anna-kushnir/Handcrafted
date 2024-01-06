@@ -247,18 +247,14 @@
           <div class="product-card">
             <div class="product-img-container">
               <img
-                      th:unless="${product.photos.isEmpty()}"
-                      th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                      th:if="${product.photo}"
+                      th:src="@{/api/v1/photos/{id}(id=${product.id})}"
                       class="product-img"
-                      width="150px"
-                      height="150px"
                       alt="photo of the product" />
               <img
-                      th:if="${product.photos.isEmpty()}"
+                      th:unless="${product.photo}"
                       src="/icons/image.png"
                       class="product-img"
-                      width="150px"
-                      height="150px"
                       alt="photo of the product" />
               <p th:unless="${product.inStock}" class="product-not-in-stock">
                 Is Not In Stock
