@@ -45,8 +45,6 @@
         </div>
     </div>
 
-    <div th:if="${msgCreateOrderResult}" role="alert" th:text="${msgCreateOrderResult}" class="alert"></div>
-
     <div class="main">
         <div th:unless="${productsInCart.isEmpty()}" class="product-listing">
             <div th:each="product : ${productsInCart}" class="product-card">
