@@ -16,8 +16,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDto save(NewUserDto newUserDto) {

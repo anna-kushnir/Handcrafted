@@ -21,6 +21,7 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
 
     private final ProductInOrderRepository productInOrderRepository;
     private final ProductInOrderMapper productInOrderMapper;
+
     private final ProductService productService;
     private final ProductMapper productMapper;
 

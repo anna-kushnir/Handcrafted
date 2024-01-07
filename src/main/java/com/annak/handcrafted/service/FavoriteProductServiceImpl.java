@@ -20,6 +20,7 @@ public class FavoriteProductServiceImpl implements FavoriteProductService {
 
     private final FavoriteProductRepository favoriteProductRepository;
     private final FavoriteProductMapper favoriteProductMapper;
+
     private final ProductMapper productMapper;
 
     @Override
