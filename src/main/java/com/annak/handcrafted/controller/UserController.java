@@ -5,7 +5,6 @@ import com.annak.handcrafted.dto.UserDto;
 import com.annak.handcrafted.entity.User;
 import com.annak.handcrafted.entity.embedded.Role;
 import com.annak.handcrafted.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String createUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, Model model) {
+    public String createUser(@ModelAttribute("user") NewUserDto newUserDto, Model model) {
         try {
             if (!newUserDto.getPassword().equals(newUserDto.getSubmitPassword()))
                 throw new Exception("Passwords do not match");
@@ -87,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("/editUser")
-    public String editProfile(Principal principal, @ModelAttribute("newUser") @Valid UserDto userDto, RedirectAttributes redirectAttributes) {
+    public String editProfile(Principal principal, @ModelAttribute("newUser") UserDto userDto, RedirectAttributes redirectAttributes) {
         var user = (User)userDetailsService.loadUserByUsername(principal.getName());
         userDto.setId(user.getId());
         userDto.setUserName(user.getUsername());

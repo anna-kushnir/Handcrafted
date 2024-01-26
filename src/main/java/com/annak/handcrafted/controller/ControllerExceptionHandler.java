@@ -1,6 +1,5 @@
 package com.annak.handcrafted.controller;
 
-import com.annak.handcrafted.exception.BadRequestException;
 import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.exception.ResourceUniqueViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,10 +17,5 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceUniqueViolationException.class)
     public ErrorResponse handleResourceUniqueViolationException(ResourceUniqueViolationException ex) {
         return ErrorResponse.create(ex, HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ExceptionHandler(BadRequestException.class)
-    public ErrorResponse handleBadRequestException(BadRequestException ex) {
-        return ErrorResponse.create(ex, HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 }

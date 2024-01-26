@@ -147,18 +147,14 @@
         <div th:each="product : ${products}" class="product-card">
           <div class="product-img-container">
             <img
-                    th:unless="${product.product.photos.isEmpty()}"
-                    th:src="@{/api/v1/photos/{id}(id=${product.product.photos[0].getId()})}"
+                    th:if="${product.product.photo}"
+                    th:src="@{/api/v1/photos/{id}(id=${product.product.id})}"
                     class="product-img"
-                    width="150px"
-                    height="150px"
                     alt="photo of the product" />
             <img
-                    th:if="${product.product.photos.isEmpty()}"
+                    th:unless="${product.product.photo}"
                     src="/icons/image.png"
                     class="product-img"
-                    width="150px"
-                    height="150px"
                     alt="photo of the product" />
           </div>
 
@@ -173,6 +169,6 @@
   </div>
 </main>
 <script src="/js/go_back.js"></script>
-<script src="/js/admin_order_managing.js"></script>
+<script src="/js/admin/order_managing.js"></script>
 </body>
 </html>

@@ -1,15 +1,12 @@
 package com.annak.handcrafted.dto;
 
 import com.annak.handcrafted.entity.Category;
-import com.annak.handcrafted.entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +23,8 @@ public class ProductDto {
     private Long quantity;
     private LocalDateTime creationDate;
     private Category category;
+    private Long categoryId;
     private boolean deleted;
+    private byte[] photo;
     private String colors;
-    private List<Photo> photos = new ArrayList<>();
 }

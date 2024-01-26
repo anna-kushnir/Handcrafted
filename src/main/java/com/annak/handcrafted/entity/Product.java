@@ -56,6 +56,8 @@ public class Product {
     @Column(name = "DELETED")
     private boolean deleted;
 
+    @Column(name = "PHOTO")
+    private byte[] photo;
     @ManyToMany
     @JoinTable(
             schema = "HANDCRAFTED_SCHEMA",
@@ -64,7 +66,4 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "COLOR_ID")
     )
     private List<Color> colors = new ArrayList<>();
-
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Photo> photos = new ArrayList<>();
 }

@@ -89,6 +89,19 @@
     margin: 0;
 }
 
+.product-img-container {
+    height: 150px;
+    display: flex;
+}
+
+.product-img {
+    align-self: center;
+    margin: 0;
+    width: 150px;
+    height: auto;
+    max-height: 150px;
+}
+
 .product-info-container {
     display: flex;
     flex-direction: column;

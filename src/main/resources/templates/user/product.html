@@ -47,30 +47,16 @@
         <div class="product-container">
             <div class="product-info-left">
                 <div class="product-photo-container">
-                    <a href="#" class="left">
-                        <img src="/icons/back_icon1.png"
-                             alt="previous image button"  />
-                    </a>
-
                     <img
-                            th:unless="${product.photos.isEmpty()}"
-                            th:src="@{/api/v1/photos/{id}(id=${product.photos.get(0).getId()})}"
+                            th:if="${product.photo}"
+                            th:src="@{/api/v1/photos/{id}(id=${product.id})}"
                             class="product-photo"
-                            width="150px"
-                            height="150px"
                             alt="product photo" />
                     <img
-                            th:if="${product.photos.isEmpty()}"
+                            th:unless="${product.photo}"
                             src="/icons/image.png"
                             class="product-photo"
-                            width="150px"
-                            height="150px"
                             alt="product photo" />
-
-                    <a href="#" class="right">
-                        <img src="/icons/back_icon1.png"
-                             alt="next image button" />
-                    </a>
                 </div>
 
                 <div class="product-price-and-options-container">
@@ -144,18 +130,14 @@
                         <div class="product-card">
                             <div class="recommended-product-img-container">
                                 <img
-                                        th:unless="${product.photos.isEmpty()}"
-                                        th:src="@{/api/v1/photos/{id}(id=${product.photos[0].getId()})}"
+                                        th:if="${product.photo}"
+                                        th:src="@{/api/v1/photos/{id}(id=${product.id})}"
                                         class="recommended-product-photo"
-                                        width="100px"
-                                        height="100px"
                                         alt="product photo" />
                                 <img
-                                        th:if="${product.photos.isEmpty()}"
+                                        th:unless="${product.photo}"
                                         src="/icons/image.png"
                                         class="recommended-product-photo"
-                                        width="100px"
-                                        height="100px"
                                         alt="product photo" />
                             </div>
 

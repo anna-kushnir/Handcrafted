@@ -2,7 +2,6 @@ package com.annak.handcrafted.controller;
 
 import com.annak.handcrafted.dto.ProductDto;
 import com.annak.handcrafted.entity.User;
-import com.annak.handcrafted.exception.ResourceNotFoundException;
 import com.annak.handcrafted.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -77,7 +76,7 @@ public class ProductController {
             redirectAttributes.addFlashAttribute("msgAddToFavorites" , result);
             return "redirect:/products/{id}";
         } else {
-            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+            return "redirect:/products";
         }
     }
 
@@ -91,7 +90,7 @@ public class ProductController {
             redirectAttributes.addFlashAttribute("msgAddToCart" , result);
             return "redirect:/products/{id}";
         } else {
-            throw new ResourceNotFoundException("Product with id " + id + " was not found");
+            return "redirect:/products";
         }
     }
 }

@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductInCartService productInCartService;
     private final FavoriteProductService favoriteProductService;
+    private final CategoryService categoryService;
 
     @Override
     public Optional<ProductDto> getById(Long id) {
@@ -134,6 +135,10 @@ public class ProductServiceImpl implements ProductService {
         if (productOptional.isEmpty())
             return "No product with id <%s> found!".formatted(productDto.getId());
         Product product = productMapper.toEntity(productDto);
+        if (product.getPhoto() == null) {
+            product.setPhoto(productOptional.get().getPhoto());
+        }
+        product.setCategory(categoryService.getEntityById(productDto.getCategoryId()));
         product.setCreationDate(productOptional.get().getCreationDate());
         product.setDeleted(false);
         if (!product.isInStock()) {
@@ -147,7 +152,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public String deleteById(Long id) {
+    public void deleteById(Long id) {
         Optional<Product> productOptional = productRepository.findByIdAndDeletedIsFalse(id);
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
@@ -155,8 +160,6 @@ public class ProductServiceImpl implements ProductService {
             productInCartService.deleteAllByProductId(id);
             favoriteProductService.deleteAllByProductId(id);
             productRepository.save(product);
-            return "Product with id <%s> successfully deleted".formatted(id);
         }
-        return "No product with id <%s> found!".formatted(id);
     }
 }

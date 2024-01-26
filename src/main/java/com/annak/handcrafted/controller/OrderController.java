@@ -80,8 +80,8 @@ public class OrderController {
         var user = (User) userDetailsService.loadUserByUsername(principal.getName());
         newOrderDto.setUser(user);
         String result = orderService.save(newOrderDto, productInCartService.getAllByUser(user));
-        redirectAttributes.addFlashAttribute("msgCreateOrderResult", result);
-        return "redirect:/cart";
+        redirectAttributes.addFlashAttribute("message", result);
+        return "redirect:/orders";
     }
 
     @DeleteMapping("/{id}/delete")

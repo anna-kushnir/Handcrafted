@@ -16,7 +16,7 @@ public class FavoriteProductMapper {
                 product.getPrice(),
                 product.isWithDiscount(),
                 product.getDiscountedPrice(),
-                (product.getPhotos().isEmpty() ? null : product.getPhotos().get(0)),
+                product.getPhoto(),
                 product.isInStock());
     }
 }

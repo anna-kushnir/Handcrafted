@@ -17,6 +17,6 @@ public class ProductInCartMapper {
                 (product.isWithDiscount() ? product.getDiscountedPrice() : product.getPrice()),
                 product.getQuantity(),
                 productInCart.getQuantityInCart(),
-                (product.getPhotos().isEmpty() ? null : product.getPhotos().get(0)));
+                product.getPhoto());
     }
 }

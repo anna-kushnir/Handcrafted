@@ -1,6 +1,5 @@
 package com.annak.handcrafted.dto;
 
-import com.annak.handcrafted.entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,6 +13,6 @@ public class FavoriteProductDto {
     private BigDecimal price;
     private boolean withDiscount;
     private BigDecimal discountedPrice;
-    private Photo photo;
+    private byte[] photo;
     private boolean inStock;
 }

@@ -53,17 +53,13 @@
                         <div class="product-img-container">
                             <img
                                     th:if="${product.photo}"
-                                    th:src="@{/api/v1/photos/{id}(id=${product.photo.getId()})}"
+                                    th:src="@{/api/v1/photos/{id}(id=${product.id})}"
                                     class="product-img"
-                                    width="150px"
-                                    height="150px"
                                     alt="product photo" />
                             <img
                                     th:unless="${product.photo}"
                                     src="/icons/image.png"
                                     class="product-img"
-                                    width="150px"
-                                    height="150px"
                                     alt="product photo" />
                             <p th:unless="${product.inStock}" class="product-not-in-stock">
                                 Is Not In Stock

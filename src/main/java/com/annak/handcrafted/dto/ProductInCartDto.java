@@ -1,6 +1,5 @@
 package com.annak.handcrafted.dto;
 
-import com.annak.handcrafted.entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,5 +14,5 @@ public class ProductInCartDto {
     private BigDecimal cost;
     private Long productQuantity;
     private Long quantityInCart;
-    private Photo photo;
+    private byte[] photo;
 }

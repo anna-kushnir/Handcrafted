@@ -35,13 +35,12 @@ public class AdminProductController {
 
     @GetMapping("/add")
     public String getAddNewProductForm(Model model) {
-        model.addAttribute("product", new ProductDto());
         model.addAttribute("categories", categoryService.getAll());
         return "admin/add_product";
     }
 
     @PostMapping
-    public String addProduct(@ModelAttribute("product") ProductDto productDto, RedirectAttributes redirectAttributes) {
+    public String addProduct(@RequestBody ProductDto productDto, RedirectAttributes redirectAttributes) {
         if (productDto.getId() != null) {
             redirectAttributes.addFlashAttribute("message", "Id of new product must be null!");
             return "redirect:/admin/products";
@@ -49,6 +48,7 @@ public class AdminProductController {
         if (!productDto.isInStock()) {
             productDto.setQuantity(0L);
         }
+        productDto.setCategory(categoryService.getEntityById(productDto.getCategoryId()));
         productService.save(productDto);
         redirectAttributes.addFlashAttribute("message", "Product successfully added");
         return "redirect:/admin/products";
@@ -61,20 +61,15 @@ public class AdminProductController {
             redirectAttributes.addFlashAttribute("message", "Product with id <%s> was not found".formatted(id));
             return "redirect:/admin/products";
         }
-        var productDto = productDtoOptional.get();
-        model.addAttribute("oldProduct", productDto);
-        var newProductDto = new ProductDto();
-        newProductDto.setId(productDto.getId());
-        model.addAttribute("newProduct", newProductDto);
+        model.addAttribute("oldProduct", productDtoOptional.get());
         model.addAttribute("categories", categoryService.getAll());
         return "admin/edit_product";
     }
 
-    @PostMapping("/{id}")
-    public String editProduct(@ModelAttribute("product") ProductDto productDto, RedirectAttributes redirectAttributes) {
-        var result = productService.update(productDto);
-        redirectAttributes.addFlashAttribute("message", result);
-        return "redirect:/admin/products";
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editProduct(@RequestBody ProductDto productDto) {
+        productService.update(productDto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}/delete")

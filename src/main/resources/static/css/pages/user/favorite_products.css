@@ -57,10 +57,16 @@
 .product-img-container {
     position: relative;
     margin: 0 5px;
+    height: 150px;
+    display: flex;
 }
 
 .product-img {
+    align-self: center;
     margin: 0;
+    width: 150px;
+    height: auto;
+    max-height: 150px;
 }
 
 .product-not-in-stock {
